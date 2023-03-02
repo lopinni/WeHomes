@@ -1,0 +1,4 @@
+<apex:page sidebar="false" showHeader="false">
+  <h1>Lead created successfully.</h1>
+  Thank you for using WeHomes.
+</apex:page>
