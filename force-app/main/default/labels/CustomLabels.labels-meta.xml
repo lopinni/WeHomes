@@ -642,7 +642,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>WeHome home page title</shortDescription>
-        <value>WeHomes Lead Creator</value>
+        <value>WeHomes Contact Registration</value>
     </labels>
     <labels>
         <fullName>LeadCreateSuccess</fullName>
@@ -657,5 +657,12 @@
         <protected>true</protected>
         <shortDescription>Thankful text for successful lead creation page</shortDescription>
         <value>Thank you for using WeHomes.</value>
+    </labels>
+    <labels>
+        <fullName>GoBack</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Go back to previous page</shortDescription>
+        <value>Go back</value>
     </labels>
 </CustomLabels>

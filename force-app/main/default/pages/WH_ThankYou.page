@@ -22,6 +22,11 @@
         <div class="slds-align_absolute-center" style="padding:1rem">
           <div class="slds-text-heading_small"> {!$Label.LeadCreateThankYou} </div>
         </div>
+        <div class="slds-align_absolute-center" style="padding:1rem">
+          <a href="https://britenet34-dev-ed.develop.my.salesforce-sites.com/WeHomes">
+            {!$Label.GoBack}
+          </a>
+        </div>
       </div>
     </div>
   </div>
