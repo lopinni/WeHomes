@@ -113,7 +113,7 @@
                   size="20" 
                   type="text" 
                   class="slds-input"
-                  required="false"
+                  required=""
             />
           </div>
         </div>
