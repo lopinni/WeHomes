@@ -9,7 +9,7 @@
       <apex:image url="{!$Resource.WeHomesLogo}"/>
     </div>
     <div class="slds-align_absolute-center">
-      <div class="slds-text-heading_large"> WeHomes Lead Creator </div>
+      <div class="slds-text-heading_large"> {!$label.WeHomePageTitle} </div>
     </div>
     
     <div class="slds-align_absolute-center" style="padding:1rem">

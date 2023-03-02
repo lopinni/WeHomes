@@ -8,10 +8,10 @@
       <apex:image url="{!$Resource.WeHomesLogo}"/>
     </div>
     <div class="slds-align_absolute-center">
-      <div class="slds-text-heading_large"> Lead created successfully </div>
+      <div class="slds-text-heading_large"> {!$label.LeadCreateSuccess} </div>
     </div>
     <div class="slds-align_absolute-center" style="padding:1rem">
-      <div class="slds-text-heading_small"> Thank you for using WeHomes. </div>
+      <div class="slds-text-heading_small"> {!$label.LeadCreateThankYou} </div>
     </div>
   </div>
 </apex:page>

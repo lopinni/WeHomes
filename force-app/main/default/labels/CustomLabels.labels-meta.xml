@@ -637,4 +637,25 @@
         <shortDescription>Business premises</shortDescription>
         <value>Business Premises</value>
     </labels>
+    <labels>
+        <fullName>WeHomePageTitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WeHome home page title</shortDescription>
+        <value>WeHomes Lead Creator</value>
+    </labels>
+    <labels>
+        <fullName>LeadCreateSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Title for successful lead creation page</shortDescription>
+        <value>Lead created successfully</value>
+    </labels>
+    <labels>
+        <fullName>LeadCreateThankYou</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Thankful text for successful lead creation page</shortDescription>
+        <value>Thank you for using WeHomes.</value>
+    </labels>
 </CustomLabels>
