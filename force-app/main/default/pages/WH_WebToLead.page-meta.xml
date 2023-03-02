@@ -3,5 +3,5 @@
     <apiVersion>57.0</apiVersion>
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>WeHome Page</label>
+    <label>WH_WebToLead</label>
 </ApexPage>
