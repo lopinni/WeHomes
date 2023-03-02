@@ -3,6 +3,7 @@
     html, body {
       margin: 0;
       height: 100%;
+      background-color: rgb(216, 255, 194);
     }
   </style>
 
@@ -13,127 +14,128 @@
 
   <div class="slds-scope" style="padding:1rem">
     <div class="slds-align_absolute-center" style="padding:1rem">
-      <apex:image url="{!$Resource.WeHomesLogo}"/>
-    </div>
-    <div class="slds-align_absolute-center">
-      <div class="slds-text-heading_large"> {!$label.WeHomePageTitle} </div>
-    </div>
-    
-    <div class="slds-align_absolute-center" style="padding:1rem">
       <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" 
             method="POST" 
             style="width: 40%"
       >
-        <input type="hidden" name="oid" value="00D68000000ZNlj"/>
-        <input type="hidden" 
-              name="retURL" 
-              value="https://britenet34-dev-ed.develop.my.salesforce-sites.com/WeHomes/WH_ThankYou"
-        />
-
-        <div class="slds-form-element">
-          <label for="first_name" class="slds-form-element__label">
-            <abbr class="slds-required" title="required"> * </abbr>
-            {!$label.FirstName}
-          </label>
-          <div class="slds-form-element__control">
-            <input id="first_name" 
-                  maxlength="40" 
-                  name="first_name" 
-                  size="20" 
-                  type="text" 
-                  class="slds-input" 
-                  required="true"
-            />
+        <div class="slds-box" style="background-color: white;">
+          <div class="slds-align_absolute-center">
+            <apex:image url="{!$Resource.WeHomesLogo}"/>
           </div>
-        </div>
-        <div class="slds-form-element">
-          <label for="last_name" class="slds-form-element__label"> 
-            <abbr class="slds-required" title="required"> * </abbr>
-            {!$label.LastName}
-          </label>
-          <div class="slds-form-element__control">
-            <input id="last_name" 
-                  maxlength="80" 
-                  name="last_name" 
-                  size="20" 
-                  type="text" 
-                  class="slds-input" 
-                  required="true"
-            />
+          <div class="slds-align_absolute-center" style="padding:1rem">
+            <div class="slds-text-heading_large"> {!$label.WeHomePageTitle} </div>
           </div>
-        </div>
-        <div class="slds-form-element">
-          <label for="email" class="slds-form-element__label"> 
-            <abbr class="slds-required" title="required"> * </abbr>
-            {!$label.email} 
-          </label>
-          <div class="slds-form-element__control">
-            <input id="email" 
-                  maxlength="80" 
-                  name="email" 
-                  size="20" 
-                  type="text" 
-                  class="slds-input" 
-                  required="true"
-            />
-          </div>
-        </div>
-        <div class="slds-form-element">
-          <label for="phone" class="slds-form-element__label"> 
-            <abbr class="slds-required" title="required"> * </abbr>
-            {!$label.phone}
-          </label>
-          <div class="slds-form-element__control">
-            <input id="phone" 
-                  maxlength="40" 
-                  name="phone" 
-                  size="20" 
-                  type="text" 
-                  class="slds-input" 
-                  required="true"
-            />
-          </div>
-        </div>
-        <div class="slds-form-element">
-          <label class="slds-form-element__label"> {!$label.ProductOfInterest} </label>
-          <div class="slds-form-element__control">
-            <select id="00N68000000MU5i" 
-                    name="00N68000000MU5i" 
-                    title="Product Of Interest" 
-                    class="slds-input" 
-                    onchange="changeRequirements()"
-            >
-              <option value="Apartments"> {!$label.apartments} </option>
-              <option value="Business Premises"> {!$label.BusinessPremises} </option>
-            </select>
-          </div>
-        </div>
-        <div class="slds-form-element">
-          <label for="company" class="slds-form-element__label"> 
-            <abbr class="slds-required" title="required" id="companyRequirementInfo"> </abbr>
-            {!$label.company}
-          </label>
-          <div class="slds-form-element__control">
-            <input id="company" 
-                  maxlength="40" 
-                  name="company" 
-                  size="20" 
-                  type="text" 
-                  class="slds-input"
-                  required=""
-            />
-          </div>
-        </div>
-
-        <div class="slds-align_left" style="padding:1rem">
-          <abbr class="slds-required" title="required"> * </abbr> - {!$label.RequiredField}
-        </div>
-        <div class="slds-align_absolute-center" style="padding:0.5rem">
-          <input type="submit" 
-                name="submit" 
-                class="slds-button slds-button_success" 
-                value="{!$label.submit}"
+          <input type="hidden" name="oid" value="00D68000000ZNlj"/>
+          <input type="hidden" 
+                name="retURL" 
+                value="https://britenet34-dev-ed.develop.my.salesforce-sites.com/WeHomes/WH_ThankYou"
           />
+
+          <div class="slds-form-element">
+            <label for="first_name" class="slds-form-element__label">
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.FirstName}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="first_name" 
+                    maxlength="40" 
+                    name="first_name" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input" 
+                    required="true"
+              />
+            </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="last_name" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.LastName}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="last_name" 
+                    maxlength="80" 
+                    name="last_name" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input" 
+                    required="true"
+              />
+            </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="email" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.email} 
+            </label>
+            <div class="slds-form-element__control">
+              <input id="email" 
+                    maxlength="80" 
+                    name="email" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input" 
+                    required="true"
+              />
+            </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="phone" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.phone}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="phone" 
+                    maxlength="40" 
+                    name="phone" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input" 
+                    required="true"
+              />
+            </div>
+          </div>
+          <div class="slds-form-element">
+            <label class="slds-form-element__label"> {!$label.ProductOfInterest} </label>
+            <div class="slds-form-element__control">
+              <select id="00N68000000MU5i" 
+                      name="00N68000000MU5i" 
+                      title="Product Of Interest" 
+                      class="slds-input" 
+                      onchange="changeRequirements()"
+              >
+                <option value="Apartments"> {!$label.apartments} </option>
+                <option value="Business Premises"> {!$label.BusinessPremises} </option>
+              </select>
+            </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="company" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required" id="companyRequirementInfo"> </abbr>
+              {!$label.company}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="company" 
+                    maxlength="40" 
+                    name="company" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input"
+                    required=""
+              />
+            </div>
+          </div>
+
+          <div class="slds-align_left" style="padding:1rem">
+            <abbr class="slds-required" title="required"> * </abbr> - {!$label.RequiredField}
+          </div>
+          <div class="slds-align_absolute-center" style="padding:0.5rem">
+            <input type="submit" 
+                  name="submit" 
+                  class="slds-button slds-button_success" 
+                  value="{!$label.submit}"
+            />
+          </div>
         </div>
       </form>
     </div>
