@@ -26,7 +26,7 @@
         <div class="slds-form-element">
           <label for="first_name" class="slds-form-element__label">
             <abbr class="slds-required" title="required"> * </abbr>
-            First Name 
+            {!$label.FirstName}
           </label>
           <div class="slds-form-element__control">
             <input id="first_name" 
@@ -42,7 +42,7 @@
         <div class="slds-form-element">
           <label for="last_name" class="slds-form-element__label"> 
             <abbr class="slds-required" title="required"> * </abbr>
-            Last Name 
+            {!$label.LastName}
           </label>
           <div class="slds-form-element__control">
             <input id="last_name" 
@@ -58,7 +58,7 @@
         <div class="slds-form-element">
           <label for="email" class="slds-form-element__label"> 
             <abbr class="slds-required" title="required"> * </abbr>
-            Email 
+            {!$label.email} 
           </label>
           <div class="slds-form-element__control">
             <input id="email" 
@@ -74,7 +74,7 @@
         <div class="slds-form-element">
           <label for="phone" class="slds-form-element__label"> 
             <abbr class="slds-required" title="required"> * </abbr>
-            Phone 
+            {!$label.phone}
           </label>
           <div class="slds-form-element__control">
             <input id="phone" 
@@ -88,7 +88,7 @@
           </div>
         </div>
         <div class="slds-form-element">
-          <label class="slds-form-element__label"> Product Of Interest </label>
+          <label class="slds-form-element__label"> {!$label.ProductOfInterest} </label>
           <div class="slds-form-element__control">
             <select id="00N68000000MU5i" 
                     name="00N68000000MU5i" 
@@ -96,15 +96,15 @@
                     class="slds-input" 
                     onchange="changeRequirements()"
             >
-              <option value="Apartments"> Apartments </option>
-              <option value="Business Premises"> Business Premises </option>
+              <option value="Apartments"> {!$label.apartments} </option>
+              <option value="Business Premises"> {!$label.BusinessPremises} </option>
             </select>
           </div>
         </div>
         <div class="slds-form-element">
           <label for="company" class="slds-form-element__label"> 
             <abbr class="slds-required" title="required" id="companyRequirementInfo"> </abbr>
-            Company 
+            {!$label.company}
           </label>
           <div class="slds-form-element__control">
             <input id="company" 
@@ -119,13 +119,13 @@
         </div>
 
         <div class="slds-align_left" style="padding:1rem">
-          <abbr class="slds-required" title="required"> * </abbr> - Required field
+          <abbr class="slds-required" title="required"> * </abbr> - {!$label.RequiredField}
         </div>
         <div class="slds-align_absolute-center" style="padding:0.5rem">
           <input type="submit" 
                 name="submit" 
                 class="slds-button slds-button_success" 
-                value="Send"
+                value="{!$label.submit}"
           />
         </div>
       </form>
