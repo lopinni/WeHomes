@@ -5,6 +5,9 @@
       height: 100%;
       background-color: rgb(216, 255, 194);
     }
+    .slds-form-element__help {
+      color: red;
+    }
   </style>
 
   <head>
@@ -17,6 +20,7 @@
       <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" 
             method="POST" 
             style="width: 40%"
+            onsubmit="return handleSubmit();"
       >
         <div class="slds-box" style="background-color: white;">
           <div class="slds-align_absolute-center">
@@ -42,10 +46,10 @@
                     name="first_name" 
                     size="20" 
                     type="text" 
-                    class="slds-input" 
-                    required="true"
+                    class="slds-input"
               />
             </div>
+            <div class="slds-form-element__help" id="error-message-firstname"> </div>
           </div>
           <div class="slds-form-element">
             <label for="last_name" class="slds-form-element__label"> 
@@ -58,10 +62,10 @@
                     name="last_name" 
                     size="20" 
                     type="text" 
-                    class="slds-input" 
-                    required="true"
+                    class="slds-input"
               />
             </div>
+            <div class="slds-form-element__help" id="error-message-lastname"> </div>
           </div>
           <div class="slds-form-element">
             <label for="email" class="slds-form-element__label"> 
@@ -74,10 +78,10 @@
                     name="email" 
                     size="20" 
                     type="text" 
-                    class="slds-input" 
-                    required="true"
+                    class="slds-input"
               />
             </div>
+            <div class="slds-form-element__help" id="error-message-email"> </div>
           </div>
           <div class="slds-form-element">
             <label for="phone" class="slds-form-element__label"> 
@@ -90,10 +94,10 @@
                     name="phone" 
                     size="20" 
                     type="text" 
-                    class="slds-input" 
-                    required="true"
+                    class="slds-input"
               />
             </div>
+            <div class="slds-form-element__help" id="error-message-phone"> </div>
           </div>
           <div class="slds-form-element">
             <label class="slds-form-element__label"> {!$label.ProductOfInterest} </label>
@@ -121,9 +125,9 @@
                     size="20" 
                     type="text" 
                     class="slds-input"
-                    required=""
               />
             </div>
+            <div class="slds-form-element__help" id="error-message-company"> </div>
           </div>
 
           <div class="slds-align_left" style="padding:1rem">
@@ -142,34 +146,113 @@
   </div>
 
   <script>
-    function filterSpecialCharacters() {
-      let firstNameField = document.getElementById("first_name");
-      let lastNameField = document.getElementById("last_name");
-      let emailField = document.getElementById("email");
-      let phoneField = document.getElementById("phone");
-      let companyField = document.getElementById("company");
+    const nameRegex = /^[A-Za-z]+$/;
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
-      firstNameField.value = firstNameField.value.replace(/[^\w\s]/gi, '');
-      lastNameField.value = lastNameField.value.replace(/[^\w\s]/gi, '');
-      emailField.value = emailField.value.replace(/[^\w\s]/gi, '');
-      phoneField.value = phoneField.value.replace(/[^\w\s]/gi, '');
-      companyField.value = companyField.value.replace(/[^\w\s]/gi, '');
+    function validateFirstName() {
+      let firstName = document.getElementById("first_name").value;
+      let errorLabel = document.getElementById("error-message-firstname");
+
+      if(firstName == "") {
+        errorLabel.innerHTML = "Please enter a name."
+        return false;
+      } else if(!nameRegex.test(firstName)){
+        errorLabel.innerHTML = "Please enter a valid name."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
     }
 
-    document.querySelector('form').onsubmit = function(event) {
-      filterSpecialCharacters();
+    function validateLastName() {
+      let lastName = document.getElementById("last_name").value;
+      let errorLabel = document.getElementById("error-message-lastname");
+
+      if(lastName == "") {
+        errorLabel.innerHTML = "Please enter a surname."
+        return false;
+      } else if(!nameRegex.test(lastName)){
+        errorLabel.innerHTML = "Please enter a valid surname."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
+    }
+
+    function validateEmail() {
+      let email = document.getElementById("email").value;
+      let errorLabel = document.getElementById("error-message-email");
+
+      if(email == "") {
+        errorLabel.innerHTML = "Please enter an email address."
+        return false;
+      } else if(!emailRegex.test(email)){
+        errorLabel.innerHTML = "Please enter a valid email address."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
+    }
+
+    function validatePhone() {
+      let phone = document.getElementById("phone").value;
+      let errorLabel = document.getElementById("error-message-phone");
+
+      if(phone == "") {
+        errorLabel.innerHTML = "Please enter a phone number."
+        return false;
+      } else if(!phoneRegex.test(phone)){
+        errorLabel.innerHTML = "Please enter a valid phone number."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
+    }
+
+    function validateCompany() {
+      let picklist = document.getElementById("00N68000000MU5i");
+      let company = document.getElementById("company").value;
+      let errorLabel = document.getElementById("error-message-company");
+
+      if(picklist.value == "Business Premises" && company == "") {
+        errorLabel.innerHTML = "Business contacts must enter company name."
+        return false;
+      } else {
+        errorLabel.innerHTML = ""
+        return true;
+      }
+    }
+
+    function handleSubmit() {
+      let validFirstName = validateFirstName();
+      let validLastName = validateLastName();
+      let validEmail = validateEmail();
+      let validPhone = validatePhone();
+      let validCompany = validateCompany();
+
+      if(
+          !validFirstName ||
+          !validLastName ||
+          !validEmail ||
+          !validPhone ||
+          !validCompany
+        ) {
+        return false;
+      }
     }
 
     function changeRequirements() {
       let picklist = document.getElementById("00N68000000MU5i");
-      let companyField = document.getElementById("company");
       let companyRequirementInfo = document.getElementById("companyRequirementInfo");
 
       if(picklist.value == "Business Premises") {
-        companyField.required = true;
         companyRequirementInfo.innerHTML = "*";
       } else {
-        companyField.required = false;
         companyRequirementInfo.innerHTML = "";
       }
     }
