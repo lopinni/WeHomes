@@ -1,10 +1,17 @@
 <apex:page sidebar="false" showHeader="false">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+    }
+  </style>
+
   <head>
     <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
     <apex:slds />
   </head>
 
-  <div class="slds-scope">
+  <div class="slds-scope" style="padding:1rem">
     <div class="slds-align_absolute-center" style="padding:1rem">
       <apex:image url="{!$Resource.WeHomesLogo}"/>
     </div>
@@ -15,7 +22,7 @@
     <div class="slds-align_absolute-center" style="padding:1rem">
       <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" 
             method="POST" 
-            style="width: 30%"
+            style="width: 40%"
       >
         <input type="hidden" name="oid" value="00D68000000ZNlj"/>
         <input type="hidden" 
@@ -133,6 +140,24 @@
   </div>
 
   <script>
+    function filterSpecialCharacters() {
+      let firstNameField = document.getElementById("first_name");
+      let lastNameField = document.getElementById("last_name");
+      let emailField = document.getElementById("email");
+      let phoneField = document.getElementById("phone");
+      let companyField = document.getElementById("company");
+
+      firstNameField.value = firstNameField.value.replace(/[^\w\s]/gi, '');
+      lastNameField.value = lastNameField.value.replace(/[^\w\s]/gi, '');
+      emailField.value = emailField.value.replace(/[^\w\s]/gi, '');
+      phoneField.value = phoneField.value.replace(/[^\w\s]/gi, '');
+      companyField.value = companyField.value.replace(/[^\w\s]/gi, '');
+    }
+
+    document.querySelector('form').onsubmit = function(event) {
+      filterSpecialCharacters();
+    }
+
     function changeRequirements() {
       let picklist = document.getElementById("00N68000000MU5i");
       let companyField = document.getElementById("company");
