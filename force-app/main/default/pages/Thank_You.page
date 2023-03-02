@@ -1,4 +1,17 @@
 <apex:page sidebar="false" showHeader="false">
-  <h1>Lead created successfully.</h1>
-  Thank you for using WeHomes.
+  <head>
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+    <apex:slds/>
+  </head>
+  <div class="slds-scope">
+    <div class="slds-align_absolute-center" style="padding:1rem">
+      <apex:image url="{!$Resource.WeHomesLogo}"/>
+    </div>
+    <div class="slds-align_absolute-center">
+      <div class="slds-text-heading_large"> Lead created successfully </div>
+    </div>
+    <div class="slds-align_absolute-center" style="padding:1rem">
+      <div class="slds-text-heading_small"> Thank you for using WeHomes. </div>
+    </div>
+  </div>
 </apex:page>
