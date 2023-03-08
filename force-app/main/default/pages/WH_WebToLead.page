@@ -1,0 +1,260 @@
+<apex:page sidebar="false" showHeader="false">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background-color: rgb(216, 255, 194);
+    }
+    .slds-form-element__help {
+      color: red;
+    }
+  </style>
+
+  <head>
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+    <apex:slds />
+  </head>
+
+  <div class="slds-scope" style="padding:1rem">
+    <div class="slds-align_absolute-center" style="padding:1rem">
+      <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" 
+            method="POST" 
+            style="width: 40%"
+            onsubmit="return handleSubmit();"
+      >
+        <div class="slds-box" style="background-color: white;">
+          <div class="slds-align_absolute-center">
+            <apex:image url="{!$Resource.WeHomesLogo}"/>
+          </div>
+          <div class="slds-align_absolute-center" style="padding:1rem">
+            <div class="slds-text-heading_large"> {!$label.WeHomePageTitle} </div>
+          </div>
+          <input type="hidden" name="oid" value="00D68000000ZNlj"/>
+          <input type="hidden" 
+                name="retURL" 
+                value="https://britenet34-dev-ed.develop.my.salesforce-sites.com/WeHomes/WH_ThankYou"
+          />
+
+          <div class="slds-form-element">
+            <label for="first_name" class="slds-form-element__label">
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.FirstName}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="first_name" 
+                    maxlength="40" 
+                    name="first_name" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input"
+              />
+            </div>
+            <div class="slds-form-element__help" id="error-message-firstname"> </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="last_name" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.LastName}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="last_name" 
+                    maxlength="80" 
+                    name="last_name" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input"
+              />
+            </div>
+            <div class="slds-form-element__help" id="error-message-lastname"> </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="email" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.email} 
+            </label>
+            <div class="slds-form-element__control">
+              <input id="email" 
+                    maxlength="80" 
+                    name="email" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input"
+              />
+            </div>
+            <div class="slds-form-element__help" id="error-message-email"> </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="phone" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required"> * </abbr>
+              {!$label.phone}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="phone" 
+                    maxlength="40" 
+                    name="phone" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input"
+              />
+            </div>
+            <div class="slds-form-element__help" id="error-message-phone"> </div>
+          </div>
+          <div class="slds-form-element">
+            <label class="slds-form-element__label"> {!$label.ProductOfInterest} </label>
+            <div class="slds-form-element__control">
+              <select id="00N68000000MU5i" 
+                      name="00N68000000MU5i" 
+                      title="Product Of Interest" 
+                      class="slds-input" 
+                      onchange="changeRequirements()"
+              >
+                <option value="Apartments"> {!$label.apartments} </option>
+                <option value="Business Premises"> {!$label.BusinessPremises} </option>
+              </select>
+            </div>
+          </div>
+          <div class="slds-form-element">
+            <label for="company" class="slds-form-element__label"> 
+              <abbr class="slds-required" title="required" id="companyRequirementInfo"> </abbr>
+              {!$label.company}
+            </label>
+            <div class="slds-form-element__control">
+              <input id="company" 
+                    maxlength="40" 
+                    name="company" 
+                    size="20" 
+                    type="text" 
+                    class="slds-input"
+              />
+            </div>
+            <div class="slds-form-element__help" id="error-message-company"> </div>
+          </div>
+
+          <div class="slds-align_left" style="padding:1rem">
+            <abbr class="slds-required" title="required"> * </abbr> - {!$label.RequiredField}
+          </div>
+          <div class="slds-align_absolute-center" style="padding:0.5rem">
+            <input type="submit" 
+                  name="submit" 
+                  class="slds-button slds-button_success" 
+                  value="{!$label.submit}"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const nameRegex = /^[A-Z][a-z]+$/;
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+
+    function validateFirstName() {
+      let firstName = document.getElementById("first_name").value;
+      let errorLabel = document.getElementById("error-message-firstname");
+
+      if(firstName == "") {
+        errorLabel.innerHTML = "Please enter a name."
+        return false;
+      } else if(!nameRegex.test(firstName)){
+        errorLabel.innerHTML = "Please enter a valid name."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
+    }
+
+    function validateLastName() {
+      let lastName = document.getElementById("last_name").value;
+      let errorLabel = document.getElementById("error-message-lastname");
+
+      if(lastName == "") {
+        errorLabel.innerHTML = "Please enter a surname."
+        return false;
+      } else if(!nameRegex.test(lastName)){
+        errorLabel.innerHTML = "Please enter a valid surname."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
+    }
+
+    function validateEmail() {
+      let email = document.getElementById("email").value;
+      let errorLabel = document.getElementById("error-message-email");
+
+      if(email == "") {
+        errorLabel.innerHTML = "Please enter an email address."
+        return false;
+      } else if(!emailRegex.test(email)){
+        errorLabel.innerHTML = "Please enter a valid email address."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
+    }
+
+    function validatePhone() {
+      let phone = document.getElementById("phone").value;
+      let errorLabel = document.getElementById("error-message-phone");
+
+      if(phone == "") {
+        errorLabel.innerHTML = "Please enter a phone number."
+        return false;
+      } else if(!phoneRegex.test(phone)){
+        errorLabel.innerHTML = "Please enter a valid phone number."
+        return false;
+      } else {
+        errorLabel.innerHTML = "";
+        return true;
+      }
+    }
+
+    function validateCompany() {
+      let picklist = document.getElementById("00N68000000MU5i");
+      let company = document.getElementById("company").value;
+      let errorLabel = document.getElementById("error-message-company");
+
+      if(picklist.value == "Business Premises" && company == "") {
+        errorLabel.innerHTML = "Business contacts must enter company name."
+        return false;
+      } else {
+        errorLabel.innerHTML = ""
+        return true;
+      }
+    }
+
+    function handleSubmit() {
+      let validFirstName = validateFirstName();
+      let validLastName = validateLastName();
+      let validEmail = validateEmail();
+      let validPhone = validatePhone();
+      let validCompany = validateCompany();
+
+      if(
+          !validFirstName ||
+          !validLastName ||
+          !validEmail ||
+          !validPhone ||
+          !validCompany
+        ) {
+        return false;
+      }
+    }
+
+    function changeRequirements() {
+      let picklist = document.getElementById("00N68000000MU5i");
+      let companyRequirementInfo = document.getElementById("companyRequirementInfo");
+
+      if(picklist.value == "Business Premises") {
+        companyRequirementInfo.innerHTML = "*";
+      } else {
+        companyRequirementInfo.innerHTML = "";
+      }
+    }
+  </script>
+</apex:page>

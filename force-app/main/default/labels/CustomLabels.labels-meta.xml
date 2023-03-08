@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Actions</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Available actions</shortDescription>
+        <value>Available Actions</value>
+    </labels>
+    <labels>
+        <fullName>CSVFileSizeError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CSV file too large</shortDescription>
+        <value>File size needs to be less than 30KB</value>
+    </labels>
+    <labels>
+        <fullName>CSVFormatError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Incorrect file format, expected CSV</shortDescription>
+        <value>Please upload a proper .csv file</value>
+    </labels>
+    <labels>
+        <fullName>CSVSeparatorError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CSV has wrong separators</shortDescription>
+        <value>The .csv values need to be separated by comma (,) or semicolon (;)</value>
+    </labels>
+    <labels>
+        <fullName>CareerInfo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Career information</shortDescription>
+        <value>Career Information</value>
+    </labels>
+    <labels>
+        <fullName>ChooseFile</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Choose File</shortDescription>
+        <value>Choose file...</value>
+    </labels>
+    <labels>
+        <fullName>City</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>City</shortDescription>
+        <value>City</value>
+    </labels>
+    <labels>
+        <fullName>Clear</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Clear</shortDescription>
+        <value>Clear</value>
+    </labels>
+    <labels>
+        <fullName>Close</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>ContactInfo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Contact information</shortDescription>
+        <value>Contact Information</value>
+    </labels>
+    <labels>
+        <fullName>Country</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Country</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>CountryName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Country</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>DateOfBirth</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date of birth</shortDescription>
+        <value>Date of birth</value>
+    </labels>
+    <labels>
+        <fullName>Delete</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>DeleteConfirmation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Confirm deleting a doctor</shortDescription>
+        <value>Do you really want to delete</value>
+    </labels>
+    <labels>
+        <fullName>DeleteDoctorSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete doctor success message</shortDescription>
+        <value>Doctor deleted successfully</value>
+    </labels>
+    <labels>
+        <fullName>DeleteError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete error message</shortDescription>
+        <value>Delete error</value>
+    </labels>
+    <labels>
+        <fullName>DeleteHospitalSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete hospital success</shortDescription>
+        <value>Hospital deleted successfully</value>
+    </labels>
+    <labels>
+        <fullName>DeleteRequest</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete request XML for SOAP</shortDescription>
+        <value>.</value>
+    </labels>
+    <labels>
+        <fullName>DeleteUserSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete user success message</shortDescription>
+        <value>User deleted successfully</value>
+    </labels>
+    <labels>
+        <fullName>Deselect</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Deselect</shortDescription>
+        <value>Deselect</value>
+    </labels>
+    <labels>
+        <fullName>DoctorsFound</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search Results ([number] Doctors found)</shortDescription>
+        <value>Doctors found</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateFound</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Duplicate Found</shortDescription>
+        <value>Duplicate found</value>
+    </labels>
+    <labels>
+        <fullName>Edit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Email</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>ExternalDoctors</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>External doctors</shortDescription>
+        <value>External Doctors</value>
+    </labels>
+    <labels>
+        <fullName>ExternalHospitals</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>External hospitals page</shortDescription>
+        <value>External Hospitals</value>
+    </labels>
+    <labels>
+        <fullName>Fax</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Hospital fax number</shortDescription>
+        <value>Fax</value>
+    </labels>
+    <labels>
+        <fullName>First</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>First</shortDescription>
+        <value>First</value>
+    </labels>
+    <labels>
+        <fullName>FirstName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>First Name</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>FullAddress</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Full Address</shortDescription>
+        <value>Full Address</value>
+    </labels>
+    <labels>
+        <fullName>FullName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Full Name</shortDescription>
+        <value>Full Name</value>
+    </labels>
+    <labels>
+        <fullName>General</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>General</shortDescription>
+        <value>General</value>
+    </labels>
+    <labels>
+        <fullName>HelicopterAccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Hospital helicopter access</shortDescription>
+        <value>Helicopter access</value>
+    </labels>
+    <labels>
+        <fullName>HomePage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Home page link for current org</shortDescription>
+        <value>https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/</value>
+    </labels>
+    <labels>
+        <fullName>Import</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Import</shortDescription>
+        <value>Import</value>
+    </labels>
+    <labels>
+        <fullName>InsertDoctorSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Insert doctor success message</shortDescription>
+        <value>Doctor added successfully</value>
+    </labels>
+    <labels>
+        <fullName>InsertError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Insert error message</shortDescription>
+        <value>Insert error</value>
+    </labels>
+    <labels>
+        <fullName>InsertHospitalSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Insert hospital success</shortDescription>
+        <value>Hospital inserted successfully</value>
+    </labels>
+    <labels>
+        <fullName>InsertRequest</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Insert request for XML</shortDescription>
+        <value>.</value>
+    </labels>
+    <labels>
+        <fullName>InsertSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Insert Success</shortDescription>
+        <value>Insert Success</value>
+    </labels>
+    <labels>
+        <fullName>InvalidPhoneNumberError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid phone number</shortDescription>
+        <value>Invalid phone number</value>
+    </labels>
+    <labels>
+        <fullName>Invert</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invert</shortDescription>
+        <value>Invert</value>
+    </labels>
+    <labels>
+        <fullName>IsActive</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Is user active</shortDescription>
+        <value>Is active</value>
+    </labels>
+    <labels>
+        <fullName>Last</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Last</shortDescription>
+        <value>Last</value>
+    </labels>
+    <labels>
+        <fullName>LastName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Last Name</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>License</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>License</shortDescription>
+        <value>License</value>
+    </labels>
+    <labels>
+        <fullName>LicenseNumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>License Number</shortDescription>
+        <value>License Number</value>
+    </labels>
+    <labels>
+        <fullName>Loading</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Loading message</shortDescription>
+        <value>Loading...</value>
+    </labels>
+    <labels>
+        <fullName>LoginRequest</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Login request XML for SOAP</shortDescription>
+        <value>.</value>
+    </labels>
+    <labels>
+        <fullName>MissingField</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Missing field on sObject</shortDescription>
+        <value>Missing Field:</value>
+    </labels>
+    <labels>
+        <fullName>Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>Nationality</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Doctor nationality</shortDescription>
+        <value>Nationality</value>
+    </labels>
+    <labels>
+        <fullName>New</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>Next</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>NoRecordsDeleted</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No doctors deleted</shortDescription>
+        <value>No doctors found with matching IDs</value>
+    </labels>
+    <labels>
+        <fullName>NoRecordsFound</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No doctors found</shortDescription>
+        <value>No doctors found with matching criteria</value>
+    </labels>
+    <labels>
+        <fullName>NumberOfAmbulances</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Number of ambulances</shortDescription>
+        <value>Number of ambulances</value>
+    </labels>
+    <labels>
+        <fullName>OverlappingContracts</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Contracts must not overlap</shortDescription>
+        <value>Contracts must not overlap</value>
+    </labels>
+    <labels>
+        <fullName>Phone</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Phone</shortDescription>
+        <value>Phone</value>
+    </labels>
+    <labels>
+        <fullName>PostalCode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PostalCode</shortDescription>
+        <value>Postal Code</value>
+    </labels>
+    <labels>
+        <fullName>Previous</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Prevoius</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>Profile</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Profile</shortDescription>
+        <value>Profile</value>
+    </labels>
+    <labels>
+        <fullName>ReadFile</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Read File</shortDescription>
+        <value>Read File</value>
+    </labels>
+    <labels>
+        <fullName>ReadSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Read Success</shortDescription>
+        <value>Read Success</value>
+    </labels>
+    <labels>
+        <fullName>RecordsOf</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>(Showing x-&gt;x) records of (x)</shortDescription>
+        <value>records of</value>
+    </labels>
+    <labels>
+        <fullName>RecordsPerPage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Records per page</shortDescription>
+        <value>Records per page</value>
+    </labels>
+    <labels>
+        <fullName>Search</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>SearchResults</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search Results ([number] Doctors found)</shortDescription>
+        <value>Search Results</value>
+    </labels>
+    <labels>
+        <fullName>SelectAll</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select All</shortDescription>
+        <value>Select All</value>
+    </labels>
+    <labels>
+        <fullName>Showing</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Showing</shortDescription>
+        <value>Showing</value>
+    </labels>
+    <labels>
+        <fullName>Specialty</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Specialty</shortDescription>
+        <value>Specialty</value>
+    </labels>
+    <labels>
+        <fullName>StartOfCareer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Start of career</shortDescription>
+        <value>Start of Career</value>
+    </labels>
+    <labels>
+        <fullName>StartOfCareerTooEarlyError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Start of career must be later than date of birth</shortDescription>
+        <value>Start of career must be later than date of birth</value>
+    </labels>
+    <labels>
+        <fullName>Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Street</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Street</shortDescription>
+        <value>Street</value>
+    </labels>
+    <labels>
+        <fullName>Submit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>Success</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Success</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>UnderageDoctorError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Doctor cannot be underage</shortDescription>
+        <value>Doctor cannot be underage</value>
+    </labels>
+    <labels>
+        <fullName>UpdateDoctorSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Update doctor success message</shortDescription>
+        <value>Doctor updated successfully</value>
+    </labels>
+    <labels>
+        <fullName>UpdateError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Update error message</shortDescription>
+        <value>Update error</value>
+    </labels>
+    <labels>
+        <fullName>UpdateHospitalSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Update hospital success</shortDescription>
+        <value>Hospital updated successfully</value>
+    </labels>
+    <labels>
+        <fullName>UpdateRequest</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Update request XML for SOAP</shortDescription>
+        <value>.</value>
+    </labels>
+    <labels>
+        <fullName>Username</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Username</shortDescription>
+        <value>Username</value>
+    </labels>
+    <labels>
+        <fullName>ValidStatus</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Read Success</shortDescription>
+        <value>Read Success</value>
+    </labels>
+    <labels>
+        <fullName>View</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>View</shortDescription>
+        <value>View</value>
+    </labels>
+    <labels>
+        <fullName>Company</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Company name</shortDescription>
+        <value>Company</value>
+    </labels>
+    <labels>
+        <fullName>RequiredField</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Required field</shortDescription>
+        <value>Required field</value>
+    </labels>
+    <labels>
+        <fullName>ProductOfInterest</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Product of interest</shortDescription>
+        <value>Product of interest</value>
+    </labels>
+    <labels>
+        <fullName>Apartments</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Apartments</shortDescription>
+        <value>Apartments</value>
+    </labels>
+    <labels>
+        <fullName>BusinessPremises</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Business premises</shortDescription>
+        <value>Business Premises</value>
+    </labels>
+    <labels>
+        <fullName>WeHomePageTitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WeHome home page title</shortDescription>
+        <value>WeHomes Contact Registration</value>
+    </labels>
+    <labels>
+        <fullName>LeadCreateSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Title for successful lead creation page</shortDescription>
+        <value>Lead created successfully</value>
+    </labels>
+    <labels>
+        <fullName>LeadCreateThankYou</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Thankful text for successful lead creation page</shortDescription>
+        <value>Thank you for using WeHomes.</value>
+    </labels>
+    <labels>
+        <fullName>GoBack</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Go back to previous page</shortDescription>
+        <value>Go back</value>
+    </labels>
+</CustomLabels>
