@@ -146,7 +146,7 @@
   </div>
 
   <script>
-    const nameRegex = /^[A-Za-z]+$/;
+    const nameRegex = /^[A-Z][a-z]+$/;
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
