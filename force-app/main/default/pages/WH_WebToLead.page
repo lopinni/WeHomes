@@ -12,7 +12,7 @@
 
   <head>
     <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
-    <apex:slds />
+    <apex:slds/>
   </head>
 
   <div class="slds-scope" style="padding:1rem">
