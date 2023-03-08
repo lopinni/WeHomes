@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: 'Install SFDX'
+    - name: 'Install SFDX CLI'
       run: |
         wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
         mkdir sfdx-cli
@@ -21,7 +21,7 @@ jobs:
       run: |
         echo ${{ secrets.AUTHORIZED_URL}} > ./AUTHORIZED_URL.txt
     - name: 'Authenticate to development org'
-      run: sfdx auth:sfdxurl:store -f ./SFDX_DEVELOPMENT_URL.txt -s -a development
+      run: sfdx auth:sfdxurl:store -f ./AUTHORIZED_URL.txt -s -a development
     - name: 'Deploy source to org'
       run: |
         sfdx force:source:deploy -p "changed-sources/force-app"
