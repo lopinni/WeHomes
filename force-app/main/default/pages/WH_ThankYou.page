@@ -23,7 +23,9 @@
           <div class="slds-text-heading_small"> {!$Label.LeadCreateThankYou} </div>
         </div>
         <div class="slds-align_absolute-center" style="padding:1rem">
-          <a href="https://britenet34-dev-ed.develop.my.salesforce-sites.com/WeHomes">
+          <a href="https://britenet34-dev-ed.develop.my.salesforce-sites.com/WeHomes"
+            class="slds-button slds-button_outline-brand"
+          >
             {!$Label.GoBack}
           </a>
         </div>
