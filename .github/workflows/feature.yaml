@@ -9,28 +9,28 @@ jobs:
   push-to-org:
     runs-on: ubuntu-latest
         steps:
-          - uses: actions/checkout@v2
-          - name: 'Install SFDX'
-            run: |
-              wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-              mkdir sfdx-cli
-              tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
-              ./sfdx-cli/install
-          - name: 'Install sfdx git delta'
-            run: | 
-                echo y | sfdx plugins:install sfdx-git-delta
-                sfdx plugins
-          - name: 'Get authentication url'
-            shell: bash
-            run: |
-                echo ${{ secrets.AUTHORIZED_URL}} > ./AUTHORIZED_URL.txt
-          - name: 'Create delta packages for new, modified or deleted metadata'
-            run: | 
-                mkdir changed-sources
-                sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/
-          - name: 'Authenticate to development org'
-              run: sfdx auth:sfdxurl:store -f ./SFDX_DEVELOPMENT_URL.txt -s -a development
-          - name: 'Deploy source to org'
-            run: |
-                sfdx force:source:deploy -p "changed-sources/force-app"
+        - uses: actions/checkout@v2
+        - name: 'Install SFDX'
+          run: |
+            wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+            mkdir sfdx-cli
+            tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+            ./sfdx-cli/install
+        - name: 'Install sfdx git delta'
+          run: | 
+            echo y | sfdx plugins:install sfdx-git-delta
+            sfdx plugins
+        - name: 'Get authentication url'
+          shell: bash
+          run: |
+            echo ${{ secrets.AUTHORIZED_URL}} > ./AUTHORIZED_URL.txt
+        - name: 'Create delta packages for new, modified or deleted metadata'
+          run: | 
+            mkdir changed-sources
+            sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/
+        - name: 'Authenticate to development org'
+          run: sfdx auth:sfdxurl:store -f ./SFDX_DEVELOPMENT_URL.txt -s -a development
+        - name: 'Deploy source to org'
+          run: |
+            sfdx force:source:deploy -p "changed-sources/force-app"
           
