@@ -12,6 +12,8 @@ export default class MainImage extends LightningElement {
     @api recordId;
     @track URL;
 
+    loaded = false;
+
     @wire(getURL, { recordId: "$recordId" })
     fileResponse(value) {
         const { data, error } = value;
@@ -37,5 +39,9 @@ export default class MainImage extends LightningElement {
 
     connectedCallback() {
         this.subscribeToMessageChannel();
+    }
+
+    tagLoaded() {
+        this.loaded = true;
     }
 }
