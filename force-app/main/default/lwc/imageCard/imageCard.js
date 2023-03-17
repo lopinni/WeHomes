@@ -3,6 +3,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { publish, MessageContext } from 'lightning/messageService';
 
 import updateMainImage from "@salesforce/apex/WH_LocationController.updateMainImage";
+import deleteFile from "@salesforce/apex/WH_LocationController.deleteFile";
 import UPDATE_MAIN_IMAGE_CHANNEL from '@salesforce/messageChannel/Update_Main_Image__c';
 
 export default class ImageCard extends LightningElement {
@@ -88,5 +89,24 @@ export default class ImageCard extends LightningElement {
 
     hidePreview() {
         this.preview = false;
+    }
+
+    deleteImage() {
+        deleteFile({
+            id: this.file.Id
+        }).then(() => {
+            this.file = undefined;
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: 'File successfully deleted',
+                variant: 'success'
+            }));
+        }).catch((error) => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
+        });
     }
 }

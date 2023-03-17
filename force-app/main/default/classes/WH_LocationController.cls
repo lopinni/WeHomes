@@ -57,4 +57,25 @@ public with sharing class WH_LocationController {
         }
     }
 
+    @AuraEnabled
+    public static void deleteFile(String id){
+        try {
+            ContentVersion version = [
+                SELECT ContentDocumentId
+                FROM ContentVersion
+                WHERE Id =:id
+                WITH SECURITY_ENFORCED
+            ];
+            ContentDocument document = [
+                SELECT Id
+                FROM ContentDocument
+                WHERE Id =:version.ContentDocumentId
+                WITH SECURITY_ENFORCED
+            ];
+            delete document;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
 }

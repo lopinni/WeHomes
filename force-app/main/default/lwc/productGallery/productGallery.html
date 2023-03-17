@@ -1,13 +1,18 @@
 <template>
-    <lightning-file-upload
-      name="fileUploader"
-      accept={acceptedFormats}
-      record-id={recordId}
-      onuploadfinished={handleUploadFinished}
-      multiple
-    >
-    </lightning-file-upload>
-  
+  <template if:false={loaded}>
+    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+  </template>
+  <template if:true={loaded}>
+    <div class="centered">
+      <lightning-file-upload
+        name="fileUploader"
+        accept={acceptedFormats}
+        record-id={recordId}
+        onuploadfinished={handleUploadFinished}
+        multiple
+      >
+      </lightning-file-upload>
+    </div>
     <br />
     <div
       class="
@@ -31,3 +36,4 @@
       </ul>
     </div>
   </template>
+</template>
