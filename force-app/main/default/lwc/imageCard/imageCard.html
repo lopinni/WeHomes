@@ -11,7 +11,7 @@
       >
         <div class="slds-file slds-file_card slds-has-title" style="width: 14rem">
           <figure>
-            <a class="slds-file__crop slds-file__crop_4-by-3 slds-m-top_x-small">
+            <a class="slds-file__crop slds-file__crop_4-by-3 slds-m-top_x-small" onclick={showPreview}>
               <img src={thumbnail} alt={file.title} />
             </a>
             <figcaption class="slds-file__title slds-file__title_card">
@@ -42,10 +42,6 @@
               icon-size="xx-small"
             >
               <lightning-menu-item
-                value="preview"
-                label="Preview"
-              ></lightning-menu-item>
-              <lightning-menu-item
                 value="delete"
                 label="Delete"
               ></lightning-menu-item>
@@ -58,5 +54,13 @@
           </div>
         </div>
       </li>
+    </template>
+    <template if:true={preview}>
+      <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <img src={thumbnail} alt={file.title} onclick={hidePreview}/>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
     </template>
   </template>

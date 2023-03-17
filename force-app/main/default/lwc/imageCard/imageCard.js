@@ -14,6 +14,8 @@ export default class ImageCard extends LightningElement {
     @api recordId;
     @api thumbnail;
 
+    preview;
+
     get iconName() {
         if (this.file.Extension) {
         if (this.file.Extension === "pdf") {
@@ -78,5 +80,13 @@ export default class ImageCard extends LightningElement {
                 variant: 'error'
             }));
         });
+    }
+
+    showPreview() {
+        this.preview = true;
+    }
+
+    hidePreview() {
+        this.preview = false;
     }
 }
