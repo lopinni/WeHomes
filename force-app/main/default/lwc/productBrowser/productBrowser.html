@@ -1,7 +1,27 @@
 <template>
-    <c-product-search>
-        
-    </c-product-search>
+    <div class="slds-grid slds-gutters page">
+        <div class="slds-col slds-size_1-of-4">
+            <lightning-input type="text"
+                    onchange={sendQuery}
+                    style="padding: 2em; padding-top: 0em;"
+            ></lightning-input>
+            <template lwc:if={isHousingSales}>
+                Housing Sales?
+                {userRoleName}
+            </template>
+            <template lwc:elseif={isBusinessSales}>
+                Business Premises Sales?
+                {userRoleName}
+            </template>
+            <template lwc:else>
+                CEO?
+                {userRoleName}
+            </template>
+        </div>
+        <div class="slds-col slds-size_3-of-4">
+            aqaaaa
+        </div>
+    </div>
     <c-pagination-controls
         lwc:if={renderPagination}
         page=1
