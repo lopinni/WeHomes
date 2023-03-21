@@ -4,6 +4,8 @@ import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
 
 export default class ProductBrowser extends LightningElement {
 
+    renderPagination = true;
+
     constructor() {
         super();
         loadStyle(this, noHeader);

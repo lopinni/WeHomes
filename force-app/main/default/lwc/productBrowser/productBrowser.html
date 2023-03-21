@@ -1,3 +1,11 @@
 <template>
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    <c-product-search>
+        
+    </c-product-search>
+    <c-pagination-controls
+        lwc:if={renderPagination}
+        page=1
+        pages=1
+        onmove={handleMove}
+    > </c-pagination-controls>
 </template>
