@@ -41,7 +41,7 @@
         </div>
     </div>
     <template for:each={products} for:item="product">
-        <p key={product.Id}>{product.Id}</p>
+        <c-product-card key={product.Id} product={product}> </c-product-card>
     </template>
     <c-pagination-controls
         lwc:if={renderPagination}
