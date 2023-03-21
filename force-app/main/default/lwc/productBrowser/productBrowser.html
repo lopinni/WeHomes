@@ -1,27 +1,48 @@
 <template>
-    <div class="slds-grid slds-gutters page">
-        <div class="slds-col slds-size_1-of-4">
-            <lightning-input type="text"
-                    onchange={sendQuery}
-                    style="padding: 2em; padding-top: 0em;"
-            ></lightning-input>
-            <template lwc:if={isHousingSales}>
-                Housing Sales?
-                {userRoleName}
-            </template>
-            <template lwc:elseif={isBusinessSales}>
-                Business Premises Sales?
-                {userRoleName}
-            </template>
-            <template lwc:else>
-                CEO?
-                {userRoleName}
-            </template>
-        </div>
-        <div class="slds-col slds-size_3-of-4">
-            aqaaaa
+    <div style="background-color: #fff; border-radius: 5px;">
+        <div class="slds-grid slds-gutters page">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input type="text"
+                        label="Name"
+                        onchange={setName}
+                        style="padding: 1em;"
+                ></lightning-input>
+                <lightning-input type="text"
+                        label="City"
+                        onchange={setCity}
+                        style="padding: 1em;"
+                ></lightning-input>
+                <lightning-input type="text"
+                        label="Street"
+                        onchange={setStreet}
+                        style="padding: 1em;"
+                ></lightning-input>
+                <lightning-input type="text"
+                        label="Country"
+                        onchange={setCountry}
+                        style="padding: 1em;"
+                ></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <template lwc:if={isHousingSales}>
+                    Housing Sales?
+                    {userRoleName}
+                </template>
+                <template lwc:elseif={isBusinessSales}>
+                    Business Premises Sales?
+                    {userRoleName}
+                </template>
+                <template lwc:else>
+                    CEO?
+                    {userRoleName}
+                </template>
+                aqaaaa
+            </div>
         </div>
     </div>
+    <template for:each={products} for:item="product">
+        <p key={product.Id}>{product.Id}</p>
+    </template>
     <c-pagination-controls
         lwc:if={renderPagination}
         page=1
