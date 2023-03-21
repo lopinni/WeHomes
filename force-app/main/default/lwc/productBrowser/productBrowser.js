@@ -66,8 +66,27 @@ export default class ProductBrowser extends LightningElement {
     populateFields(result) {
         this.products = result; //copy JSON
         this.page = 1;
-        this.pages = Math.ceil(this.products.length / 5);
+        this.pages = Math.ceil(this.products.length / 6);
+        this.setPagination();
         this.renderPagination = true;
+    }
+
+    setPagination() {
+        const start = (this.page - 1) * 6;
+        let end;
+        if((start + 6) > this.products.length) {
+            end = this.products.length;
+        } else {
+            end = start + 6;
+        }
+        console.log(start);
+        console.log(end);
+        this.productsTemp = this.products.slice(start, end);
+    }
+
+    handleMove(event) {
+        this.page = event.detail;
+        this.setPagination();
     }
 
     setName(event) {
