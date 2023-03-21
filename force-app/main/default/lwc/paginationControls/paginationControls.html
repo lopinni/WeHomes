@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-align_absolute-center" style="height:5rem">
+        <lightning-button-group>
+            <template lwc:if={enablePreviousButtons}>
+                <lightning-button label="First" onclick={moveFirst}></lightning-button>
+                <lightning-button label="Previous" onclick={movePrevious}></lightning-button>
+            </template>
+            <button disabled class="paginationInfo"> <strong> {paginationInfo} </strong> </button>
+            <template lwc:if={enableNextButtons}>
+                <lightning-button label="Next" onclick={moveNext}></lightning-button>
+                <lightning-button label="Last" onclick={moveLast}></lightning-button>
+            </template>
+        </lightning-button-group>
+    </div>
+</template>

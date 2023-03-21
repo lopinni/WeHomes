@@ -13,17 +13,17 @@ export default class ProductBrowser extends LightningElement {
     isHousingSales = false;
     isBusinessSales = false;
 
-    limit = "10";
-    offset = "0";
     renderPagination = false;
+    page;
+    pages;
 
     productName;
     productCity;
     productStreet;
     productCountry;
 
-    @track
-    products;
+    @track products;
+    @track productsTemp;
 
     constructor() {
         super();
@@ -52,11 +52,8 @@ export default class ProductBrowser extends LightningElement {
             city: this.productCity,
             street: this.productStreet,
             country: this.productCountry,
-            paginationLimit: this.limit,
-            paginationOffset: this.offset
         }).then(result => {
-            this.products = result; //copy JSON
-            this.renderPagination = true;
+            this.populateFields(result);
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Error',
@@ -64,6 +61,13 @@ export default class ProductBrowser extends LightningElement {
                 variant: 'error'
             }));
         });
+    }
+
+    populateFields(result) {
+        this.products = result; //copy JSON
+        this.page = 1;
+        this.pages = Math.ceil(this.products.length / 5);
+        this.renderPagination = true;
     }
 
     setName(event) {

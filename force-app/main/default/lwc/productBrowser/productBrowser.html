@@ -45,8 +45,8 @@
     </template>
     <c-pagination-controls
         lwc:if={renderPagination}
-        page=1
-        pages=1
+        page={page}
+        pages-number={pages}
         onmove={handleMove}
     > </c-pagination-controls>
 </template>

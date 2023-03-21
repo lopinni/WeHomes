@@ -83,9 +83,7 @@ public with sharing class WH_LocationController {
                 String name,
                 String city,
                 String street,
-                String country, 
-                String paginationLimit, 
-                String paginationOffset
+                String country
             ){
         String query = 'SELECT Id, Name FROM Product2 WHERE Name != null ';
         if(name != '' && name != null) {
@@ -100,7 +98,6 @@ public with sharing class WH_LocationController {
         if(country != '' && country != null) {
             query += 'AND Country__c LIKE \'%' + country + '%\' ';
         }
-        query += 'LIMIT ' + paginationLimit + ' OFFSET ' + paginationOffset;
         System.debug(query);
         try {
             List<Product2> products = Database.query(query);
