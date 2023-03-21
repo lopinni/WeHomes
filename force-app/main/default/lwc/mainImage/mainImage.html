@@ -1,0 +1,6 @@
+<template>
+    <template if:false={loaded}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+    <img src={URL} onload={tagLoaded}>
+</template>
