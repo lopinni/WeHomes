@@ -61,6 +61,7 @@ export default class ProductBrowser extends LightningElement {
                 this.isHousingSales = true;
             }
         }
+        this.queryProducts();
         this.loaded = true;
     }
 
