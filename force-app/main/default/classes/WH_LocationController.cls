@@ -83,7 +83,12 @@ public with sharing class WH_LocationController {
                 String name,
                 String city,
                 String street,
-                String country
+                String country,
+                String numberOfFloors,
+                String numberOfMeetingRooms,
+                String numberOfKitchens,
+                String numberOfParkingSpaces,
+                Boolean openPlanOffice
             ) {
         String query = 'SELECT Id, Name, DisplayUrl FROM Product2 WHERE Name != null ';
         if(name != '' && name != null) {
@@ -97,6 +102,21 @@ public with sharing class WH_LocationController {
         }
         if(country != '' && country != null) {
             query += 'AND Country__c LIKE \'%' + country + '%\' ';
+        }
+        if(numberOfFloors != '' && numberOfFloors != null) {
+            query += 'AND Number_of_floors__c = ' + numberOfFloors + ' ';
+        }
+        if(numberOfMeetingRooms != '' && numberOfMeetingRooms != null) {
+            query += 'AND Number_of_meeting_rooms__c = ' + numberOfMeetingRooms + ' ';
+        }
+        if(numberOfKitchens != '' && numberOfKitchens != null) {
+            query += 'AND Number_of_kitchens__c = ' + numberOfKitchens + ' ';
+        }
+        if(numberOfParkingSpaces != '' && numberOfParkingSpaces != null) {
+            query += 'AND Parking_spaces__c = ' + numberOfParkingSpaces + ' ';
+        }
+        if(openPlanOffice == true) {
+            query += 'AND Open_plan_office__c = ' + openPlanOffice + ' ';
         }
         System.debug(query);
         try {

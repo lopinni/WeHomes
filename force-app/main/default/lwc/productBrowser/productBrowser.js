@@ -62,6 +62,11 @@ export default class ProductBrowser extends LightningElement {
             city: this.productCity,
             street: this.productStreet,
             country: this.productCountry,
+            numberOfFloors: this.productNumberOfFloors,
+            numberOfMeetingRooms: this.productNumberOfMeetingRooms,
+            numberOfKitchens: this.productNumberOfKitchens,
+            numberOfParkingSpaces: this.productNumberOfParkingSpaces,
+            openPlanOffice: this.productOpenPlanOffice
         }).then(result => {
             console.log(result);
             if(result.length > 0) {
@@ -135,24 +140,36 @@ export default class ProductBrowser extends LightningElement {
         this.productNumberOfKitchens = event.detail.value;
         this.queryProducts();
     }
-    setNumberOfParkingSpages(event) {
+    setNumberOfParkingSpaces(event) {
         this.productNumberOfParkingSpaces = event.detail.value;
         this.queryProducts();
     }
     setOpenPlanOffice(event) {
-        this.productOpenPlanOffice = event.detail.value;
+        this.productOpenPlanOffice = event.target.checked;
         this.queryProducts();
     }
 
     clear() {
-        this.template.querySelectorAll('lightning-input').forEach(each => { each.value = ''; });
+        this.template.querySelectorAll('lightning-input').forEach(each => { 
+            each.value = '';
+            each.checked = false;
+        });
         this.productsTemp = [];
+        this.clearfields();
+        this.showMessage = false;
+        this.renderPagination = false;
+    }
+
+    clearfields() {
         this.productName = '';
         this.productCity = '';
         this.productStreet = '';
         this.productCountry = '';
-        this.showMessage = false;
-        this.renderPagination = false;
+        this.numberOfFloors = '';
+        this.numberOfMeetingRooms = '';
+        this.numberOfKitchens = '';
+        this.numberOfKitchens = '';
+        this.openPlanOffice = false;
     }
 
 }

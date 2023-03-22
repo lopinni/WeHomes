@@ -40,10 +40,6 @@
                     {userRoleName}
                 </template>
                 <template lwc:elseif={isBusinessSales}>
-                    Business Premises Sales?
-                    {userRoleName}
-                </template>
-                <template lwc:else>
                     <lightning-input 
                         type="text"
                         label="Number of floors"
@@ -74,6 +70,9 @@
                         onchange={setOpenPlanOffice}
                         style="padding: 1em;"
                     ></lightning-input>
+                </template>
+                <template lwc:else>
+                    
                 </template>
             </div>
         </div>
