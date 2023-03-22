@@ -1,7 +1,7 @@
 public with sharing class WH_LocationController {
     
     @AuraEnabled(cacheable=true)
-    public static List<ContentVersion> getVersionFiles(String recordId){
+    public static List<ContentVersion> getVersionFiles(String recordId) {
         try {
             return [
                 SELECT
@@ -26,7 +26,7 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Product2> getURL(String recordId){
+    public static List<Product2> getURL(String recordId) {
         try {
             return [
                 SELECT
@@ -41,7 +41,7 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled
-    public static void updateMainImage(String recordId, String url){
+    public static void updateMainImage(String recordId, String url) {
         try {
             Product2 product = [
                 SELECT
@@ -58,7 +58,7 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled
-    public static void deleteFile(String id){
+    public static void deleteFile(String id) {
         try {
             ContentVersion version = [
                 SELECT ContentDocumentId
@@ -84,8 +84,8 @@ public with sharing class WH_LocationController {
                 String city,
                 String street,
                 String country
-            ){
-        String query = 'SELECT Id, Name FROM Product2 WHERE Name != null ';
+            ) {
+        String query = 'SELECT Id, Name, DisplayUrl FROM Product2 WHERE Name != null ';
         if(name != '' && name != null) {
             query += 'AND Name LIKE \'%' + name + '%\' ';
         }
@@ -101,7 +101,12 @@ public with sharing class WH_LocationController {
         System.debug(query);
         try {
             List<Product2> products = Database.query(query);
-            return products;
+            if(!products.isEmpty()) {
+                System.debug(products[0]);
+                return products;
+            } else {
+                return new List<Product2>();
+            }
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

@@ -2,6 +2,14 @@
     <div style="background-color: #fff; border-radius: 5px;"
         onclick={navigateToRecordPage}
     >
-        {product.Id}
+        <div class="slds-align_absolute-center">
+            <img src={URL} 
+                style="width: 10rem; height: 10rem; border-radius: 5px;"
+                alt="Insert image here"
+            >
+        </div>
+        <div class="slds-align_absolute-center">
+            {product.Name}
+        </div>
     </div>
 </template>

@@ -25,6 +25,9 @@ export default class ProductBrowser extends LightningElement {
     @track products;
     @track productsTemp;
 
+    showMessage = false;
+    messageContent = "Could not find actors with matching name.";
+
     constructor() {
         super();
         loadStyle(this, noHeader);
@@ -53,7 +56,16 @@ export default class ProductBrowser extends LightningElement {
             street: this.productStreet,
             country: this.productCountry,
         }).then(result => {
-            this.populateFields(result);
+            console.log(result);
+            if(result.length > 0) {
+                this.showMessage = false;
+                this.populateFields(result);
+            }
+            else {
+                this.productsTemp = [];
+                this.showMessage = true;
+                this.messageContent = "No matches found";
+            }
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Error',
@@ -79,8 +91,6 @@ export default class ProductBrowser extends LightningElement {
         } else {
             end = start + 6;
         }
-        console.log(start);
-        console.log(end);
         this.productsTemp = this.products.slice(start, end);
     }
 
