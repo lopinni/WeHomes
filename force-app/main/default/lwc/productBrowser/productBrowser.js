@@ -8,6 +8,7 @@ import getProducts from "@salesforce/apex/WH_LocationController.getProducts";
 
 export default class ProductBrowser extends LightningElement {
 
+    loaded = false;
     userRoleName;
 
     isHousingSales = false;
@@ -60,6 +61,7 @@ export default class ProductBrowser extends LightningElement {
                 this.isHousingSales = true;
             }
         }
+        this.loaded = true;
     }
 
     queryProducts() {
@@ -81,7 +83,7 @@ export default class ProductBrowser extends LightningElement {
             housingSales: this.isHousingSales,
             businessSales: this.isBusinessSales
         }).then(result => {
-            console.log(result);
+            this.loaded = false;
             if(result.length > 0) {
                 this.showMessage = false;
                 this.populateFields(result);
@@ -91,6 +93,7 @@ export default class ProductBrowser extends LightningElement {
                 this.showMessage = true;
                 this.messageContent = "No matches found";
             }
+            this.loaded = true;
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Error',

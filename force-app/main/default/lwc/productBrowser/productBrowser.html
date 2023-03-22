@@ -43,13 +43,13 @@
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of bedrooms"
                         onchange={setNumberOfBedrooms}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of bathrooms"
                         onchange={setNumberOfBathrooms}
                         style="padding: 1em;"
@@ -69,25 +69,25 @@
                 </template>
                 <template lwc:elseif={isBusinessSales}>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of floors"
                         onchange={setNumberOfFloors}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of meeting rooms"
                         onchange={setNumberOfMeetingRooms}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of kitchens"
                         onchange={setNumberOfKitchens}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of parking spaces"
                         onchange={setNumberOfParkingSpaces}
                         style="padding: 1em;"
@@ -101,25 +101,25 @@
                 </template>
                 <template lwc:else>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of floors"
                         onchange={setNumberOfFloors}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of meeting rooms"
                         onchange={setNumberOfMeetingRooms}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of kitchens"
                         onchange={setNumberOfKitchens}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of parking spaces"
                         onchange={setNumberOfParkingSpaces}
                         style="padding: 1em;"
@@ -137,13 +137,13 @@
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of bedrooms"
                         onchange={setNumberOfBedrooms}
                         style="padding: 1em;"
                     ></lightning-input>
                     <lightning-input 
-                        type="text"
+                        type="number"
                         label="Number of bathrooms"
                         onchange={setNumberOfBathrooms}
                         style="padding: 1em;"
@@ -164,6 +164,9 @@
             </div>
         </div>
     </div>
+    <template if:false={loaded}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
     <template lwc:if={showMessage}>
         <div class="slds-text-heading_large">
             <p style="padding: 0.5em; padding-bottom: 0em; color: white; text-shadow: #fc0 1px 0 10px;">
