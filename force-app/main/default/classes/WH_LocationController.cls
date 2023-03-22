@@ -1,7 +1,7 @@
 public with sharing class WH_LocationController {
     
     @AuraEnabled(cacheable=true)
-    public static List<ContentVersion> getVersionFiles(String recordId){
+    public static List<ContentVersion> getVersionFiles(String recordId) {
         try {
             return [
                 SELECT
@@ -26,7 +26,7 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Product2> getURL(String recordId){
+    public static List<Product2> getURL(String recordId) {
         try {
             return [
                 SELECT
@@ -41,7 +41,7 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled
-    public static void updateMainImage(String recordId, String url){
+    public static void updateMainImage(String recordId, String url) {
         try {
             Product2 product = [
                 SELECT
@@ -58,7 +58,7 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled
-    public static void deleteFile(String id){
+    public static void deleteFile(String id) {
         try {
             ContentVersion version = [
                 SELECT ContentDocumentId
@@ -73,6 +73,89 @@ public with sharing class WH_LocationController {
                 WITH SECURITY_ENFORCED
             ];
             delete document;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Product2> getProducts(
+                String name,
+                String city,
+                String street,
+                String country,
+                String numberOfFloors,
+                String numberOfMeetingRooms,
+                String numberOfKitchens,
+                String numberOfParkingSpaces,
+                Boolean openPlanOffice,
+                String cityCenterDistance,
+                String numberOfBedrooms,
+                String numberOfBathrooms,
+                Boolean balcony,
+                Boolean garage,
+                Boolean housingSales,
+                Boolean businessSales
+            ) {
+        String query;
+        if(housingSales) {
+            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Apartments\' ';
+        } else if(businessSales) {
+            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Business Premises\' ';
+        } else {
+            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE Name != null ';
+        }
+        if(name != '' && name != null) {
+            query += 'AND Name LIKE \'%' + name + '%\' ';
+        }
+        if(city != '' && city != null) {
+            query += 'AND City__c LIKE \'%' + city + '%\' ';
+        }
+        if(street != '' && street != null) {
+            query += 'AND Street__c LIKE \'%' + street + '%\' ';
+        }
+        if(country != '' && country != null) {
+            query += 'AND Country__c LIKE \'%' + country + '%\' ';
+        }
+        if(numberOfFloors != '' && numberOfFloors != null) {
+            query += 'AND Number_of_floors__c = ' + numberOfFloors + ' ';
+        }
+        if(numberOfMeetingRooms != '' && numberOfMeetingRooms != null) {
+            query += 'AND Number_of_meeting_rooms__c = ' + numberOfMeetingRooms + ' ';
+        }
+        if(numberOfKitchens != '' && numberOfKitchens != null) {
+            query += 'AND Number_of_kitchens__c = ' + numberOfKitchens + ' ';
+        }
+        if(numberOfParkingSpaces != '' && numberOfParkingSpaces != null) {
+            query += 'AND Parking_spaces__c = ' + numberOfParkingSpaces + ' ';
+        }
+        if(openPlanOffice == true) {
+            query += 'AND Open_plan_office__c = ' + openPlanOffice + ' ';
+        }
+        if(cityCenterDistance != '' && cityCenterDistance != null) {
+            query += 'AND City_center_disctance__c LIKE \'%' + cityCenterDistance + '%\' ';
+        }
+        if(numberOfBedrooms != '' && numberOfBedrooms != null) {
+            query += 'AND Number_of_bedrooms__c = ' + numberOfBedrooms + ' ';
+        }
+        if(numberOfBathrooms != '' && numberOfBathrooms != null) {
+            query += 'AND Number_of_bathrooms__c = ' + numberOfBathrooms + ' ';
+        }
+        if(balcony == true) {
+            query += 'AND Balcony__c = ' + balcony + ' ';
+        }
+        if(garage == true) {
+            query += 'AND Garage__c = ' + garage + ' ';
+        }
+        System.debug(query);
+        try {
+            List<Product2> products = Database.query(query);
+            if(!products.isEmpty()) {
+                System.debug(products[0]);
+                return products;
+            } else {
+                return new List<Product2>();
+            }
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
