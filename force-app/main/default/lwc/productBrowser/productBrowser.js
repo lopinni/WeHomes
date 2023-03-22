@@ -91,7 +91,8 @@ export default class ProductBrowser extends LightningElement {
             else {
                 this.productsTemp = [];
                 this.showMessage = true;
-                this.messageContent = "No matches found";
+                this.renderPagination = false;
+                this.messageContent = "No matches found.";
             }
             this.loaded = true;
         }).catch(error => {

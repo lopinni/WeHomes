@@ -171,13 +171,13 @@
                 <lightning-spinner alternative-text="Loading"></lightning-spinner>
             </template>
             <template lwc:if={showMessage}>
-                <div class="slds-text-heading_large">
-                    <p style="padding: 0.5em; padding-bottom: 0em; color: white;">
+                <div class="slds-text-heading_large" style="background-color: #ddd; border-radius: 5px; padding: 1em;">
+                    <p style="padding-left: 2em;">
                         {messageContent}
                     </p>
                 </div>
             </template>
-            <div class="grid-container">
+            <div class="grid-container" style="padding-top: 2em;">
                 <template for:each={productsTemp} for:item="product">
                     <c-product-card key={product.Id} product={product}> </c-product-card>
                 </template>
