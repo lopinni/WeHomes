@@ -29,6 +29,12 @@ export default class ProductBrowser extends LightningElement {
     productNumberOfParkingSpaces;
     productOpenPlanOffice;
 
+    productCityCenterDistance;
+    productNumberOfBedrooms;
+    productNumberOfBathrooms;
+    productBalcony;
+    productGarage;
+
     @track products;
     @track productsTemp;
 
@@ -66,7 +72,14 @@ export default class ProductBrowser extends LightningElement {
             numberOfMeetingRooms: this.productNumberOfMeetingRooms,
             numberOfKitchens: this.productNumberOfKitchens,
             numberOfParkingSpaces: this.productNumberOfParkingSpaces,
-            openPlanOffice: this.productOpenPlanOffice
+            openPlanOffice: this.productOpenPlanOffice,
+            cityCenterDistance: this.productCityCenterDistance,
+            numberOfBedrooms: this.productNumberOfBedrooms,
+            numberOfBathrooms: this.productNumberOfBathrooms,
+            balcony: this.productBalcony,
+            garage: this.productGarage,
+            housingSales: this.isHousingSales,
+            businessSales: this.isBusinessSales
         }).then(result => {
             console.log(result);
             if(result.length > 0) {
@@ -149,6 +162,27 @@ export default class ProductBrowser extends LightningElement {
         this.queryProducts();
     }
 
+    setCityCenterDistance(event) {
+        this.productCityCenterDistance = event.detail.value;
+        this.queryProducts();
+    }
+    setNumberOfBedrooms(event) {
+        this.productNumberOfBedrooms = event.detail.value;
+        this.queryProducts();
+    }
+    setNumberOfBathrooms(event) {
+        this.productNumberOfBathrooms = event.detail.value;
+        this.queryProducts();
+    }
+    setBalcony(event) {
+        this.productBalcony = event.target.checked;
+        this.queryProducts();
+    }
+    setGarage(event) {
+        this.productGarage = event.target.checked;
+        this.queryProducts();
+    }
+
     clear() {
         this.template.querySelectorAll('lightning-input').forEach(each => { 
             each.value = '';
@@ -165,11 +199,16 @@ export default class ProductBrowser extends LightningElement {
         this.productCity = '';
         this.productStreet = '';
         this.productCountry = '';
-        this.numberOfFloors = '';
-        this.numberOfMeetingRooms = '';
-        this.numberOfKitchens = '';
-        this.numberOfKitchens = '';
-        this.openPlanOffice = false;
+        this.productNumberOfFloors = '';
+        this.productNumberOfMeetingRooms = '';
+        this.productNumberOfKitchens = '';
+        this.productNumberOfKitchens = '';
+        this.productOpenPlanOffice = false;
+        this.productCityCenterDistance = '';
+        this.productNumberOfBedrooms = '';
+        this.productNumberOfBathrooms = '';
+        this.balcony = false;
+        this.garage = false;
     }
 
 }

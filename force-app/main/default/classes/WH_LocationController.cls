@@ -88,9 +88,23 @@ public with sharing class WH_LocationController {
                 String numberOfMeetingRooms,
                 String numberOfKitchens,
                 String numberOfParkingSpaces,
-                Boolean openPlanOffice
+                Boolean openPlanOffice,
+                String cityCenterDistance,
+                String numberOfBedrooms,
+                String numberOfBathrooms,
+                Boolean balcony,
+                Boolean garage,
+                Boolean housingSales,
+                Boolean businessSales
             ) {
-        String query = 'SELECT Id, Name, DisplayUrl FROM Product2 WHERE Name != null ';
+        String query;
+        if(housingSales) {
+            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Apartments\' ';
+        } else if(businessSales) {
+            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Business Premises\' ';
+        } else {
+            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE Name != null ';
+        }
         if(name != '' && name != null) {
             query += 'AND Name LIKE \'%' + name + '%\' ';
         }
@@ -117,6 +131,21 @@ public with sharing class WH_LocationController {
         }
         if(openPlanOffice == true) {
             query += 'AND Open_plan_office__c = ' + openPlanOffice + ' ';
+        }
+        if(cityCenterDistance != '' && cityCenterDistance != null) {
+            query += 'AND City_center_disctance__c LIKE \'%' + cityCenterDistance + '%\' ';
+        }
+        if(numberOfBedrooms != '' && numberOfBedrooms != null) {
+            query += 'AND Number_of_bedrooms__c = ' + numberOfBedrooms + ' ';
+        }
+        if(numberOfBathrooms != '' && numberOfBathrooms != null) {
+            query += 'AND Number_of_bathrooms__c = ' + numberOfBathrooms + ' ';
+        }
+        if(balcony == true) {
+            query += 'AND Balcony__c = ' + balcony + ' ';
+        }
+        if(garage == true) {
+            query += 'AND Garage__c = ' + garage + ' ';
         }
         System.debug(query);
         try {
