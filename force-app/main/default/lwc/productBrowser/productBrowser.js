@@ -14,6 +14,7 @@ export default class ProductBrowser extends LightningElement {
     isBusinessSales = false;
 
     renderPagination = false;
+    pageSize = 6;
     page;
     pages;
 
@@ -21,6 +22,12 @@ export default class ProductBrowser extends LightningElement {
     productCity;
     productStreet;
     productCountry;
+
+    productNumberOfFloors;
+    productNumberOfMeetingRooms;
+    productNumberOfKitchens;
+    productNumberOfParkingSpaces;
+    productOpenPlanOffice;
 
     @track products;
     @track productsTemp;
@@ -84,12 +91,12 @@ export default class ProductBrowser extends LightningElement {
     }
 
     setPagination() {
-        const start = (this.page - 1) * 6;
+        const start = (this.page - 1) * this.pageSize;
         let end;
-        if((start + 6) > this.products.length) {
+        if((start + this.pageSize) > this.products.length) {
             end = this.products.length;
         } else {
-            end = start + 6;
+            end = start + this.pageSize;
         }
         this.productsTemp = this.products.slice(start, end);
     }
@@ -103,20 +110,49 @@ export default class ProductBrowser extends LightningElement {
         this.productName = event.detail.value;
         this.queryProducts();
     }
-
     setCity(event) {
         this.productCity = event.detail.value;
         this.queryProducts();
     }
-
     setStreet(event) {
         this.productStreet = event.detail.value;
         this.queryProducts();
     }
-
     setCountry(event) {
         this.productCountry = event.detail.value;
         this.queryProducts();
+    }
+
+    setNumberOfFloors(event) {
+        this.productNumberOfFloors = event.detail.value;
+        this.queryProducts();
+    }
+    setNumberOfMeetingRooms(event) {
+        this.productNumberOfMeetingRooms = event.detail.value;
+        this.queryProducts();
+    }
+    setNumberOfKitchens(event) {
+        this.productNumberOfKitchens = event.detail.value;
+        this.queryProducts();
+    }
+    setNumberOfParkingSpages(event) {
+        this.productNumberOfParkingSpaces = event.detail.value;
+        this.queryProducts();
+    }
+    setOpenPlanOffice(event) {
+        this.productOpenPlanOffice = event.detail.value;
+        this.queryProducts();
+    }
+
+    clear() {
+        this.template.querySelectorAll('lightning-input').forEach(each => { each.value = ''; });
+        this.productsTemp = [];
+        this.productName = '';
+        this.productCity = '';
+        this.productStreet = '';
+        this.productCountry = '';
+        this.showMessage = false;
+        this.renderPagination = false;
     }
 
 }
