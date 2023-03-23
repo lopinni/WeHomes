@@ -1,57 +1,97 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+import { updateRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from "@salesforce/apex";
 
 import { loadStyle } from "lightning/platformResourceLoader";
 import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
 
 import getPricebooks from "@salesforce/apex/WH_PricebookManagerController.getPricebooks";
-import getAllProducts from "@salesforce/apex/WH_PricebookManagerController.getAllProducts";
+import getStandardPBEs from "@salesforce/apex/WH_PricebookManagerController.getStandardPBEs";
+import getPBEsById from "@salesforce/apex/WH_PricebookManagerController.getPBEsById";
 
-const pricebookActions = [
+const actions = [
     { label: 'View', name: 'view' },
-    { label: 'Edit', name: 'edit' },
-    { label: 'Delete', name: 'delete' }
+    { label: 'Products', name: 'products' },
+    { label: 'Add Products', name: 'add' },
 ];
 
 const pricebookColumns = [
-    { label: 'Name', fieldName: 'Name' },
-    { label: 'Description', fieldName: 'Description' },
-    { label: 'Active', fieldName: 'IsActive', type: 'boolean' },
-    { label: 'Standard', fieldName: 'IsStandard', type: 'boolean' },
+    { label: 'Name', fieldName: 'Name', editable : 'true' },
+    { label: 'Description', fieldName: 'Description', editable : 'true' },
+    { label: 'Active', fieldName: 'IsActive', type: 'boolean', editable : 'true' },
+    { label: 'Standard', fieldName: 'IsStandard', type: 'boolean', editable : 'true' },
+    { label: 'Start Date', fieldName: 'StartDate__c', type: 'date', editable : 'true' },
+    { label: 'End Date', fieldName: 'EndDate__c', type: 'date', editable : 'true' },
+    { label: 'Type', fieldName: 'TypeInfo__c' },
     {
         type: 'action',
-        typeAttributes: { rowActions: pricebookActions },
+        typeAttributes: { rowActions: actions },
     },
+];
+
+const entryColumns = [
+    { label: 'Product Name', fieldName: 'ProductName__c' },
+    { label: 'Product Type', fieldName: 'ProductType__c' },
+    { label: 'Price', fieldName: 'UnitPrice', type: 'currency', editable : 'true' }
 ];
 
 export default class PricebookManager extends NavigationMixin(LightningElement) {
 
-    pricebookData = [];
-    productData = [];
+    @track pricebookData;
+    @track refreshPriceBookData;
     pricebookColumns = pricebookColumns;
+    entryColumns = entryColumns;
+
+    @track priceBookEntryData;
+
+    openNewPBModal = false;
+
+    saveDraftValues = [];
 
     constructor() {
         super();
         loadStyle(this, noHeader);
     }
 
+    connectedCallback() {
+        this.loadPBEs();
+    }
+
+    loadPBEs() {
+        getStandardPBEs().then(result => {
+            this.priceBookEntryData = result;
+        }).catch(error => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
+        });
+    }
+
+    loadPBEsById(id) {
+        getPBEsById({ Id: id }).then(result => {
+            console.log(result);
+            this.priceBookEntryData = result;
+        }).catch(error => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
+        });
+    }
+
     @wire(getPricebooks)
     populatePricebookTable(value) {
+        this.refreshPriceBookData = value;
+        console.log(value);
         const { data, error } = value;
         if (data) {
             console.log(data);
             this.pricebookData = data;
-        } else if (error) {
-            console.log(error);
-        }
-    }
-
-    @wire(getAllProducts)
-    populateProductTable(value) {
-        const { data, error } = value;
-        if (data) {
-            console.log(data);
-            this.productData = data;
         } else if (error) {
             console.log(error);
         }
@@ -63,6 +103,9 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         switch (actionName) {
             case 'view':
                 this.navigateToRecordPage(rowId);
+                break;
+            case 'products':
+                this.loadPBEsById(rowId);
                 break;
             default:
         }
@@ -77,6 +120,47 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
                 actionName: 'view'
             }
         });
+    }
+
+    openNewPB() {
+        this.openNewPBModal = true;
+    }
+
+    closeNewPB() {
+        this.openNewPBModal = false;
+    }
+
+    handleSave(event) {
+        this.saveDraftValues = event.detail.draftValues;
+        const recordInputs = this.saveDraftValues.slice().map(draft => {
+            const fields = Object.assign({}, draft);
+            return { fields };
+        });
+        const promises = recordInputs.map(recordInput => updateRecord(recordInput));
+        Promise.all(promises).then(res => {
+            this.ShowToast('Success', 'Price Book updated successfully', 'success', 'dismissable');
+            this.saveDraftValues = [];
+        }).catch(error => {
+            this.ShowToast('Error', error, 'error', 'dismissable');
+        }).finally(() => {
+            this.saveDraftValues = [];
+            this.refreshPricebooks()
+        });
+    }
+ 
+    ShowToast(title, message, variant, mode){
+        const evt = new ShowToastEvent({
+            title: title,
+            message:message,
+            variant: variant,
+            mode: mode
+        });
+        this.dispatchEvent(evt);
+    }
+
+    refreshPricebooks() {
+        refreshApex(this.refreshPriceBookData);
+        this.openNewPBModal = false;
     }
 
 }

@@ -3,7 +3,25 @@ public with sharing class WH_PricebookManagerController {
     @AuraEnabled(Cacheable=true)
     public static List<Pricebook2> getPricebooks(){     
         return [
-            SELECT ID, Name, Description, IsActive, IsStandard FROM Pricebook2
+            SELECT Id, Name, Description, IsActive, IsStandard, StartDate__c, EndDate__c, TypeInfo__c FROM Pricebook2
+        ];
+    }
+
+    @AuraEnabled(Cacheable=true)
+    public static List<PricebookEntry> getStandardPBEs(){     
+        return [
+            SELECT Id, ProductName__c, ProductType__c, UnitPrice FROM PricebookEntry
+            WHERE Pricebook2Id IN (
+                SELECT Id FROM Pricebook2 WHERE IsStandard = true
+            )
+        ];
+    }
+
+    @AuraEnabled(Cacheable=true)
+    public static List<PricebookEntry> getPBEsById(String Id){     
+        return [
+            SELECT Id, ProductName__c, ProductType__c, UnitPrice FROM PricebookEntry
+            WHERE Pricebook2Id =: Id
         ];
     }
 
@@ -15,6 +33,13 @@ public with sharing class WH_PricebookManagerController {
             WHERE RecordType.Name != null
         ];
         return product2s;
+    }
+
+    @AuraEnabled(Cacheable=true)
+    public static RecordType getProductRecordTypeByName(String Name){     
+        return [
+            SELECT Id FROM RecordType WHERE Name =: Name
+        ];
     }
 
 }
