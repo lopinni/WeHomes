@@ -1,3 +1,131 @@
 <template>
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-12"> </div>
+        <div class="slds-col slds-size_10-of-12">
+            <div class="slds-page-header">
+                <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
+                    <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                            <div class="slds-media__body">
+                                <div class="slds-page-header__name">
+                                    <div class="slds-page-header__name-title">
+                                        <h1>
+                                            <span> Price Books </span>
+                                            <span class="slds-page-header__title slds-truncate" 
+                                                    title="Recently Viewed"
+                                            >
+                                                All Price Books
+                                            </span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                            <div class="slds-page-header__control">
+                                <button class="slds-button slds-button_neutral"> New </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <lightning-datatable
+                    key-field="id"
+                    data={pricebookData}
+                    columns={pricebookColumns}
+                    onrowaction={handleRowAction}
+                > </lightning-datatable>
+            </div>
+            <div class="slds-p-top_medium">
+                <div class="slds-page-header slds-p-top_medium">
+                    <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
+                        <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                                <div class="slds-media__body">
+                                    <div class="slds-page-header__name">
+                                        <div class="slds-page-header__name-title">
+                                            <h1>
+                                                <span> Products </span>
+                                                <span class="slds-page-header__title slds-truncate" 
+                                                        title="Recently Viewed"
+                                                >
+                                                    All Products
+                                                </span>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="slds-table slds-table_fixed-layout slds-table_bordered overflow-hidden">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-align_right slds-cell_action-mode" scope="col" style="width:3.25rem">
+                                    <div class="slds-truncate" title="Opportunity Name">
+                                        <lightning-input
+                                            type="checkbox"
+                                        > </lightning-input>
+                                    </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Opportunity Name"> Main Image </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Account Name"> Name </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Close Date"> Type </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Stage"> Product Price </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Stage"> Options </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={productData} for:item="product">
+                                <tr class="slds-hint-parent" key={product.Id}>
+                                    <td>
+                                        <div class="slds-truncate slds-text-align_right slds-cell_action-mode">
+                                            <lightning-input
+                                                type="checkbox"
+                                            > </lightning-input>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">
+                                            <img src={product.DisplayUrl} style="width: 4rem; height: 4rem;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate"> {product.Name} </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate"> {product.RecordType.Name} </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">
+                                            <template for:each={product.PricebookEntries} for:item="entry">
+                                                {entry.UnitPrice} €
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate"> 
+                                            <button class="slds-button slds-button_neutral"> View </button> 
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-12"> </div>
+    </div>
 </template>
