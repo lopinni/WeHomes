@@ -49,6 +49,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     openNewPBModal = false;
 
     saveDraftValues = [];
+    entryDraftValues = [];
 
     constructor() {
         super();
@@ -144,7 +145,25 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             this.ShowToast('Error', error, 'error', 'dismissable');
         }).finally(() => {
             this.saveDraftValues = [];
-            this.refreshPricebooks()
+            this.refreshPricebooks();
+        });
+    }
+
+    handleEntrySave(event) {
+        this.entryDraftValues = event.detail.draftValues;
+        const recordInputs = this.entryDraftValues.slice().map(draft => {
+            const fields = Object.assign({}, draft);
+            return { fields };
+        });
+        const promises = recordInputs.map(recordInput => updateRecord(recordInput));
+        Promise.all(promises).then(res => {
+            this.ShowToast('Success', 'Price Book Entry updated successfully', 'success', 'dismissable');
+            this.entryDraftValues = [];
+        }).catch(error => {
+            this.ShowToast('Error', error, 'error', 'dismissable');
+        }).finally(() => {
+            this.entryDraftValues = [];
+            this.loadPBEs();
         });
     }
  
