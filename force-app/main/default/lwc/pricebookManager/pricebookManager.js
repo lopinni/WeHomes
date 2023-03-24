@@ -21,7 +21,7 @@ const pricebookColumns = [
     { label: 'Name', fieldName: 'Name', editable : 'true' },
     { label: 'Description', fieldName: 'Description', editable : 'true' },
     { label: 'Active', fieldName: 'IsActive', type: 'boolean', editable : 'true' },
-    { label: 'Standard', fieldName: 'IsStandard', type: 'boolean', editable : 'true' },
+    { label: 'Standard', fieldName: 'IsStandard', type: 'boolean' },
     { label: 'Start Date', fieldName: 'StartDate__c', type: 'date', editable : 'true' },
     { label: 'End Date', fieldName: 'EndDate__c', type: 'date', editable : 'true' },
     { label: 'Type', fieldName: 'TypeInfo__c' },
@@ -47,6 +47,8 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     @track priceBookEntryData;
 
     openNewPBModal = false;
+    openAddProductModal = false;
+    @track priceBookToAdd;
 
     saveDraftValues = [];
     entryDraftValues = [];
@@ -108,6 +110,10 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             case 'products':
                 this.loadPBEsById(rowId);
                 break;
+            case 'add':
+                this.priceBookToAdd = rowId;
+                this.openAddProduct();
+                break;
             default:
         }
     }
@@ -129,6 +135,14 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     closeNewPB() {
         this.openNewPBModal = false;
+    }
+
+    openAddProduct() {
+        this.openAddProductModal = true;
+    }
+
+    closeAddProduct() {
+        this.openAddProductModal = false;
     }
 
     handleSave(event) {

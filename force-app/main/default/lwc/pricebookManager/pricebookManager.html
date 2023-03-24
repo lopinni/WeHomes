@@ -85,5 +85,10 @@
             onclose={closeNewPB} 
             onrefresh={refreshPricebooks}
         ></c-pricebook-modal>
+        <c-add-product-modal 
+            show={openAddProductModal} 
+            onclose={closeAddProduct} 
+            price-book-id={priceBookToAdd}
+        ></c-add-product-modal>
     </div>
 </template>

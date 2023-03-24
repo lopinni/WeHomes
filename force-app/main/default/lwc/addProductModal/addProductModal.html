@@ -1,0 +1,23 @@
+<template>
+    <template lwc:if={show}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium slds-modal__content_headless" 
+                    id="modal-content-id-1"
+                >
+                <lightning-datatable
+                    key-field="Id"
+                    data={productData}
+                    columns={columns}
+                    draft-values={draftValues}
+                > </lightning-datatable>
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal}> Close </button>
+                    <button class="slds-button slds-button_brand" onclick={addProducts}> Add Products </button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"> </div>
+    </template>
+</template>
