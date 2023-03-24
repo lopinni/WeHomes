@@ -1,4 +1,7 @@
 <template>
+    <template if:false={loaded}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
     <div class="slds-grid slds-gutters">
         <div class="slds-col slds-size_1-of-12"> </div>
         <div class="slds-col slds-size_10-of-12">
@@ -64,7 +67,17 @@
                         <div class="slds-page-header__col-actions">
                             <div class="slds-page-header__controls">
                                 <div class="slds-page-header__control">
-                                    <button class="slds-button slds-button_neutral" onclick={openNewPB}> Set Discount </button>
+                                    <lightning-input
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        step="1"
+                                        variant="label-hidden"
+                                    >
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-page-header__control">
+                                    <button class="slds-button slds-button_neutral" onclick={setupDiscountModal}> Set Discount (%) </button>
                                 </div>
                             </div>
                         </div>
@@ -75,6 +88,7 @@
                         columns={entryColumns}
                         draft-values={entryDraftValues}
                         onsave={handleEntrySave}
+                        lwc:ref="entries"
                     > </lightning-datatable>
                 </div>
             </div>

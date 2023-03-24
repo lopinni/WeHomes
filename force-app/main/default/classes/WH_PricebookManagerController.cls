@@ -57,4 +57,17 @@ public with sharing class WH_PricebookManagerController {
         }
     }
 
+    @AuraEnabled
+    public static void updatePriceBookEntries(Integer discount, List<PricebookEntry> entries){
+        Double percentage = discount * 0.01;
+        for(PricebookEntry pbe : entries) {
+            pbe.UnitPrice = pbe.UnitPrice - (pbe.UnitPrice * percentage);
+        }
+        try {
+            update entries;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
 }

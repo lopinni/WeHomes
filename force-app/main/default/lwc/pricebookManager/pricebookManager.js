@@ -10,6 +10,7 @@ import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
 import getPricebooks from "@salesforce/apex/WH_PricebookManagerController.getPricebooks";
 import getStandardPBEs from "@salesforce/apex/WH_PricebookManagerController.getStandardPBEs";
 import getPBEsById from "@salesforce/apex/WH_PricebookManagerController.getPBEsById";
+import updatePriceBookEntries from "@salesforce/apex/WH_PricebookManagerController.updatePriceBookEntries";
 
 const actions = [
     { label: 'View', name: 'view' },
@@ -39,6 +40,8 @@ const entryColumns = [
 
 export default class PricebookManager extends NavigationMixin(LightningElement) {
 
+    loaded = false;
+
     @track pricebookData;
     @track refreshPriceBookData;
     pricebookColumns = pricebookColumns;
@@ -60,6 +63,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     connectedCallback() {
         this.loadPBEs();
+        this.loaded = true;
     }
 
     loadPBEs() {
@@ -152,7 +156,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             return { fields };
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
-        Promise.all(promises).then(res => {
+        Promise.all(promises).then(() => {
             this.ShowToast('Success', 'Price Book updated successfully', 'success', 'dismissable');
             this.saveDraftValues = [];
         }).catch(error => {
@@ -170,7 +174,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             return { fields };
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
-        Promise.all(promises).then(res => {
+        Promise.all(promises).then(() => {
             this.ShowToast('Success', 'Price Book Entry updated successfully', 'success', 'dismissable');
             this.entryDraftValues = [];
         }).catch(error => {
@@ -194,6 +198,22 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     refreshPricebooks() {
         refreshApex(this.refreshPriceBookData);
         this.openNewPBModal = false;
+    }
+
+    setupDiscountModal() {
+        let recordsToDiscount = this.refs.entries.getSelectedRows();
+        let discountValue = this.template.querySelector('lightning-input').value;
+        updatePriceBookEntries({
+            discount: discountValue,
+            entries: recordsToDiscount
+        }).then(() => {
+            this.ShowToast('Success', 'Price Book Entries updated successfully', 'success', 'dismissable');
+        }).then(() => {
+            console.log(done);
+            this.loadPBEs();
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
 }

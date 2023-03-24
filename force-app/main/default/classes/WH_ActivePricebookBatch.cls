@@ -1,6 +1,6 @@
 public with sharing class WH_ActivePricebookBatch implements Database.Batchable<SObject>, Database.Stateful{
 
-    private final String query = 'SELECT Id, IsActive, StartDate__c, EndDate__c FROM Pricebook2 WHERE IsActive = true AND IsStandard = false';
+    private final String query = 'SELECT Id, IsActive, StartDate__c, EndDate__c FROM Pricebook2 WHERE StartDate__c != null AND EndDate__c != null';
 
     public Database.QueryLocator start(Database.BatchableContext context) {
         return Database.getQueryLocator(query);
@@ -12,8 +12,7 @@ public with sharing class WH_ActivePricebookBatch implements Database.Batchable<
         for(Pricebook2 pricebook : pricebooks){
             if(pricebook.EndDate__c < today || pricebook.StartDate__c > today){
                 pricebook.IsActive = false;
-            }
-            if(pricebook.StartDate__c < today && pricebook.EndDate__c > today){
+            } else if(pricebook.StartDate__c < today && pricebook.EndDate__c > today){
                 pricebook.IsActive = true;
             }
         }
