@@ -2,49 +2,11 @@
     <template if:false={loaded}>
         <lightning-spinner alternative-text="Loading"></lightning-spinner>
     </template>
-    <div class="slds-grid slds-gutters">
-        <div class="slds-col slds-size_1-of-12"> </div>
-        <div class="slds-col slds-size_10-of-12">
-            <div class="slds-page-header">
-                <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
-                    <div class="slds-page-header__col-title">
-                        <div class="slds-media">
-                            <div class="slds-media__body">
-                                <div class="slds-page-header__name">
-                                    <div class="slds-page-header__name-title">
-                                        <h1>
-                                            <span> Price Books </span>
-                                            <span class="slds-page-header__title slds-truncate" 
-                                                    title="Recently Viewed"
-                                            >
-                                                All Price Books
-                                            </span>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slds-page-header__col-actions">
-                        <div class="slds-page-header__controls">
-                            <div class="slds-page-header__control">
-                                <button class="slds-button slds-button_neutral" onclick={openNewPB}> New </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <lightning-datatable
-                    key-field="Id"
-                    data={pricebookData}
-                    columns={pricebookColumns}
-                    onrowaction={handleRowAction}
-                    draft-values={saveDraftValues}
-                    onsave={handleSave}
-                    hide-checkbox-column
-                > </lightning-datatable>
-            </div>
-            <div class="slds-p-top_medium">
-                <div class="slds-page-header slds-p-top_medium">
+    <template if:true={loaded}>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-12"> </div>
+            <div class="slds-col slds-size_10-of-12">
+                <div class="slds-page-header">
                     <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
                         <div class="slds-page-header__col-title">
                             <div class="slds-media">
@@ -52,11 +14,11 @@
                                     <div class="slds-page-header__name">
                                         <div class="slds-page-header__name-title">
                                             <h1>
-                                                <span> Price Book Entries </span>
+                                                <span> Price Books </span>
                                                 <span class="slds-page-header__title slds-truncate" 
                                                         title="Recently Viewed"
                                                 >
-                                                    Available Entries
+                                                    All Price Books
                                                 </span>
                                             </h1>
                                         </div>
@@ -67,42 +29,84 @@
                         <div class="slds-page-header__col-actions">
                             <div class="slds-page-header__controls">
                                 <div class="slds-page-header__control">
-                                    <lightning-input
-                                        type="number"
-                                        min="0"
-                                        max="100"
-                                        step="1"
-                                        variant="label-hidden"
-                                    >
-                                    </lightning-input>
-                                </div>
-                                <div class="slds-page-header__control">
-                                    <button class="slds-button slds-button_neutral" onclick={setupDiscountModal}> Set Discount (%) </button>
+                                    <button class="slds-button slds-button_neutral" onclick={openNewPB}> New </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <lightning-datatable
                         key-field="Id"
-                        data={priceBookEntryData}
-                        columns={entryColumns}
-                        draft-values={entryDraftValues}
-                        onsave={handleEntrySave}
-                        lwc:ref="entries"
+                        data={pricebookData}
+                        columns={pricebookColumns}
+                        onrowaction={handleRowAction}
+                        draft-values={saveDraftValues}
+                        onsave={handleSave}
+                        hide-checkbox-column
                     > </lightning-datatable>
                 </div>
+                <div class="slds-p-top_medium">
+                    <div class="slds-page-header slds-p-top_medium">
+                        <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
+                            <div class="slds-page-header__col-title">
+                                <div class="slds-media">
+                                    <div class="slds-media__body">
+                                        <div class="slds-page-header__name">
+                                            <div class="slds-page-header__name-title">
+                                                <h1>
+                                                    <span> Price Book Entries </span>
+                                                    <span class="slds-page-header__title slds-truncate" 
+                                                            title="Recently Viewed"
+                                                    >
+                                                        Available Entries
+                                                    </span>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-page-header__col-actions">
+                                <div class="slds-page-header__controls">
+                                    <div class="slds-page-header__control">
+                                        <lightning-input
+                                            type="number"
+                                            min="0"
+                                            max="100"
+                                            step="1"
+                                            variant="label-hidden"
+                                        >
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-page-header__control">
+                                        <button class="slds-button slds-button_neutral" onclick={setupDiscountModal}> Set Discount (%) </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <lightning-datatable
+                            key-field="Id"
+                            data={priceBookEntryData}
+                            columns={entryColumns}
+                            draft-values={entryDraftValues}
+                            onsave={handleEntrySave}
+                            lwc:ref="entries"
+                        > </lightning-datatable>
+                    </div>
+                </div>
             </div>
+            <div class="slds-col slds-size_1-of-12"> </div>
+            <c-pricebook-modal 
+                show={openNewPBModal} 
+                onclose={closeNewPB} 
+                onrefresh={refreshPricebooks}
+            ></c-pricebook-modal>
+            <c-add-product-modal 
+                show={openAddProductModal} 
+                onclose={closeAddProduct} 
+                price-book-id={priceBookToAdd}
+                onclosesuccess={closeWithToast}
+                oncloseerror={closeWithErrorToast} 
+            ></c-add-product-modal>
         </div>
-        <div class="slds-col slds-size_1-of-12"> </div>
-        <c-pricebook-modal 
-            show={openNewPBModal} 
-            onclose={closeNewPB} 
-            onrefresh={refreshPricebooks}
-        ></c-pricebook-modal>
-        <c-add-product-modal 
-            show={openAddProductModal} 
-            onclose={closeAddProduct} 
-            price-book-id={priceBookToAdd}
-        ></c-add-product-modal>
-    </div>
+    </template>
 </template>

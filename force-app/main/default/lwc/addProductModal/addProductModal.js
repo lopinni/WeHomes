@@ -31,7 +31,12 @@ export default class AddProductModal extends LightningElement {
             console.log(data);
             this.productData = data;
         } else if (error) {
-            console.log(error);
+            this.dispatchEvent(new CustomEvent('close'));
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
         }
     }
 
@@ -40,12 +45,10 @@ export default class AddProductModal extends LightningElement {
         insertProductsToPriceBook({
             priceBookId: this.priceBookId,
             products: selectedRecords
+        }).then(() => {
+            this.dispatchEvent(new CustomEvent('closesuccess'));
         }).catch(error => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error,
-                variant: 'error'
-            }));
+            this.dispatchEvent(new CustomEvent('closeerror'));
         });
     }
 

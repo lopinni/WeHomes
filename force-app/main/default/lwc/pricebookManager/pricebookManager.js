@@ -51,7 +51,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     openNewPBModal = false;
     openAddProductModal = false;
-    @track priceBookToAdd;
+    priceBookToAdd;
 
     saveDraftValues = [];
     entryDraftValues = [];
@@ -63,12 +63,13 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     connectedCallback() {
         this.loadPBEs();
-        this.loaded = true;
     }
 
     loadPBEs() {
+        this.loaded = false;
         getStandardPBEs().then(result => {
             this.priceBookEntryData = result;
+            this.loaded = true;
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Error',
@@ -79,9 +80,10 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     }
 
     loadPBEsById(id) {
+        this.loaded = false;
         getPBEsById({ Id: id }).then(result => {
-            console.log(result);
             this.priceBookEntryData = result;
+            this.loaded = true;
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Error',
@@ -93,18 +95,24 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     @wire(getPricebooks)
     populatePricebookTable(value) {
+        this.loaded = false;
         this.refreshPriceBookData = value;
-        console.log(value);
         const { data, error } = value;
         if (data) {
             console.log(data);
             this.pricebookData = data;
         } else if (error) {
-            console.log(error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
         }
+        this.loaded = true;
     }
 
     handleRowAction(event) {
+        this.loaded = false;
         const actionName = event.detail.action.name;
         const rowId = event.detail.row.Id;
         switch (actionName) {
@@ -120,6 +128,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
                 break;
             default:
         }
+        this.loaded = true;
     }
 
     navigateToRecordPage(rowId) {
@@ -149,7 +158,26 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.openAddProductModal = false;
     }
 
+    closeWithToast() {
+        this.openAddProductModal = false;
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Success',
+            message: 'Products added to Price Book.',
+            variant: 'success'
+        }));
+    }
+
+    closeWithErrorToast() {
+        this.openAddProductModal = false;
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Error',
+            message: 'Error adding products to Price Book',
+            variant: 'error'
+        }));
+    }
+
     handleSave(event) {
+        this.loaded = false;
         this.saveDraftValues = event.detail.draftValues;
         const recordInputs = this.saveDraftValues.slice().map(draft => {
             const fields = Object.assign({}, draft);
@@ -157,17 +185,27 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         Promise.all(promises).then(() => {
-            this.ShowToast('Success', 'Price Book updated successfully', 'success', 'dismissable');
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: 'Price Book updated.',
+                variant: 'success'
+            }));
             this.saveDraftValues = [];
         }).catch(error => {
-            this.ShowToast('Error', error, 'error', 'dismissable');
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
         }).finally(() => {
             this.saveDraftValues = [];
             this.refreshPricebooks();
+            this.loaded = true;
         });
     }
 
     handleEntrySave(event) {
+        this.loaded = false;
         this.entryDraftValues = event.detail.draftValues;
         const recordInputs = this.entryDraftValues.slice().map(draft => {
             const fields = Object.assign({}, draft);
@@ -175,44 +213,57 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         Promise.all(promises).then(() => {
-            this.ShowToast('Success', 'Price Book Entry updated successfully', 'success', 'dismissable');
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: 'Price Book Entry updated.',
+                variant: 'success'
+            }));
             this.entryDraftValues = [];
         }).catch(error => {
-            this.ShowToast('Error', error, 'error', 'dismissable');
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
         }).finally(() => {
             this.entryDraftValues = [];
             this.loadPBEs();
+            this.loaded = true;
         });
-    }
- 
-    ShowToast(title, message, variant, mode){
-        const evt = new ShowToastEvent({
-            title: title,
-            message:message,
-            variant: variant,
-            mode: mode
-        });
-        this.dispatchEvent(evt);
     }
 
     refreshPricebooks() {
         refreshApex(this.refreshPriceBookData);
         this.openNewPBModal = false;
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Success',
+            message: 'Price Book added.',
+            variant: 'success'
+        }));
     }
 
     setupDiscountModal() {
+        this.loaded = false;
         let recordsToDiscount = this.refs.entries.getSelectedRows();
         let discountValue = this.template.querySelector('lightning-input').value;
         updatePriceBookEntries({
             discount: discountValue,
             entries: recordsToDiscount
         }).then(() => {
-            this.ShowToast('Success', 'Price Book Entries updated successfully', 'success', 'dismissable');
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: 'Price Book Entries updated.',
+                variant: 'success'
+            }));
         }).then(() => {
-            console.log(done);
             this.loadPBEs();
+            this.loaded = true;
         }).catch(error => {
-            console.log(error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
         });
     }
 
