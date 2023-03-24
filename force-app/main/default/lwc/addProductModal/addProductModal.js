@@ -46,9 +46,9 @@ export default class AddProductModal extends LightningElement {
             priceBookId: this.priceBookId,
             products: selectedRecords
         }).then(() => {
-            this.dispatchEvent(new CustomEvent('closesuccess'));
+            this.dispatchEvent(new CustomEvent('success'));
         }).catch(error => {
-            this.dispatchEvent(new CustomEvent('closeerror'));
+            this.dispatchEvent(new CustomEvent('error'));
         });
     }
 

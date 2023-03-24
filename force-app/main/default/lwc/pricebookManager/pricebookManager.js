@@ -171,7 +171,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.openAddProductModal = false;
         this.dispatchEvent(new ShowToastEvent({
             title: 'Error',
-            message: 'Error adding products to Price Book',
+            message: 'Error adding products to Price Book.',
             variant: 'error'
         }));
     }
