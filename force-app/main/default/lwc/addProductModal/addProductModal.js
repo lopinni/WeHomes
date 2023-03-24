@@ -1,6 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 
 import getAllProducts from "@salesforce/apex/WH_PricebookManagerController.getAllProducts";
+import insertProductsToPriceBook from "@salesforce/apex/WH_PricebookManagerController.insertProductsToPriceBook";
 
 const columns = [
     { label: 'Product Name', fieldName: 'Name' },
@@ -36,7 +37,16 @@ export default class AddProductModal extends LightningElement {
 
     addProducts() {
         let selectedRecords = this.template.querySelector("lightning-datatable").getSelectedRows();
-        console.log(selectedRecords);
+        insertProductsToPriceBook({
+            priceBookId: this.priceBookId,
+            products: selectedRecords
+        }).catch(error => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'error'
+            }));
+        });
     }
 
 }

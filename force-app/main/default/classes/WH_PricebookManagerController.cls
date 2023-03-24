@@ -42,4 +42,19 @@ public with sharing class WH_PricebookManagerController {
         ];
     }
 
+    @AuraEnabled
+    public static void insertProductsToPriceBook(String priceBookId, List<Product2> products){
+        List<PricebookEntry> priceBookEntries = new List<PricebookEntry>();
+        for(Product2 product : products) {
+            priceBookEntries.add(new PricebookEntry(
+                Product2Id = product.Id, Pricebook2Id = priceBookId, UnitPrice = 0
+            ));
+        }
+        try {
+            insert priceBookEntries;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
 }
