@@ -181,13 +181,12 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         Promise.all(promises).then(() => {
-            this.showSuccess('Price Book updated.');
             this.saveDraftValues = [];
         }).catch(error => {
             this.showError(error);
         }).finally(() => {
-            this.saveDraftValues = [];
             this.refreshPricebooks();
+            this.showSuccess('Price Books updated.');
             this.loaded = true;
         });
     }
@@ -201,13 +200,12 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         Promise.all(promises).then(() => {
-            this.showSuccess('Price Book Entry updated.');
             this.entryDraftValues = [];
         }).catch(error => {
             this.showError(error);
         }).finally(() => {
-            this.entryDraftValues = [];
             this.loadPBEs();
+            this.showSuccess('Price Book Entries updated.');
             this.loaded = true;
         });
     }

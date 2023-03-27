@@ -1,4 +1,5 @@
 import { LightningElement, api, wire } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import NAME_FIELD from '@salesforce/schema/Pricebook2.Name';
 import DESCRIPTION_FIELD from '@salesforce/schema/Pricebook2.Description';
@@ -51,6 +52,14 @@ export default class PricebookModal extends LightningElement {
         }
         this.template.querySelector('lightning-record-form').submit(fields);
         this.dispatchEvent(new CustomEvent('refresh'));
+    }
+
+    handleError() {
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Error',
+            message: 'Error creating Price Book.',
+            variant: 'error'
+        }));
     }
 
 }
