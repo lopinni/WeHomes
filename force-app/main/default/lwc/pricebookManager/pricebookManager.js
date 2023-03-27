@@ -21,7 +21,7 @@ const actions = [
 const pricebookColumns = [
     { label: 'Name', fieldName: 'Name', editable : 'true' },
     { label: 'Description', fieldName: 'Description', editable : 'true' },
-    { label: 'Active', fieldName: 'IsActive', type: 'boolean', editable : 'true' },
+    { label: 'Active', fieldName: 'IsActive', type: 'boolean' },
     { label: 'Standard', fieldName: 'IsStandard', type: 'boolean' },
     { label: 'Start Date', fieldName: 'StartDate__c', type: 'date', editable : 'true' },
     { label: 'End Date', fieldName: 'EndDate__c', type: 'date', editable : 'true' },
@@ -85,6 +85,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.loaded = false;
         getStandardPBEs().then(result => {
             this.priceBookEntryData = result;
+            console.log(result);
             this.loaded = true;
         }).catch(error => {
             this.showError(error);
@@ -107,7 +108,6 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.refreshPriceBookData = value;
         const { data, error } = value;
         if (data) {
-            console.log(data);
             this.pricebookData = data;
         } else if (error) {
             this.showError(error);
@@ -186,13 +186,14 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             this.showError(error);
         }).finally(() => {
             this.refreshPricebooks();
-            this.showSuccess('Price Books updated.');
             this.loaded = true;
+            this.showSuccess('Price Books updated.');
         });
     }
 
     handleEntrySave(event) {
         this.loaded = false;
+        console.log(event.detail.draftValues);
         this.entryDraftValues = event.detail.draftValues;
         const recordInputs = this.entryDraftValues.slice().map(draft => {
             const fields = Object.assign({}, draft);
@@ -205,13 +206,15 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             this.showError(error);
         }).finally(() => {
             this.loadPBEs();
-            this.showSuccess('Price Book Entries updated.');
             this.loaded = true;
+            this.showSuccess('Price Book Entries updated.');
         });
     }
 
     refreshPricebooks() {
-        refreshApex(this.refreshPriceBookData);
+        setTimeout(() => {
+            refreshApex(this.refreshPriceBookData);
+        }, "500");
         if(this.openNewPBModal) {
             this.openNewPBModal = false;
             this.showSuccess('Price Book added.');
@@ -226,10 +229,9 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             discount: discountValue,
             entries: recordsToDiscount
         }).then(() => {
-            this.showSuccess('Price Book Entries updated.');
-        }).then(() => {
             this.loadPBEs();
             this.loaded = true;
+            this.showSuccess('Price Book Entries updated.');
         }).catch(error => {
             this.showError(error);
         });

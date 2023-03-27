@@ -3,7 +3,6 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import NAME_FIELD from '@salesforce/schema/Pricebook2.Name';
 import DESCRIPTION_FIELD from '@salesforce/schema/Pricebook2.Description';
-import IS_ACTIVE_FIELD from '@salesforce/schema/Pricebook2.IsActive';
 import IS_STANDARD_FIELD from '@salesforce/schema/Pricebook2.IsStandard';
 import START_DATE_FIELD from '@salesforce/schema/Pricebook2.StartDate__c';
 import END_DATE_FIELD from '@salesforce/schema/Pricebook2.EndDate__c';
@@ -30,7 +29,6 @@ export default class PricebookModal extends LightningElement {
     fields = [
         NAME_FIELD, 
         DESCRIPTION_FIELD,
-        IS_ACTIVE_FIELD,
         IS_STANDARD_FIELD,
         START_DATE_FIELD,
         END_DATE_FIELD

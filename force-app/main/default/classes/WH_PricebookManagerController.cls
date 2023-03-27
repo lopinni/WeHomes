@@ -7,7 +7,7 @@ public with sharing class WH_PricebookManagerController {
         ];
     }
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled
     public static List<PricebookEntry> getStandardPBEs(){     
         return [
             SELECT Id, ProductName__c, ProductType__c, UnitPrice FROM PricebookEntry
@@ -17,7 +17,7 @@ public with sharing class WH_PricebookManagerController {
         ];
     }
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled
     public static List<PricebookEntry> getPBEsById(String Id){     
         return [
             SELECT Id, ProductName__c, ProductType__c, UnitPrice FROM PricebookEntry
