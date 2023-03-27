@@ -65,17 +65,29 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.loadPBEs();
     }
 
+    showError(error) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Error',
+            message: error,
+            variant: 'error'
+        }));
+    }
+
+    showSuccess(message) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Success',
+            message: message,
+            variant: 'success'
+        }));
+    }
+
     loadPBEs() {
         this.loaded = false;
         getStandardPBEs().then(result => {
             this.priceBookEntryData = result;
             this.loaded = true;
         }).catch(error => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error,
-                variant: 'error'
-            }));
+            this.showError(error);
         });
     }
 
@@ -85,11 +97,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             this.priceBookEntryData = result;
             this.loaded = true;
         }).catch(error => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error,
-                variant: 'error'
-            }));
+            this.showError(error);
         });
     }
 
@@ -102,11 +110,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             console.log(data);
             this.pricebookData = data;
         } else if (error) {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error,
-                variant: 'error'
-            }));
+            this.showError(error);
         }
         this.loaded = true;
     }
@@ -160,20 +164,12 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     closeWithToast() {
         this.openAddProductModal = false;
-        this.dispatchEvent(new ShowToastEvent({
-            title: 'Success',
-            message: 'Products added to Price Book.',
-            variant: 'success'
-        }));
+        this.showSuccess('Products added to Price Book.');
     }
 
     closeWithErrorToast() {
         this.openAddProductModal = false;
-        this.dispatchEvent(new ShowToastEvent({
-            title: 'Error',
-            message: 'Error adding products to Price Book.',
-            variant: 'error'
-        }));
+        this.showError('Error adding products to Price Book.');
     }
 
     handleSave(event) {
@@ -185,18 +181,10 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         Promise.all(promises).then(() => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Success',
-                message: 'Price Book updated.',
-                variant: 'success'
-            }));
+            this.showSuccess('Price Book updated.');
             this.saveDraftValues = [];
         }).catch(error => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error,
-                variant: 'error'
-            }));
+            this.showError(error);
         }).finally(() => {
             this.saveDraftValues = [];
             this.refreshPricebooks();
@@ -213,18 +201,10 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         Promise.all(promises).then(() => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Success',
-                message: 'Price Book Entry updated.',
-                variant: 'success'
-            }));
+            this.showSuccess('Price Book Entry updated.');
             this.entryDraftValues = [];
         }).catch(error => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error,
-                variant: 'error'
-            }));
+            this.showError(error);
         }).finally(() => {
             this.entryDraftValues = [];
             this.loadPBEs();
@@ -234,12 +214,10 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     refreshPricebooks() {
         refreshApex(this.refreshPriceBookData);
-        this.openNewPBModal = false;
-        this.dispatchEvent(new ShowToastEvent({
-            title: 'Success',
-            message: 'Price Book added.',
-            variant: 'success'
-        }));
+        if(this.openNewPBModal) {
+            this.openNewPBModal = false;
+            this.showSuccess('Price Book added.');
+        }
     }
 
     setupDiscountModal() {
@@ -250,20 +228,12 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             discount: discountValue,
             entries: recordsToDiscount
         }).then(() => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Success',
-                message: 'Price Book Entries updated.',
-                variant: 'success'
-            }));
+            this.showSuccess('Price Book Entries updated.');
         }).then(() => {
             this.loadPBEs();
             this.loaded = true;
         }).catch(error => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error,
-                variant: 'error'
-            }));
+            this.showError(error);
         });
     }
 
