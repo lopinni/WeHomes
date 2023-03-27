@@ -10,6 +10,7 @@ import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
 import getPricebooks from "@salesforce/apex/WH_PricebookManagerController.getPricebooks";
 import getStandardPBEs from "@salesforce/apex/WH_PricebookManagerController.getStandardPBEs";
 import getPBEsById from "@salesforce/apex/WH_PricebookManagerController.getPBEsById";
+import getProductsByType from "@salesforce/apex/WH_PricebookManagerController.getProductsByType";
 import updatePriceBookEntries from "@salesforce/apex/WH_PricebookManagerController.updatePriceBookEntries";
 
 const actions = [
@@ -48,6 +49,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     entryColumns = entryColumns;
 
     @track priceBookEntryData;
+    @track products;
 
     openNewPBModal = false;
     openAddProductModal = false;
@@ -85,7 +87,6 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.loaded = false;
         getStandardPBEs().then(result => {
             this.priceBookEntryData = result;
-            console.log(result);
             this.loaded = true;
         }).catch(error => {
             this.showError(error);
@@ -94,12 +95,16 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     loadPBEsById(id) {
         this.loaded = false;
-        getPBEsById({ Id: id }).then(result => {
-            this.priceBookEntryData = result;
-            this.loaded = true;
-        }).catch(error => {
-            this.showError(error);
-        });
+        if(id != undefined) {
+            getPBEsById({ Id: id }).then(result => {
+                this.priceBookEntryData = result;
+                this.loaded = true;
+            }).catch(error => {
+                this.showError(error);
+            });
+        } else {
+            this.loadPBEs();
+        }
     }
 
     @wire(getPricebooks)
@@ -118,17 +123,16 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     handleRowAction(event) {
         this.loaded = false;
         const actionName = event.detail.action.name;
-        const rowId = event.detail.row.Id;
+        this.priceBookToAdd = event.detail.row.Id;
         switch (actionName) {
             case 'view':
-                this.navigateToRecordPage(rowId);
+                this.navigateToRecordPage(this.priceBookToAdd);
                 break;
             case 'products':
-                this.loadPBEsById(rowId);
+                this.loadPBEsById(this.priceBookToAdd);
                 break;
             case 'add':
-                this.priceBookToAdd = rowId;
-                this.openAddProduct();
+                this.openAddProduct(event.detail.row.TypeInfo__c);
                 break;
             default:
         }
@@ -154,7 +158,14 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.openNewPBModal = false;
     }
 
-    openAddProduct() {
+    openAddProduct(type) {
+        this.loaded = false;
+        getProductsByType({ type: type }).then(result => {
+            this.products = result;
+            this.loaded = true;
+        }).catch(error => {
+            this.showError(error);
+        });
         this.openAddProductModal = true;
     }
 
@@ -164,11 +175,13 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
 
     closeWithToast() {
         this.openAddProductModal = false;
+        this.loadPBEsById(this.priceBookToAdd);
         this.showSuccess('Products added to Price Book.');
     }
 
     closeWithErrorToast() {
         this.openAddProductModal = false;
+        this.loadPBEsById(this.priceBookToAdd);
         this.showError('Error adding products to Price Book.');
     }
 
@@ -205,7 +218,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         }).catch(error => {
             this.showError(error);
         }).finally(() => {
-            this.loadPBEs();
+            this.loadPBEsById(this.priceBookToAdd);
             this.loaded = true;
             this.showSuccess('Price Book Entries updated.');
         });
@@ -217,7 +230,6 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         }, "500");
         if(this.openNewPBModal) {
             this.openNewPBModal = false;
-            this.showSuccess('Price Book added.');
         }
     }
 
@@ -229,7 +241,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
             discount: discountValue,
             entries: recordsToDiscount
         }).then(() => {
-            this.loadPBEs();
+            this.loadPBEsById(this.priceBookToAdd);
             this.loaded = true;
             this.showSuccess('Price Book Entries updated.');
         }).catch(error => {

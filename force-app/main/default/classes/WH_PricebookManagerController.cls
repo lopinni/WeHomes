@@ -26,13 +26,23 @@ public with sharing class WH_PricebookManagerController {
     }
 
     @AuraEnabled(Cacheable=true)
-    public static List<Product2> getAllProducts(){
-        List<Product2> product2s = [
-            SELECT Id, Name, RecordType.Name, DisplayUrl, IsActive, Family, ( SELECT UnitPrice, IsActive FROM PricebookEntries )
-            FROM Product2
-            WHERE RecordType.Name != null
-        ];
-        return product2s;
+    public static List<Product2> getProductsByType(String type){
+        System.debug(type);
+        if(type == 'Business Premise PB') {
+            return [
+                SELECT Id, Name, RecordType.Name, DisplayUrl, IsActive, Family, ( SELECT UnitPrice, IsActive FROM PricebookEntries )
+                FROM Product2
+                WHERE RecordType.Name = 'Business Premises'
+            ];
+        } else if(type == 'Apartment PB') {
+            return [
+                SELECT Id, Name, RecordType.Name, DisplayUrl, IsActive, Family, ( SELECT UnitPrice, IsActive FROM PricebookEntries )
+                FROM Product2
+                WHERE RecordType.Name = 'Apartments'
+            ];
+        } else {
+            return new List<Product2>();
+        }
     }
 
     @AuraEnabled(Cacheable=true)
@@ -61,7 +71,7 @@ public with sharing class WH_PricebookManagerController {
     public static void updatePriceBookEntries(Integer discount, List<PricebookEntry> entries){
         Double percentage = discount * 0.01;
         for(PricebookEntry pbe : entries) {
-            pbe.UnitPrice = pbe.UnitPrice - (pbe.UnitPrice * percentage);
+            pbe.UnitPrice = (pbe.UnitPrice - (pbe.UnitPrice * percentage)).setScale(2);
         }
         try {
             update entries;

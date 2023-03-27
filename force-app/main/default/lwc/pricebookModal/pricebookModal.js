@@ -55,8 +55,16 @@ export default class PricebookModal extends LightningElement {
     handleError() {
         this.dispatchEvent(new ShowToastEvent({
             title: 'Error',
-            message: 'Error creating Price Book.',
+            message: 'Error creating Price Book. Check start and end date.',
             variant: 'error'
+        }));
+    }
+
+    handleSuccess() {
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Success',
+            message: 'Price Book successfully added.',
+            variant: 'success'
         }));
     }
 

@@ -70,7 +70,7 @@
                                     <div class="slds-page-header__control">
                                         <lightning-input
                                             type="number"
-                                            min="0"
+                                            min="-100"
                                             max="100"
                                             step="1"
                                             variant="label-hidden"
@@ -101,6 +101,7 @@
                 onrefresh={refreshPricebooks}
             ></c-pricebook-modal>
             <c-add-product-modal 
+                product-data={products}
                 show={openAddProductModal} 
                 onclose={closeAddProduct} 
                 price-book-id={priceBookToAdd}
