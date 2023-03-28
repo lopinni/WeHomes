@@ -10,7 +10,17 @@ export default class PricebookChart extends LightningElement {
 
     rendered = false;
 
-    @api pricebooks;
+    @api
+    get pricebooks() {
+        return this._pricebooks;
+    }
+    set pricebooks(value) {
+        this._pricebooks = value;
+        if (this.rendered) {
+            this.clearChart();
+            this.initializeChart();
+        }
+    }
 
     renderedCallback() {
         if (this.rendered) {
@@ -122,6 +132,11 @@ export default class PricebookChart extends LightningElement {
             .attr("y2", height)
             .attr("stroke", "purple")
             .style("stroke-dasharray", ("3, 3"));
+    }
+
+    clearChart() {
+        var svg = d3.select(this.template.querySelector('svg.chart'));
+        svg.selectAll("*").remove();
     }
 
 }
