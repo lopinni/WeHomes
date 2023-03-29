@@ -122,7 +122,7 @@ export default class PricebookChart extends LightningElement {
                 .on('mouseover', function (d, i) {
                     d3.select(this).transition()
                          .duration('50')
-                         .attr('opacity', '.85')
+                         .attr('opacity', '.8')
                 })
                 .on('mouseout', function (d, i) {
                     d3.select(this).transition()
