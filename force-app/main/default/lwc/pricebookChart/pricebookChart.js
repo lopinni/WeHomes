@@ -91,7 +91,7 @@ export default class PricebookChart extends LightningElement {
         const rectangleHeight = this.svgHeight / (pricebookData.length * 3);
         pricebookData.forEach(element => {
             svg.append("rect")
-                .attr("rx", 10)
+                .attr("rx", 5)
                 .attr("x", () => {
                     return x(Date.parse(element.StartDate__c));
                 })
