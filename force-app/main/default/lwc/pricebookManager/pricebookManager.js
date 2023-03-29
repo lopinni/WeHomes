@@ -140,6 +140,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     }
 
     handleShow(event) {
+        this.priceBookToAdd = event.detail;
         this.loadPBEsById(event.detail);
     }
 
