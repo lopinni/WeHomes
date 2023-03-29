@@ -106,7 +106,7 @@ export default class PricebookChart extends LightningElement {
                     if(element.IsActive == true) {
                         return "#feb8ab";
                     } else {
-                        return "#ecebea";
+                        return "#c9c7c5";
                     }
                 })
                 .attr("stroke-width", 5)
@@ -118,6 +118,19 @@ export default class PricebookChart extends LightningElement {
                     } else {
                         return "#dddbda";
                     }
+                })
+                .on('mouseover', function (d, i) {
+                    d3.select(this).transition()
+                         .duration('50')
+                         .attr('opacity', '.85')
+                })
+                .on('mouseout', function (d, i) {
+                    d3.select(this).transition()
+                         .duration('50')
+                         .attr('opacity', '1')
+                })
+                .on('click', () => {
+                    this.dispatchEvent(new CustomEvent('show', { detail: element.Id }));
                 });
         });
 
@@ -190,7 +203,7 @@ export default class PricebookChart extends LightningElement {
             .attr("height", 20)
             .attr("width", 20)
             .style("fill", "#dddbda")
-            .attr("stroke", "#ecebea")
+            .attr("stroke", "#c9c7c5")
             .attr("stroke-width", 5);
 
         svg.append("text")

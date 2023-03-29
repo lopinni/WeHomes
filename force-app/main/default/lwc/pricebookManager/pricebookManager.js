@@ -139,6 +139,10 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.loaded = true;
     }
 
+    handleShow(event) {
+        this.loadPBEsById(event.detail);
+    }
+
     navigateToRecordPage(rowId) {
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
