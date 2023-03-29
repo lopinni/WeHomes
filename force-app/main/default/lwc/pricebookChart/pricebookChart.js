@@ -37,7 +37,6 @@ export default class PricebookChart extends LightningElement {
         ])
             .then(() => {
                 this.initializeChart();
-                this.initializeLegend();
             })
             .catch((error) => {
                 this.dispatchEvent(
@@ -152,80 +151,6 @@ export default class PricebookChart extends LightningElement {
     clearChart() {
         var svg = d3.select(this.template.querySelector('svg.chart'));
         svg.selectAll("*").remove();
-    }
-
-    initializeLegend() {
-        var svg = d3.select(this.template.querySelector('svg.legend'));
-        svg.append("rect")
-            .attr("x", 0)
-            .attr("y", 5)
-            .attr("height", 20)
-            .attr("width", 20)
-            .style("fill", "#57a3fd");
-
-        svg.append("text")
-            .attr("x", 25)
-            .attr("y", 15)
-            .attr("dy", ".35em")
-            .text("- Business Premise PB");
-
-        svg.append("rect")
-            .attr("x", 175)
-            .attr("y", 5)
-            .attr("height", 20)
-            .attr("width", 20)
-            .style("fill", "#91db8b");
-
-        svg.append("text")
-            .attr("x", 200)
-            .attr("y", 15)
-            .attr("dy", ".35em")
-            .text("- Apartment PB");
-
-        svg.append("rect")
-            .attr("x", 315)
-            .attr("y", 5)
-            .attr("height", 20)
-            .attr("width", 20)
-            .style("fill", "#dddbda")
-            .attr("stroke", "#feb8ab")
-            .attr("stroke-width", 5);
-
-        svg.append("text")
-            .attr("x", 345)
-            .attr("y", 15)
-            .attr("dy", ".35em")
-            .text("- Active");
-
-        svg.append("rect")
-            .attr("x", 410)
-            .attr("y", 5)
-            .attr("height", 20)
-            .attr("width", 20)
-            .style("fill", "#dddbda")
-            .attr("stroke", "#c9c7c5")
-            .attr("stroke-width", 5);
-
-        svg.append("text")
-            .attr("x", 440)
-            .attr("y", 15)
-            .attr("dy", ".35em")
-            .text("- Not active");
-
-        svg.append("line")
-            .attr("x1", 530)
-            .attr("x2", 550)
-            .attr("y1", 15)
-            .attr("y2", 15)
-            .attr("stroke", "purple")
-            .style("stroke-dasharray", ("3, 3"));
-
-        svg.append("text")
-            .attr("x", 555)
-            .attr("y", 15)
-            .attr("dy", ".35em")
-            .text("Today");
-        
     }
 
 }
