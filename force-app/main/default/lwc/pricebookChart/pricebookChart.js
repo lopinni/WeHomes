@@ -5,7 +5,7 @@ import D3CSS from '@salesforce/resourceUrl/D3CSS';
 import D3JS from '@salesforce/resourceUrl/D3JS';
 
 export default class PricebookChart extends LightningElement {
-    svgWidth = 800;
+    svgWidth = 900;
     svgHeight = 300;
 
     legendWidth = 600;
