@@ -5,7 +5,7 @@ import D3CSS from '@salesforce/resourceUrl/D3CSS';
 import D3JS from '@salesforce/resourceUrl/D3JS';
 
 export default class PricebookChart extends LightningElement {
-    svgWidth = 900;
+    svgWidth = 1000;
     svgHeight = 300;
 
     legendWidth = 600;
@@ -60,6 +60,7 @@ export default class PricebookChart extends LightningElement {
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
                     .append("g")
+                        .attr("class", "axis")
                         .style("font-size", "14px")
                         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -73,14 +74,15 @@ export default class PricebookChart extends LightningElement {
 
         const x = d3.scaleTime()
                     .domain([dateMin, dateMax])
-                    .range([150, width]);
+                    .range([160, width])
+                    .nice();
 
         const y = d3.scaleBand()
                     .domain(pricebookData.map(d => d.Name))
                     .range([0, height])
                     .padding(0.2);
 
-        svg.call(d3.axisBottom(x));
+        svg.call(d3.axisBottom(x).ticks(5));
 
         svg.append("g")
             .style("font-size", "14px")
