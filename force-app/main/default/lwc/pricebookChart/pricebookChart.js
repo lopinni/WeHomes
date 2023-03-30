@@ -122,13 +122,15 @@ export default class PricebookChart extends LightningElement {
                 })
                 .on('mouseover', function (d, i) {
                     d3.select(this).transition()
-                         .duration('50')
-                         .attr('opacity', '.8')
+                        .duration('50')
+                        .attr('opacity', '.8');
+                    d3.select(this).style("cursor", "pointer"); 
                 })
                 .on('mouseout', function (d, i) {
                     d3.select(this).transition()
-                         .duration('50')
-                         .attr('opacity', '1')
+                        .duration('50')
+                        .attr('opacity', '1');
+                    d3.select(this).style("cursor", "default"); 
                 })
                 .on('click', () => {
                     this.dispatchEvent(new CustomEvent('show', { detail: element.Id }));
