@@ -4,6 +4,8 @@ import { loadScript, loadStyle } from 'lightning/platformResourceLoader';
 import D3CSS from '@salesforce/resourceUrl/D3CSS';
 import D3JS from '@salesforce/resourceUrl/D3JS';
 
+import LIBRARY_LOAD_ERROR from '@salesforce/label/c.Library_Loading_Error';
+
 export default class PricebookChart extends LightningElement {
     svgWidth = 1000;
     svgHeight = 300;
@@ -41,7 +43,7 @@ export default class PricebookChart extends LightningElement {
             .catch((error) => {
                 this.dispatchEvent(
                     new ShowToastEvent({
-                        title: 'Error loading libraries',
+                        title: LIBRARY_LOAD_ERROR,
                         message: error.message,
                         variant: 'error'
                     })

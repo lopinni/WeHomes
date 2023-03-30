@@ -9,6 +9,11 @@ import END_DATE_FIELD from '@salesforce/schema/Pricebook2.EndDate__c';
 
 import getProductRecordTypeByName from "@salesforce/apex/WH_PricebookManagerController.getProductRecordTypeByName";
 
+import ERROR from '@salesforce/label/c.Error';
+import SUCCESS from '@salesforce/label/c.Success';
+import CREATE_PB_ERROR_MESSAGE from '@salesforce/label/c.Create_PB_Error_Message';
+import CREATE_PB_SUCCESS_MESSAGE from '@salesforce/label/c.Create_PB_Success_Message';
+
 export default class PricebookModal extends LightningElement {
 
     picklistValue = 'apartments';
@@ -54,16 +59,16 @@ export default class PricebookModal extends LightningElement {
 
     handleError() {
         this.dispatchEvent(new ShowToastEvent({
-            title: 'Error',
-            message: 'Error creating Price Book. Check start and end date.',
+            title: ERROR,
+            message: CREATE_PB_ERROR_MESSAGE,
             variant: 'error'
         }));
     }
 
     handleSuccess() {
         this.dispatchEvent(new ShowToastEvent({
-            title: 'Success',
-            message: 'Price Book successfully added.',
+            title: SUCCESS,
+            message: CREATE_PB_SUCCESS_MESSAGE,
             variant: 'success'
         }));
     }
