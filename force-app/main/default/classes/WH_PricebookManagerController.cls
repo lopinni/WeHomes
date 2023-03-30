@@ -30,20 +30,25 @@ public with sharing class WH_PricebookManagerController {
         ];
     }
 
-    @AuraEnabled(Cacheable=true)
-    public static List<Product2> getProductsByType(String type){
+    @AuraEnabled
+    public static List<Product2> getProductsByType(String type, String pricebookId){
         String typeToSearch;
         if(type == BUSINESS_PRICEBOOK_TYPE) {
             typeToSearch = BUSINESS_PRODUCT_TYPE;
         } else if(type == APARTMENT_PRICEBOOK_TYPE) {
             typeToSearch = APARTMENT_PRODUCT_TYPE;
         } else {
-            return new List<Product2>();
+            return [SELECT Id, Name FROM Product2];
         }
         return [
-            SELECT Id, Name, RecordType.Name, DisplayUrl, IsActive, Family, ( SELECT UnitPrice, IsActive FROM PricebookEntries )
+            SELECT Id, Name
             FROM Product2
             WHERE RecordType.Name =: typeToSearch
+            AND Id NOT IN (
+                SELECT Product2Id 
+                FROM PricebookEntry 
+                WHERE Pricebook2Id =: pricebookId
+            ) 
         ];
     }
 

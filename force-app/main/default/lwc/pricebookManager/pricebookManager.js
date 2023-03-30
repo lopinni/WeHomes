@@ -62,6 +62,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
     openNewPBModal = false;
     openAddProductModal = false;
     priceBookToAdd;
+    typeToAdd;
 
     saveDraftValues = [];
     entryDraftValues = [];
@@ -132,6 +133,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.loaded = false;
         const actionName = event.detail.action.name;
         this.priceBookToAdd = event.detail.row.Id;
+        this.typeToAdd = event.detail.row.TypeInfo__c;
         switch (actionName) {
             case 'view':
                 this.navigateToRecordPage(this.priceBookToAdd);
@@ -140,7 +142,7 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
                 this.loadPBEsById(this.priceBookToAdd);
                 break;
             case 'add':
-                this.openAddProduct(event.detail.row.TypeInfo__c);
+                this.openAddProduct();
                 break;
             default:
         }
@@ -171,14 +173,22 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.openNewPBModal = false;
     }
 
-    openAddProduct(type) {
+    loadProducts() {
         this.loaded = false;
-        getProductsByType({ type: type }).then(result => {
+        this.products = [];
+        getProductsByType({ 
+            type: this.typeToAdd, 
+            pricebookId: this.priceBookToAdd 
+        }).then(result => {
             this.products = result;
             this.loaded = true;
         }).catch(error => {
             this.showError(error);
         });
+    }
+
+    openAddProduct() {
+        this.loadProducts();
         this.openAddProductModal = true;
     }
 
