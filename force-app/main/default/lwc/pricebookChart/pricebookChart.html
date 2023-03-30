@@ -1,0 +1,90 @@
+<template>
+    <div class="slds-page-header slds-p-top_medium">
+        <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span> Price Books </span>
+                                    <span class="slds-page-header__title slds-truncate" 
+                                            title="Recently Viewed"
+                                    >
+                                        Active Price Books Chart
+                                    </span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-align_absolute-center">
+            <svg
+                class="chart"
+                width={svgWidth}
+                height={svgHeight}
+                lwc:dom="manual"
+            ></svg>
+        </div>
+        <div class="slds-align_absolute-center">
+            <svg
+                class="legend"
+                width={legendWidth}
+                height={legendHeight}
+            >
+                <rect 
+                    x="0" y="5" 
+                    height="20" width="20" 
+                    style="fill: #57a3fd;"
+                ></rect>
+                <text 
+                    x="25" y="15" 
+                    dy=".35em"
+                > - Business Premise PB </text>
+                <rect 
+                    x="175" y="5" 
+                    height="20" width="20" 
+                    style="fill: #91db8b;"
+                ></rect>
+                <text 
+                    x="200" y="15" 
+                    dy=".35em"
+                > - Apartment PB </text>
+                <rect 
+                    x="315" y="5" 
+                    height="20" width="20" 
+                    style="fill: #dddbda;" 
+                    stroke="#feb8ab" 
+                    stroke-width="5"
+                ></rect>
+                <text 
+                    x="345" y="15" 
+                    dy=".35em"
+                > - Active </text>
+                <rect 
+                    x="410" y="5" 
+                    height="20" width="20" 
+                    style="fill: #dddbda;" 
+                    stroke="#c9c7c5" 
+                    stroke-width="5"
+                ></rect>
+                <text 
+                    x="440" y="15" 
+                    dy=".35em"
+                > - Not active </text>
+                <line 
+                    x1="530" x2="550" 
+                    y1="15" y2="15" 
+                    stroke="purple" 
+                    style="stroke-dasharray: 3, 3"
+                ></line>
+                <text 
+                    x="555" y="15" 
+                    dy=".35em"
+                > Today </text>
+            </svg>
+        </div>
+    </div>
+</template>

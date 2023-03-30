@@ -1,5 +1,10 @@
 public with sharing class WH_PricebookManagerController {
 
+    private static final String BUSINESS_PRICEBOOK_TYPE = 'Business Premise PB';
+    private static final String APARTMENT_PRICEBOOK_TYPE = 'Apartment PB';
+    private static final String BUSINESS_PRODUCT_TYPE = 'Business Premises';
+    private static final String APARTMENT_PRODUCT_TYPE = 'Apartments';
+
     @AuraEnabled(Cacheable=true)
     public static List<Pricebook2> getPricebooks(){     
         return [
@@ -25,24 +30,26 @@ public with sharing class WH_PricebookManagerController {
         ];
     }
 
-    @AuraEnabled(Cacheable=true)
-    public static List<Product2> getProductsByType(String type){
-        System.debug(type);
-        if(type == 'Business Premise PB') {
-            return [
-                SELECT Id, Name, RecordType.Name, DisplayUrl, IsActive, Family, ( SELECT UnitPrice, IsActive FROM PricebookEntries )
-                FROM Product2
-                WHERE RecordType.Name = 'Business Premises'
-            ];
-        } else if(type == 'Apartment PB') {
-            return [
-                SELECT Id, Name, RecordType.Name, DisplayUrl, IsActive, Family, ( SELECT UnitPrice, IsActive FROM PricebookEntries )
-                FROM Product2
-                WHERE RecordType.Name = 'Apartments'
-            ];
+    @AuraEnabled
+    public static List<Product2> getProductsByType(String type, String pricebookId){
+        String typeToSearch;
+        if(type == BUSINESS_PRICEBOOK_TYPE) {
+            typeToSearch = BUSINESS_PRODUCT_TYPE;
+        } else if(type == APARTMENT_PRICEBOOK_TYPE) {
+            typeToSearch = APARTMENT_PRODUCT_TYPE;
         } else {
-            return new List<Product2>();
+            return [SELECT Id, Name FROM Product2];
         }
+        return [
+            SELECT Id, Name
+            FROM Product2
+            WHERE RecordType.Name =: typeToSearch
+            AND Id NOT IN (
+                SELECT Product2Id 
+                FROM PricebookEntry 
+                WHERE Pricebook2Id =: pricebookId
+            ) 
+        ];
     }
 
     @AuraEnabled(Cacheable=true)

@@ -6,43 +6,49 @@
         <div class="slds-grid slds-gutters">
             <div class="slds-col slds-size_1-of-12"> </div>
             <div class="slds-col slds-size_10-of-12">
-                <div class="slds-page-header">
-                    <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
-                        <div class="slds-page-header__col-title">
-                            <div class="slds-media">
-                                <div class="slds-media__body">
-                                    <div class="slds-page-header__name">
-                                        <div class="slds-page-header__name-title">
-                                            <h1>
-                                                <span> Price Books </span>
-                                                <span class="slds-page-header__title slds-truncate" 
-                                                        title="Recently Viewed"
-                                                >
-                                                    All Price Books
-                                                </span>
-                                            </h1>
+                <c-pricebook-chart 
+                    pricebooks={pricebookData}
+                    onshow={handleShow}
+                > </c-pricebook-chart>
+                <div class="slds-p-top_medium">
+                    <div class="slds-page-header slds-p-top_medium">
+                        <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
+                            <div class="slds-page-header__col-title">
+                                <div class="slds-media">
+                                    <div class="slds-media__body">
+                                        <div class="slds-page-header__name">
+                                            <div class="slds-page-header__name-title">
+                                                <h1>
+                                                    <span> Price Books </span>
+                                                    <span class="slds-page-header__title slds-truncate" 
+                                                            title="Recently Viewed"
+                                                    >
+                                                        All Price Books
+                                                    </span>
+                                                </h1>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="slds-page-header__col-actions">
-                            <div class="slds-page-header__controls">
-                                <div class="slds-page-header__control">
-                                    <button class="slds-button slds-button_neutral" onclick={openNewPB}> New </button>
+                            <div class="slds-page-header__col-actions">
+                                <div class="slds-page-header__controls">
+                                    <div class="slds-page-header__control">
+                                        <button class="slds-button slds-button_neutral" onclick={openNewPB}> New </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <lightning-datatable
+                            key-field="Id"
+                            data={pricebookData}
+                            columns={pricebookColumns}
+                            onrowaction={handleRowAction}
+                            draft-values={saveDraftValues}
+                            onsave={handleSave}
+                            hide-checkbox-column
+                        > </lightning-datatable>
                     </div>
-                    <lightning-datatable
-                        key-field="Id"
-                        data={pricebookData}
-                        columns={pricebookColumns}
-                        onrowaction={handleRowAction}
-                        draft-values={saveDraftValues}
-                        onsave={handleSave}
-                        hide-checkbox-column
-                    > </lightning-datatable>
                 </div>
                 <div class="slds-p-top_medium">
                     <div class="slds-page-header slds-p-top_medium">
