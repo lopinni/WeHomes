@@ -8,9 +8,6 @@ public with sharing class WH_SendQuoteController {
         EmailTemplate emailTemplate = [
             SELECT Id FROM EmailTemplate WHERE DeveloperName = :EMAIL_TEMPLATE_NAME WITH SECURITY_ENFORCED
         ];
-        Contact contact = [
-            SELECT Id, Email FROM Contact WHERE Id = :contactId WITH SECURITY_ENFORCED
-        ];
         List<QuoteLineItem> quoteLineItems = [
             SELECT Product2Id FROM QuoteLineItem WHERE QuoteId = :quoteId WITH SECURITY_ENFORCED
         ];
@@ -22,7 +19,7 @@ public with sharing class WH_SendQuoteController {
         Messaging.SingleEmailMessage[] messages = new List<Messaging.SingleEmailMessage>();
         Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
         message.setTemplateId(emailTemplate.Id);
-        message.targetObjectId = contact.Id;
+        message.targetObjectId = contactId;
         message.setWhatId(quoteId);
         message.setFileAttachments(attachments);
         message.setEntityAttachments(contentVersionIds);
@@ -52,18 +49,25 @@ public with sharing class WH_SendQuoteController {
 
     private static List<Id> getContentVersionIds(List<Id> productIds) {
         List<Id> contentVersionIds = new List<Id>();
-        List<ContentDocumentLink> contentDocumentLinks = [
-            SELECT Id, 
-                ContentDocument.LatestPublishedVersion.Id, 
-                ContentDocument.LatestPublishedVersion.Title,
-                ContentDocument.LatestPublishedVersion.Description, 
-                ContentDocument.LatestPublishedVersion.FileExtension
-            FROM ContentDocumentLink 
-            WHERE LinkedEntityId IN :productIds
+        List<ContentVersion> contentDocuments = [
+            SELECT
+                Id,
+                Title,
+                ContentDocumentId,
+                FileType, 
+                ContentSize,
+                FileExtension,
+                VersionNumber,
+                CreatedDate,
+                VersionData,
+                FirstPublishLocationId
+            FROM ContentVersion
+            WHERE FirstPublishLocationId IN :productIds
             WITH SECURITY_ENFORCED
+            ORDER BY CreatedDate DESC
         ];
-        for(ContentDocumentLink cdl : contentDocumentLinks) {
-            contentVersionIds.add(cdl.ContentDocument.LatestPublishedVersionId);
+        for(ContentVersion contentVersion : contentDocuments) {
+            contentVersionIds.add(contentVersion.Id);
         }
         return contentVersionIds;
     }
