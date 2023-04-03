@@ -1,11 +1,12 @@
 public with sharing class WH_SendQuoteController {
 
-    private static final String emailTemplateName = 'Quote_Offer';
+    private static final String EMAIL_TEMPLATE_NAME = 'Quote_Offer';
+    private static final String NEW_STATUS = 'Presented';
     
     @AuraEnabled
     public static void sendQuoteEmail(String quoteId, String contactId) {
         EmailTemplate emailTemplate = [
-            SELECT Id FROM EmailTemplate WHERE DeveloperName = :emailTemplateName WITH SECURITY_ENFORCED
+            SELECT Id FROM EmailTemplate WHERE DeveloperName = :EMAIL_TEMPLATE_NAME WITH SECURITY_ENFORCED
         ];
         Contact contact = [
             SELECT Id, Email FROM Contact WHERE Id = :contactId WITH SECURITY_ENFORCED
@@ -18,16 +19,22 @@ public with sharing class WH_SendQuoteController {
         ];
         List<Messaging.EmailFileAttachment> attachments = insertAttachments(quoteDocuments);
         List<Id> contentVersionIds = getContentVersionIds(getQuoteProducts(quoteLineItems));
+        Messaging.SingleEmailMessage[] messages = new List<Messaging.SingleEmailMessage>();
+        Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+        message.setTemplateId(emailTemplate.Id);
+        message.targetObjectId = contact.Id;
+        message.setWhatId(quoteId);
+        message.setFileAttachments(attachments);
+        message.setEntityAttachments(contentVersionIds);
+        messages.add(message);
         try {
-            Messaging.SingleEmailMessage[] messages = getSingleEmailMessage(
-                    emailTemplate, contact, quoteId, attachments, contentVersionIds
-                );
             if (!messages.isEmpty()) {
                 Messaging.sendEmail(messages);
+                updateQuoteStatus(quoteId);
             } else {
                 throw new AuraHandledException('Email has not been sent');
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }
@@ -69,22 +76,16 @@ public with sharing class WH_SendQuoteController {
         return productIds;
     }
 
-    private static Messaging.SingleEmailMessage[] getSingleEmailMessage(
-                EmailTemplate emailTemplate, 
-                Contact contact, 
-                Id quoteId,
-                List<Messaging.EmailFileAttachment> attachments, 
-                List<Id> contentVersionIds 
-            ) {
-        Messaging.SingleEmailMessage[] messages = new List<Messaging.SingleEmailMessage>();
-        Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-        message.setTemplateId(emailTemplate.Id);
-        message.targetObjectId = contact.Id;
-        message.setWhatId(quoteId);
-        message.setFileAttachments(attachments);
-        message.setEntityAttachments(contentVersionIds);
-        messages.add(message);
-        return messages;
+    private static void updateQuoteStatus(String quoteId) {
+        Quote quote = [
+            SELECT Id, Status FROM Quote WHERE Id =: quoteId WITH SECURITY_ENFORCED
+        ];
+        quote.Status = NEW_STATUS;
+        try {
+            update quote;
+        }catch(Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
 }
