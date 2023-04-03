@@ -5,16 +5,16 @@ public with sharing class WH_SendQuoteController {
     @AuraEnabled
     public static void sendQuoteEmail(String quoteId, String contactId) {
         EmailTemplate emailTemplate = [
-            SELECT Id FROM EmailTemplate WHERE DeveloperName = :emailTemplateName
+            SELECT Id FROM EmailTemplate WHERE DeveloperName = :emailTemplateName WITH SECURITY_ENFORCED
         ];
         Contact contact = [
-            SELECT Id, Email FROM Contact WHERE Id = :contactId
+            SELECT Id, Email FROM Contact WHERE Id = :contactId WITH SECURITY_ENFORCED
         ];
         List<QuoteLineItem> quoteLineItems = [
-            SELECT Product2Id FROM QuoteLineItem WHERE QuoteId = :quoteId
+            SELECT Product2Id FROM QuoteLineItem WHERE QuoteId = :quoteId WITH SECURITY_ENFORCED
         ];
         List<QuoteDocument> quoteDocuments = [
-            SELECT Name, Document, ContentVersionDocumentId FROM QuoteDocument WHERE QuoteId = :quoteId
+            SELECT Name, Document, ContentVersionDocumentId FROM QuoteDocument WHERE QuoteId = :quoteId WITH SECURITY_ENFORCED
         ];
         List<Messaging.EmailFileAttachment> attachments = insertAttachments(quoteDocuments);
         List<Id> contentVersionIds = getContentVersionIds(getQuoteProducts(quoteLineItems));
@@ -30,14 +30,6 @@ public with sharing class WH_SendQuoteController {
         }catch(Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
-    }
-
-    private static List<Id> getQuoteProducts(List<QuoteLineItem> quoteLineItems) {
-        List<Id> productIds = new List<Id>();
-        for(QuoteLineItem qLI : quoteLineItems) {
-            productIds.add(qLI.Product2Id);
-        }
-        return productIds;
     }
 
     private static List<Messaging.EmailFileAttachment> insertAttachments(List<QuoteDocument> quoteDocuments) {
@@ -61,11 +53,20 @@ public with sharing class WH_SendQuoteController {
                 ContentDocument.LatestPublishedVersion.FileExtension
             FROM ContentDocumentLink 
             WHERE LinkedEntityId IN :productIds
+            WITH SECURITY_ENFORCED
         ];
         for(ContentDocumentLink cdl : contentDocumentLinks) {
             contentVersionIds.add(cdl.ContentDocument.LatestPublishedVersionId);
         }
         return contentVersionIds;
+    }
+
+    private static List<Id> getQuoteProducts(List<QuoteLineItem> quoteLineItems) {
+        List<Id> productIds = new List<Id>();
+        for(QuoteLineItem qLI : quoteLineItems) {
+            productIds.add(qLI.Product2Id);
+        }
+        return productIds;
     }
 
     private static Messaging.SingleEmailMessage[] getSingleEmailMessage(
