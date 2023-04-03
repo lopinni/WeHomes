@@ -1,7 +1,7 @@
 <template>
     <div class="slds-box">
         <div class="slds-align_absolute-center">
-            Send a Quote offer via E-Mail?
+            {label.SEND_QUOTE_CONFIRM}
         </div>
     </div>
     <div class="slds-box">
@@ -20,7 +20,7 @@
                 <lightning-spinner alternative-text="Loading"></lightning-spinner>
             </template>
             <template if:true={showSuccess}>
-                Offer sent.
+                {label.QUOTE_SENT}
             </template>
         </div>
     </div>
