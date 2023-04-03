@@ -2,6 +2,8 @@ import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import CONTACT_ID_FIELD from '@salesforce/schema/Quote.ContactId';
 
+import sendQuoteEmail from "@salesforce/apex/WH_SendQuoteController.sendQuoteEmail";
+
 const fields = [CONTACT_ID_FIELD];
 
 export default class SendQuoteEmail extends LightningElement {
@@ -16,9 +18,12 @@ export default class SendQuoteEmail extends LightningElement {
     }
 
     handleClick() {
-        console.log("klik1", this.recordId);
-        console.log("klik2", this.record);
-        console.log("klik3", this.contactId);
+        sendQuoteEmail({ 
+            quoteId: this.recordId,
+            contactId: this.contactId
+        }).catch(error => {
+            this.showError(error);
+        });
     }
 
 }
