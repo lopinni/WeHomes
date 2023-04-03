@@ -29,7 +29,7 @@ public with sharing class WH_SendQuoteController {
                 Messaging.sendEmail(messages);
                 updateQuoteStatus(quoteId);
             } else {
-                throw new AuraHandledException('Email has not been sent');
+                throw new AuraHandledException(System.Label.Email_send_error);
             }
         } catch(Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -89,7 +89,7 @@ public with sharing class WH_SendQuoteController {
             if(Schema.SObjectType.Quote.fields.Status.isUpdateable()) {
                 update quote;
             } else {
-                throw new AuraHandledException('Could not change Quote status');
+                throw new AuraHandledException(System.Label.Quote_status_change_error);
             }
         }catch(Exception e) {
             throw new AuraHandledException(e.getMessage());
