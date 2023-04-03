@@ -52,14 +52,6 @@ public with sharing class WH_SendQuoteController {
         List<ContentVersion> contentDocuments = [
             SELECT
                 Id,
-                Title,
-                ContentDocumentId,
-                FileType, 
-                ContentSize,
-                FileExtension,
-                VersionNumber,
-                CreatedDate,
-                VersionData,
                 FirstPublishLocationId
             FROM ContentVersion
             WHERE FirstPublishLocationId IN :productIds
