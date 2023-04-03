@@ -86,7 +86,11 @@ public with sharing class WH_SendQuoteController {
         ];
         quote.Status = NEW_STATUS;
         try {
-            update quote;
+            if(Schema.SObjectType.Quote.fields.Status.isUpdateable()) {
+                update quote;
+            } else {
+                throw new AuraHandledException('Could not change Quote status');
+            }
         }catch(Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
