@@ -14,4 +14,14 @@
             ></lightning-button>
         </div>
     </div>
+    <div class="slds-box" if:true={showBottomBox}>
+        <div class="slds-align_absolute-center">
+            <template if:false={showSuccess}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+            <template if:true={showSuccess}>
+                Offer sent.
+            </template>
+        </div>
+    </div>
 </template>
