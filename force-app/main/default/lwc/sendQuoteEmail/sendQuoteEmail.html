@@ -1,27 +1,21 @@
 <template>
-    <div class="slds-box">
-        <div class="slds-align_absolute-center">
-            {label.SEND_QUOTE_CONFIRM}
-        </div>
+    <div class="slds-align_absolute-center" style="height:4rem">
+        {label.SEND_QUOTE_CONFIRM}
     </div>
-    <div class="slds-box">
-        <div class="slds-align_absolute-center">
-            <lightning-button 
-                variant="brand" 
-                label="Send"
-                onclick={handleClick} 
-                class="slds-m-left_x-small"
-            ></lightning-button>
-        </div>
+    <div class="slds-align_absolute-center" style="height:4rem">
+        <lightning-button 
+            variant="brand" 
+            label="Send"
+            onclick={handleClick} 
+            class="slds-m-left_x-small"
+        ></lightning-button>
     </div>
-    <div class="slds-box" if:true={showBottomBox}>
-        <div class="slds-align_absolute-center">
-            <template if:false={showSuccess}>
-                <lightning-spinner alternative-text="Loading"></lightning-spinner>
-            </template>
-            <template if:true={showSuccess}>
-                {label.QUOTE_SENT}
-            </template>
-        </div>
+    <div class="slds-align_absolute-center" if:true={showBottomBox} style="height:4rem">
+        <template if:false={showSuccess}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+        <template if:true={showSuccess}>
+            {label.QUOTE_SENT}
+        </template>
     </div>
 </template>

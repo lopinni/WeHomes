@@ -37,6 +37,7 @@ export default class SendQuoteEmail extends LightningElement {
             contactId: this.contactId
         }).then(() => {
             this.showSuccess = true;
+            this.dispatchEvent(new CustomEvent('close'));
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: ERROR,
