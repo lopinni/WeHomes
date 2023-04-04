@@ -1,5 +1,5 @@
 ({
-    handleClickFromLwc : function (cmp, event, helper) {
+    handleSuccess : function (cmp, event, helper) {
         var title = $A.get("$Label.c.Success");
         var message = $A.get("$Label.c.Offer_Sent");
         var resultsToast = $A.get("e.force:showToast"); 
@@ -9,6 +9,10 @@
             "type": 'success'
         }); 
         resultsToast.fire(); 
+        $A.get("e.force:closeQuickAction").fire();
+    },
+
+    handleClose : function (cmp, event, helper) {
         $A.get("e.force:closeQuickAction").fire();
     }
 })

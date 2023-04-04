@@ -1,4 +1,8 @@
-<aura:component implements="force:lightningQuickAction,force:hasRecordId">
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
     <aura:attribute name="recordId" type="Id"/>
-    <c:sendQuoteEmail recordId="{!v.recordId}" onclose="{!c.handleClickFromLwc}"></c:sendQuoteEmail>
+    <c:sendQuoteEmail 
+        recordId="{!v.recordId}" 
+        onsuccess="{!c.handleSuccess}" 
+        onclose="{!c.handleClose}"
+    ></c:sendQuoteEmail>
 </aura:component>

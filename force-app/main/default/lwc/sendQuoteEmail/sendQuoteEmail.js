@@ -1,5 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import LightningModal from 'lightning/modal';
 import CONTACT_ID_FIELD from '@salesforce/schema/Quote.ContactId';
 
 import sendQuoteEmail from "@salesforce/apex/WH_SendQuoteController.sendQuoteEmail";
@@ -10,7 +11,7 @@ import ERROR from '@salesforce/label/c.Error';
 
 const fields = [CONTACT_ID_FIELD];
 
-export default class SendQuoteEmail extends LightningElement {
+export default class SendQuoteEmail extends LightningModal {
 
     label = {
         SEND_QUOTE_CONFIRM,
@@ -37,7 +38,7 @@ export default class SendQuoteEmail extends LightningElement {
             contactId: this.contactId
         }).then(() => {
             this.showSuccess = true;
-            this.dispatchEvent(new CustomEvent('close'));
+            this.dispatchEvent(new CustomEvent('success'));
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: ERROR,
@@ -45,6 +46,10 @@ export default class SendQuoteEmail extends LightningElement {
                 variant: 'error'
             }));
         });
+    }
+
+    handleCancel() {
+        this.dispatchEvent(new CustomEvent('close'));
     }
 
 }
