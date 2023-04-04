@@ -6,7 +6,6 @@ import CONTACT_ID_FIELD from '@salesforce/schema/Quote.ContactId';
 import sendQuoteEmail from "@salesforce/apex/WH_SendQuoteController.sendQuoteEmail";
 
 import SEND_QUOTE_CONFIRM from '@salesforce/label/c.Send_Quote_Confirm';
-import ERROR from '@salesforce/label/c.Error';
 
 const fields = [CONTACT_ID_FIELD];
 
@@ -35,11 +34,7 @@ export default class SendQuoteEmail extends LightningModal {
         }).then(() => {
             this.dispatchEvent(new CustomEvent('success'));
         }).catch(error => {
-            this.dispatchEvent(new ShowToastEvent({
-                title: ERROR,
-                message: error,
-                variant: 'error'
-            }));
+            this.dispatchEvent(new CustomEvent('fail'));
         });
     }
 

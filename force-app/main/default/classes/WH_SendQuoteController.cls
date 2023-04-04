@@ -5,6 +5,7 @@ public with sharing class WH_SendQuoteController {
     
     @AuraEnabled
     public static void sendQuoteEmail(String quoteId, String contactId) {
+        checkEmail(contactId);
         EmailTemplate emailTemplate = [
             SELECT Id FROM EmailTemplate WHERE DeveloperName = :EMAIL_TEMPLATE_NAME WITH SECURITY_ENFORCED
         ];
@@ -50,9 +51,7 @@ public with sharing class WH_SendQuoteController {
     private static List<Id> getContentVersionIds(List<Id> productIds) {
         List<Id> contentVersionIds = new List<Id>();
         List<ContentVersion> contentDocuments = [
-            SELECT
-                Id,
-                FirstPublishLocationId
+            SELECT Id, FirstPublishLocationId
             FROM ContentVersion
             WHERE FirstPublishLocationId IN :productIds
             WITH SECURITY_ENFORCED
@@ -85,6 +84,15 @@ public with sharing class WH_SendQuoteController {
             }
         }catch(Exception e) {
             throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    private static void checkEmail(String contactId) {
+        Contact contact = [
+            SELECT Id, Email FROM Contact WHERE Id =: contactId  WITH SECURITY_ENFORCED
+        ];
+        if(contact.Email == '') {
+            throw new AuraHandledException(System.Label.Email_send_error);
         }
     }
 

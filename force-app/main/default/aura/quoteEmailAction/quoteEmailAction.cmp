@@ -4,5 +4,6 @@
         recordId="{!v.recordId}" 
         onsuccess="{!c.handleSuccess}" 
         onclose="{!c.handleClose}"
+        onfail="{!c.handleFail}"
     ></c:sendQuoteEmail>
 </aura:component>
