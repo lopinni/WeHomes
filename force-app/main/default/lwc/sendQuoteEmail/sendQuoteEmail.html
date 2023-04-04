@@ -1,13 +1,9 @@
 <template>
     <lightning-modal-header label={label.SEND_QUOTE_CONFIRM}></lightning-modal-header>
     <lightning-modal-body> 
-        <div class="slds-align_absolute-center" if:false={showBottomBox} style="height:4rem"></div>
-        <div class="slds-align_absolute-center" if:true={showBottomBox} style="height:4rem">
-            <template if:false={showSuccess}>
+        <div class="slds-align_absolute-center" style="height:4rem">
+            <template if:true={showSpinner}>
                 <lightning-spinner alternative-text="Loading"></lightning-spinner>
-            </template>
-            <template if:true={showSuccess}>
-                {label.QUOTE_SENT}
             </template>
         </div>
     </lightning-modal-body>
