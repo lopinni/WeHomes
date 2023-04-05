@@ -21,6 +21,13 @@ import PB_UPDATE_SUCCESS from '@salesforce/label/c.Price_Book_Update_Success';
 import PB_UPDATE_ERROR from '@salesforce/label/c.Price_Book_Update_Error';
 import PBE_UPDATE_SUCCESS from '@salesforce/label/c.PBE_Update_Success';
 
+import PRICE_BOOKS from '@salesforce/label/c.Price_Books';
+import ALL_PRICE_BOOKS from '@salesforce/label/c.All_Price_Books';
+import NEW from '@salesforce/label/c.New';
+import PRICE_BOOK_ENTRIES from '@salesforce/label/c.Price_Book_Entries';
+import AVAILABLE_ENTRIES from '@salesforce/label/c.Available_Entries';
+import SET_DISCOUNT from '@salesforce/label/c.Set_Discount_Percent';
+
 const actions = [
     { label: 'View', name: 'view' },
     { label: 'Products', name: 'products' },
@@ -48,6 +55,15 @@ const entryColumns = [
 ];
 
 export default class PricebookManager extends NavigationMixin(LightningElement) {
+
+    label = {
+        PRICE_BOOKS,
+        ALL_PRICE_BOOKS,
+        NEW,
+        PRICE_BOOK_ENTRIES,
+        AVAILABLE_ENTRIES,
+        SET_DISCOUNT
+    };
 
     loaded = false;
 

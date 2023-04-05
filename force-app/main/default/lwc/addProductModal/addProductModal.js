@@ -1,4 +1,7 @@
-import { LightningElement, api, wire, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
+
+import CLOSE from '@salesforce/label/c.Close';
+import ADD_PRODUCTS from '@salesforce/label/c.Add_Products';
 
 import insertProductsToPriceBook from "@salesforce/apex/WH_PricebookManagerController.insertProductsToPriceBook";
 
@@ -7,6 +10,11 @@ const columns = [
 ];
 
 export default class AddProductModal extends LightningElement {
+
+    label = {
+        CLOSE,
+        ADD_PRODUCTS
+    };
 
     columns = columns;
 
