@@ -6,7 +6,17 @@ import D3JS from '@salesforce/resourceUrl/D3JS';
 
 import LIBRARY_LOAD_ERROR from '@salesforce/label/c.Library_Loading_Error';
 
+import PRICE_BOOKS from '@salesforce/label/c.Price_Books';
+import ACTIVE_PB_CHART from '@salesforce/label/c.Active_Price_Books_Chart';
+import ACTIVE from '@salesforce/label/c.Active';
+
 export default class PricebookChart extends LightningElement {
+
+    label = {
+        PRICE_BOOKS,
+        ACTIVE_PB_CHART
+    };
+
     svgWidth = 1000;
     svgHeight = 300;
 
