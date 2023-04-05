@@ -6,9 +6,7 @@ public with sharing class WH_SendQuoteController {
     @AuraEnabled
     public static void sendQuoteEmail(String quoteId, String contactId) {
         checkEmail(contactId);
-        EmailTemplate emailTemplate = [
-            SELECT Id FROM EmailTemplate WHERE DeveloperName = :EMAIL_TEMPLATE_NAME WITH SECURITY_ENFORCED
-        ];
+        EmailTemplate emailTemplate = checkEmailTemplate();
         List<QuoteLineItem> quoteLineItems = [
             SELECT Product2Id FROM QuoteLineItem WHERE QuoteId = :quoteId WITH SECURITY_ENFORCED
         ];
@@ -37,6 +35,25 @@ public with sharing class WH_SendQuoteController {
         }
     }
 
+    private static void checkEmail(String contactId) {
+        Contact contact = [
+            SELECT Id, Email FROM Contact WHERE Id =: contactId WITH SECURITY_ENFORCED
+        ];
+        if(contact.Email == '') {
+            throw new AuraHandledException(System.Label.Email_send_error);
+        }
+    }
+
+    private static EmailTemplate checkEmailTemplate() {
+        EmailTemplate emailTemplate = [
+            SELECT Id FROM EmailTemplate WHERE DeveloperName = :EMAIL_TEMPLATE_NAME WITH SECURITY_ENFORCED
+        ];
+        if(emailTemplate == null) {
+            throw new AuraHandledException(System.Label.Email_send_error);
+        }
+        return emailTemplate;
+    }
+    
     private static List<Messaging.EmailFileAttachment> insertAttachments(List<QuoteDocument> quoteDocuments) {
         List<Messaging.EmailFileAttachment> attachments = new List<Messaging.EmailFileAttachment>();
         for (QuoteDocument qd: quoteDocuments) {
@@ -84,15 +101,6 @@ public with sharing class WH_SendQuoteController {
             }
         }catch(Exception e) {
             throw new AuraHandledException(e.getMessage());
-        }
-    }
-
-    private static void checkEmail(String contactId) {
-        Contact contact = [
-            SELECT Id, Email FROM Contact WHERE Id =: contactId  WITH SECURITY_ENFORCED
-        ];
-        if(contact.Email == '') {
-            throw new AuraHandledException(System.Label.Email_send_error);
         }
     }
 
