@@ -8,12 +8,18 @@ import LIBRARY_LOAD_ERROR from '@salesforce/label/c.Library_Loading_Error';
 
 import PRICE_BOOKS from '@salesforce/label/c.Price_Books';
 import ACTIVE_PB_CHART from '@salesforce/label/c.Active_Price_Books_Chart';
+import ACTIVE from '@salesforce/label/c.Active';
+import NOT_ACTIVE from '@salesforce/label/c.Not_Active';
+import TODAY from '@salesforce/label/c.Today';
 
 export default class PricebookChart extends LightningElement {
 
     label = {
         PRICE_BOOKS,
-        ACTIVE_PB_CHART
+        ACTIVE_PB_CHART,
+        ACTIVE,
+        NOT_ACTIVE,
+        TODAY
     };
 
     svgWidth = 1000;
