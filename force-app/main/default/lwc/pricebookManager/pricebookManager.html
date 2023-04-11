@@ -19,11 +19,11 @@
                                         <div class="slds-page-header__name">
                                             <div class="slds-page-header__name-title">
                                                 <h1>
-                                                    <span> Price Books </span>
+                                                    <span> {label.PRICE_BOOKS} </span>
                                                     <span class="slds-page-header__title slds-truncate" 
                                                             title="Recently Viewed"
                                                     >
-                                                        All Price Books
+                                                        {label.ALL_PRICE_BOOKS}
                                                     </span>
                                                 </h1>
                                             </div>
@@ -34,7 +34,7 @@
                             <div class="slds-page-header__col-actions">
                                 <div class="slds-page-header__controls">
                                     <div class="slds-page-header__control">
-                                        <button class="slds-button slds-button_neutral" onclick={openNewPB}> New </button>
+                                        <button class="slds-button slds-button_neutral" onclick={openNewPB}> {label.NEW} </button>
                                     </div>
                                 </div>
                             </div>
@@ -59,11 +59,11 @@
                                         <div class="slds-page-header__name">
                                             <div class="slds-page-header__name-title">
                                                 <h1>
-                                                    <span> Price Book Entries </span>
+                                                    <span> {label.PRICE_BOOK_ENTRIES} </span>
                                                     <span class="slds-page-header__title slds-truncate" 
                                                             title="Recently Viewed"
                                                     >
-                                                        Available Entries
+                                                        {label.AVAILABLE_ENTRIES}
                                                     </span>
                                                 </h1>
                                             </div>
@@ -84,7 +84,7 @@
                                         </lightning-input>
                                     </div>
                                     <div class="slds-page-header__control">
-                                        <button class="slds-button slds-button_neutral" onclick={setupDiscountModal}> Set Discount (%) </button>
+                                        <button class="slds-button slds-button_neutral" onclick={setupDiscountModal}> {label.SET_DISCOUNT} </button>
                                     </div>
                                 </div>
                             </div>

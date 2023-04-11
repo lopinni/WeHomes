@@ -1,0 +1,17 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:html tag="style">
+        .slds-modal__content {
+            padding: 0 !important;
+        }
+        .cuf-content {
+            padding: 0 !important;
+        }
+    </aura:html>
+    <aura:attribute name="recordId" type="Id"/>
+    <c:sendQuoteEmail
+        recordId="{!v.recordId}" 
+        onsuccess="{!c.handleSuccess}" 
+        onclose="{!c.handleClose}"
+        onfail="{!c.handleFail}"
+    ></c:sendQuoteEmail>
+</aura:component>
