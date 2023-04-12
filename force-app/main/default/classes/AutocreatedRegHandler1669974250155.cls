@@ -1,9 +1,12 @@
 global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHandler{
 
-    private static final String ORG_SUFFIX = '.sso.badge.org';
+    private static final String ORG_SUFFIX = '.sso.weHomes.org';
     private static final String DEFAULT_ACCOUNTNAME = 'Partners';
     private static final String EXTERNAL_USER_PROFILE = 'Partner';
-    private static final String INTERNAL_USER_PROFILE = 'System Administrator'; 
+    private static final String INTERNAL_USER_PROFILE = 'System Administrator';
+    private static final String TZSID = [
+        SELECT TimeZoneSidKey FROM User WHERE Profile.Name = 'System Administrator' LIMIT 1
+    ].timeZoneSidKey;
 
     global void updateUser(Id userId, Id portalId, Auth.UserData data) {
         User u = new User(id=userId);
@@ -86,7 +89,7 @@ global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHand
         u.languagelocalekey = UserInfo.getLanguage();
         u.localesidkey = UserInfo.getLocale();
         u.emailEncodingKey = 'UTF-8';
-        u.timeZoneSidKey = 'America/Los_Angeles';
+        u.timeZoneSidKey = TZSID;
         u.profileId = p.Id;
         return u;
     }
