@@ -65,6 +65,7 @@ global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHand
 
     private User createUser(Auth.UserData data, Profile p) {
         User u = new User();
+        u.communityNickname = data.email;
         u.username = data.email + ORG_SUFFIX;
         u.email = data.email;
         u.lastName = data.lastName;
