@@ -1,8 +1,7 @@
 global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHandler{
 
     private static final String ORG_SUFFIX = '.sso.weHomes.org';
-    private static final String DEFAULT_ACCOUNTNAME = 'Partners';
-    private static final String EXTERNAL_USER_PROFILE = 'Partner';
+    private static final String EXTERNAL_USER_PROFILE = 'Customer Community Plus User';
     private static final String INTERNAL_USER_PROFILE = 'System Administrator';
     private static final String TZSID = [
         SELECT TimeZoneSidKey FROM User WHERE Profile.Name = 'System Administrator' LIMIT 1
@@ -16,26 +15,27 @@ global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHand
         update(u);
     }
 
-    global User createUser(Id portalId, Auth.UserData data) {
+    global User createUser(Id portalId, Auth.UserData data){
         if(!canCreateUser(data)) {
             return null;
         }
-        createPersonAccount(data);
-        if(data.attributeMap.containsKey('sfdc_networkid')) {
-            Id contactId;
-            contactId = createContact(data);
+        if(isCommunityContext(data)) {
+            Id accountId = createAccount(data);
             Profile p = [
                 SELECT Id FROM profile WHERE name=:EXTERNAL_USER_PROFILE WITH SECURITY_ENFORCED
             ];
-            User u = createUser(data,p);
+            User u = createUser(data, p);
+            Id contactId = [
+                SELECT Id FROM Contact WHERE AccountId=:accountId WITH SECURITY_ENFORCED
+            ].get(0).Id;
             u.contactId = contactId;
             return u;
         } else {
+            User u = new User();
             Profile p = [
                 SELECT Id FROM profile WHERE name=:INTERNAL_USER_PROFILE WITH SECURITY_ENFORCED
             ];
-            User u = createUser(data,p);
-            return u;
+            return createUser(data, p);
         }
     }
 
@@ -47,31 +47,20 @@ global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHand
         return retVal;
     }
 
-    private void createPersonAccount(Auth.UserData data) {
-        Id personAccountRecordTypeId =  Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PersonAccount').getRecordTypeId();
-        Account newPersonAccount = new Account();
-        newPersonAccount.FirstName = data.firstName;
-        newPersonAccount.LastName = data.lastName;
-        newPersonAccount.PersonEmail = data.email;
-        newPersonAccount.RecordTypeId = personAccountRecordTypeId;
-        insert newPersonAccount;
+    private Boolean isCommunityContext(Auth.UserData data) {
+        if(data.attributeMap.containsKey('sfdc_networkid')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    private Id createContact(Auth.UserData data) {
-        Contact contact = new Contact();
-        contact.LastName = data.lastName;
-        contact.FirstName = data.firstName;
-        contact.Email = data.email;
-        if (data.attributemap.get('accountId') != null){
-            contact.accountId = data.attributemap.get('accountId');
-        } else {
-            List<Account> accounts = [
-                SELECT Id FROM Account WHERE Name =:DEFAULT_ACCOUNTNAME WITH SECURITY_ENFORCED
-            ];
-            contact.accountId = accounts[0].Id;         
-        }
-        insert contact;
-        return contact.id; 
+    private Id createAccount(Auth.UserData data){        
+        Account newAcc = new Account();
+        newAcc.Firstname = data.firstName;
+        newAcc.LastName = data.lastName;
+        insert newAcc;
+        return newAcc.Id;
     }
 
     private User createUser(Auth.UserData data, Profile p) {
