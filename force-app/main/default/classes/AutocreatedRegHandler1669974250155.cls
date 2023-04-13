@@ -27,7 +27,7 @@ global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHand
             User u = createUser(data, p);
             Id contactId = [
                 SELECT Id FROM Contact WHERE AccountId=:accountId WITH SECURITY_ENFORCED
-            ].get(0).Id;
+            ].Id;
             u.contactId = contactId;
             return u;
         } else {
