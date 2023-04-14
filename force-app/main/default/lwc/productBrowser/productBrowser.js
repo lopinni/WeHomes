@@ -12,6 +12,7 @@ export default class ProductBrowser extends LightningElement {
 
     isHousingSales = false;
     isBusinessSales = true;
+    isCommunity = false;
 
     renderPagination = false;
     pageSize = 6;
@@ -64,6 +65,8 @@ export default class ProductBrowser extends LightningElement {
                 this.isHousingSales = false;
                 this.isBusinessSales = false;
             }
+        } else {
+            this.isCommunity = true;
         }
         this.queryProducts();
         this.loaded = true;
