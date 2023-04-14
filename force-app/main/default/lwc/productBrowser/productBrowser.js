@@ -11,7 +11,7 @@ export default class ProductBrowser extends LightningElement {
     userRoleName;
 
     isHousingSales = false;
-    isBusinessSales = false;
+    isBusinessSales = true;
 
     renderPagination = false;
     pageSize = 6;
@@ -55,9 +55,14 @@ export default class ProductBrowser extends LightningElement {
                 this.userRoleName = data.Name;
             }
             if(this.userRoleName == "Business Premises Sales") {
+                this.isHousingSales = false;
                 this.isBusinessSales = true;
             } else if(this.userRoleName == "Housing Sales") {
                 this.isHousingSales = true;
+                this.isBusinessSales = false;
+            } else if(this.userRoleName == "CEO") {
+                this.isHousingSales = false;
+                this.isBusinessSales = false;
             }
         }
         this.queryProducts();
