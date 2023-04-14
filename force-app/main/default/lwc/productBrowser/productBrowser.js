@@ -1,6 +1,7 @@
 import { LightningElement, wire, track } from 'lwc';
 import { loadStyle } from "lightning/platformResourceLoader";
 import { getRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Id from '@salesforce/user/Id';
 import RoleName from '@salesforce/schema/User.UserRole.Name';
 import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
@@ -40,7 +41,7 @@ export default class ProductBrowser extends LightningElement {
     @track productsTemp;
 
     showMessage = false;
-    messageContent = "Could not find actors with matching name.";
+    messageContent = "Could not find products with matching criteria.";
 
     constructor() {
         super();

@@ -1,0 +1,14 @@
+.photo {
+    object-fit: cover;
+    width: 80%;
+    height:400px;
+    transition: transform .2s;
+    box-shadow: 10px 10px 5px #ccc;
+      -moz-box-shadow: 10px 10px 5px #ccc;
+      -webkit-box-shadow: 10px 10px 5px #ccc;
+      -khtml-box-shadow: 10px 10px 5px #ccc;
+}
+
+.photo:hover {
+    transform: scale(1.05);
+}
