@@ -1,10 +1,8 @@
 import { LightningElement, wire, track } from 'lwc';
 import { loadStyle } from "lightning/platformResourceLoader";
-import { getRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import Id from '@salesforce/user/Id';
-import RoleName from '@salesforce/schema/User.UserRole.Name';
 import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
+import getCurrentUserRole from "@salesforce/apex/WH_LocationController.getCurrentUserRole";
 import getProducts from "@salesforce/apex/WH_LocationController.getProducts";
 
 export default class ProductBrowser extends LightningElement {
@@ -48,13 +46,13 @@ export default class ProductBrowser extends LightningElement {
         loadStyle(this, noHeader);
     }
 
-    @wire(getRecord, { recordId: Id, fields: [RoleName] })
+    @wire(getCurrentUserRole)
     userDetails({ error, data }) {
         if (error) {
             this.error = error;
         } else if (data) {
-            if (data.fields.UserRole.value != null) {
-                this.userRoleName = data.fields.UserRole.value.fields.Name.value;
+            if (data.Name != null) {
+                this.userRoleName = data.Name;
             }
             if(this.userRoleName == "Business Premises Sales") {
                 this.isBusinessSales = true;

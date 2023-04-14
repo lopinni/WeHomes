@@ -1,4 +1,4 @@
-public with sharing class WH_LocationController {
+public without sharing class WH_LocationController {
     
     @AuraEnabled(cacheable=true)
     public static List<ContentVersion> getVersionFiles(String recordId) {
@@ -41,19 +41,24 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled
-    public static void updateMainImage(String recordId, String url) {
-        try {
-            Product2 product = [
-                SELECT
-                    DisplayUrl
-                FROM Product2
-                WHERE Id =:recordId
-                WITH SECURITY_ENFORCED
-            ];
-            product.DisplayUrl = url;
-            update product;
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
+    public static void updateMainImage(String recordId, String docVerId) {
+        Product2 prod = [SELECT Id, DisplayUrl FROM Product2 WHERE Id =:recordId][0];
+        ContentDistribution cd = new ContentDistribution();
+        cd.Name = recordId + ' profile photo';
+        cd.ContentVersionId = docVerId;
+        cd.PreferencesAllowViewInBrowser= true;
+        cd.PreferencesLinkLatestVersion=true;
+        cd.PreferencesNotifyOnVisit=false;
+        cd.PreferencesPasswordRequired=false;
+        cd.PreferencesAllowOriginalDownload= true;
+        insert cd;
+        cd = [SELECT ContentVersionId, ContentDownloadUrl FROM ContentDistribution WHERE ContentVersionId =: docVerId][0];
+        prod.DisplayUrl = cd.ContentDownloadUrl;
+        try{
+            update prod;
+        }
+        catch(Exception e){
+            System.debug('Error set profile');
         }
     }
 
@@ -159,6 +164,14 @@ public with sharing class WH_LocationController {
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static UserRole getCurrentUserRole() {
+        String uRoleId = UserInfo.getUserRoleId();
+        return [
+            SELECT Name FROM UserRole WHERE Id =: uRoleId WITH SECURITY_ENFORCED
+        ];
     }
 
 }
