@@ -56,12 +56,15 @@ export default class ProductBrowser extends LightningElement {
                 this.userRoleName = data.Name;
             }
             if(this.userRoleName == "Business Premises Sales") {
+                this.isCommunity = false;
                 this.isHousingSales = false;
                 this.isBusinessSales = true;
             } else if(this.userRoleName == "Housing Sales") {
+                this.isCommunity = false;
                 this.isHousingSales = true;
                 this.isBusinessSales = false;
             } else if(this.userRoleName == "CEO") {
+                this.isCommunity = false;
                 this.isHousingSales = false;
                 this.isBusinessSales = false;
             }
@@ -203,7 +206,7 @@ export default class ProductBrowser extends LightningElement {
         this.productsTemp = [];
         this.clearfields();
         this.showMessage = false;
-        this.renderPagination = false;
+        this.queryProducts();
     }
 
     clearfields() {

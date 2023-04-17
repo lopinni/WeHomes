@@ -4,3 +4,16 @@
     gap: 2em;
     padding-top: 1em;
 }
+
+.padded {
+    padding: 1em;
+}
+
+.form-box {
+    background-color: #ebf7e6; 
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px #ccc;
+      -moz-box-shadow: 10px 10px 5px #ccc;
+      -webkit-box-shadow: 10px 10px 5px #ccc;
+      -khtml-box-shadow: 10px 10px 5px #ccc;
+}
