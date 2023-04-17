@@ -19,3 +19,13 @@
     padding-top: 0.5em;
     padding-bottom: 0.25em;
 }
+
+.bordered {
+    border: 1px; 
+    border-style: groove; 
+    border-color: #396547;
+    box-shadow: 5px 5px 2px #ccc;
+      -moz-box-shadow: 5px 5px 2px #ccc;
+      -webkit-box-shadow: 5px 5px 2px #ccc;
+      -khtml-box-shadow: 5px 5px 2px #ccc;
+}

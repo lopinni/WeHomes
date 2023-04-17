@@ -177,7 +177,26 @@ public without sharing class WH_LocationController {
     @AuraEnabled(cacheable=true)
     public static Product2 getProductById(String productId) {
         return [
-            SELECT Name FROM Product2 WHERE Id =: productId
+            SELECT 
+                Name, 
+                Description,
+                Total_surface_area__c,
+                Floor__c,
+                Number_of_floors__c,
+                City__c,
+                Street__c,
+                Postal_Code__c,
+                Country__c,
+                Number_of_meeting_rooms__c,
+                Number_of_kitchens__c,
+                Parking_spaces__c,
+                Furnished__c,
+                Wheelchair_accessible__c,
+                Open_plan_office__c,
+                Elevator_access__c,
+                Air_conditioning__c
+            FROM Product2 
+            WHERE Id =: productId
         ];
     }
 

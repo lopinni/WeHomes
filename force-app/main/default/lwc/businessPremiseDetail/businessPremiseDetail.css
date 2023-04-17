@@ -6,3 +6,7 @@
       -webkit-box-shadow: 5px 5px 2px #ccc;
       -khtml-box-shadow: 5px 5px 2px #ccc;
 }
+
+p {
+  padding: 1em;
+}
