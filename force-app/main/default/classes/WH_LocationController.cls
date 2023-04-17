@@ -174,4 +174,11 @@ public without sharing class WH_LocationController {
         ];
     }
 
+    @AuraEnabled(cacheable=true)
+    public static Product2 getProductById(String productId) {
+        return [
+            SELECT Name FROM Product2 WHERE Id =: productId WITH SECURITY_ENFORCED
+        ];
+    }
+
 }
