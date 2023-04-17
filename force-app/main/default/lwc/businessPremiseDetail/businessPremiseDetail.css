@@ -1,8 +1,6 @@
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.detail-box {
     border-radius: 5px;
+    background-color: #ebf7e6;
     box-shadow: 5px 5px 2px #ccc;
       -moz-box-shadow: 5px 5px 2px #ccc;
       -webkit-box-shadow: 5px 5px 2px #ccc;
