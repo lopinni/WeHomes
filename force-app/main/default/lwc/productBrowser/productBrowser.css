@@ -9,8 +9,7 @@
     padding: 1em;
 }
 
-.form-box {
-    background-color: #ebf7e6; 
+.shadow-box {
     border-radius: 5px;
     box-shadow: 10px 10px 5px #ccc;
       -moz-box-shadow: 10px 10px 5px #ccc;
