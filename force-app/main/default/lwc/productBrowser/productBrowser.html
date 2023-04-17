@@ -1,22 +1,25 @@
 <template>
+    <div class="slds-align_absolute-center" style="padding-bottom: 1em;">
+        <div class="slds-text-heading_medium"> <em> Search for Business Premises </em> </div>
+    </div>
     <div class="slds-grid slds-gutters">
         <div class="slds-col slds-size_1-of-12"> </div>
         <div class="slds-col slds-size_10-of-12">
             <div class="slds-grid slds-gutters">
-                <div class="slds-col slds-size_1-of-12"> </div>
-                <div class="slds-col slds-size_10-of-12">
+                <div class="slds-col slds-size_1-of-6"> </div>
+                <div class="slds-col slds-size_4-of-6">
                     <div class="form-box">
                         <div class="slds-grid slds-gutters">
                             <template lwc:if={isCommunity}>
                                 <div class="slds-col slds-size_1-of-2">
                                     <lightning-input type="text" label="City" onchange={setCity} class="padded"> </lightning-input>
                                     <lightning-input type="text" label="Street" onchange={setStreet} class="padded"> </lightning-input>
-                                    <lightning-input type="text" label="Country" onchange={setCountry} class="padded"> </lightning-input>
+                                    <lightning-button variant="brand" label="Clear" onclick={clear} class="slds-var-m-left_x-small padded" style="float: right;"> </lightning-button>
                                 </div>
                                 <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input type="text" label="Country" onchange={setCountry} class="padded"> </lightning-input>
                                     <lightning-input type="number" label="Number of floors" onchange={setNumberOfFloors} class="padded"> </lightning-input>
                                     <lightning-input type="toggle" label="Open plan office" onchange={setOpenPlanOffice} class="padded"> </lightning-input>
-                                    <lightning-button variant="brand" label="Clear" onclick={clear} class="slds-var-m-left_x-small" style="padding: 0.5em;"> </lightning-button>
                                 </div>
                             </template>
                             <template lwc:else>
@@ -59,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="slds-col slds-size_1-of-12"> </div>
+                <div class="slds-col slds-size_1-of-6"> </div>
             </div>
             <template if:false={loaded}>
                 <lightning-spinner alternative-text="Loading"></lightning-spinner>
