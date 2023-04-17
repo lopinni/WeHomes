@@ -1,8 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 
 import getProductById from "@salesforce/apex/WH_LocationController.getProductById";
-
-import ERROR from '@salesforce/label/c.Error';
+import getBusinessProductPriceById from "@salesforce/apex/WH_PricebookManagerController.getBusinessProductPriceById";
 
 export default class BusinessPremiseDetail extends LightningElement {
 
@@ -10,16 +9,23 @@ export default class BusinessPremiseDetail extends LightningElement {
 
     productName;
 
-    @wire(getProductById, { productId: '$recordId' })
+    productPrice;
+
+    connectedCallback() {
+        getProductById({ productId: this.recordId }).then(result => {
+            this.productName = result.Name;
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    @wire(getBusinessProductPriceById, { productId: '$recordId' })
     getProductInfo({ error, data }) {
         if (error) {
-            this.dispatchEvent(new ShowToastEvent({
-                title: ERROR,
-                message: error,
-                variant: 'error'
-            }));
+            console.log(error);
         } else if (data) {
-            this.productName = data.Name;
+            this.productPrice = data.UnitPrice;
         }
     }
+
 }

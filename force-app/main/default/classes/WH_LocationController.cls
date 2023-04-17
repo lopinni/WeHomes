@@ -102,13 +102,13 @@ public without sharing class WH_LocationController {
                 Boolean housingSales,
                 Boolean businessSales
             ) {
-        String query;
+        String query = 'SELECT Id, Name, Total_surface_area__c, RecordType.Name FROM Product2 ';
         if(housingSales) {
-            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Apartments\' ';
+            query += 'WHERE RecordType.Name = \'Apartments\' ';
         } else if(businessSales) {
-            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Business Premises\' ';
+            query += 'WHERE RecordType.Name = \'Business Premises\' ';
         } else {
-            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE Name != null ';
+            query += 'WHERE Name != null ';
         }
         if(name != '' && name != null) {
             query += 'AND Name LIKE \'%' + name + '%\' ';
@@ -177,7 +177,7 @@ public without sharing class WH_LocationController {
     @AuraEnabled(cacheable=true)
     public static Product2 getProductById(String productId) {
         return [
-            SELECT Name FROM Product2 WHERE Id =: productId WITH SECURITY_ENFORCED
+            SELECT Name FROM Product2 WHERE Id =: productId
         ];
     }
 

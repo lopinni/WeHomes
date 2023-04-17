@@ -1,7 +1,8 @@
 .photo {
+    cursor: pointer;
     object-fit: cover;
-    width: 75%;
-    height: 350px;
+    width: 80%;
+    height: 250px;
     transition: transform .2s;
     box-shadow: 10px 10px 5px #ccc;
       -moz-box-shadow: 10px 10px 5px #ccc;

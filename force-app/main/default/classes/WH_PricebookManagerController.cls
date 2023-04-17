@@ -1,4 +1,4 @@
-public with sharing class WH_PricebookManagerController {
+public without sharing class WH_PricebookManagerController {
 
     private static final String BUSINESS_PRICEBOOK_TYPE = 'Business Premise PB';
     private static final String APARTMENT_PRICEBOOK_TYPE = 'Apartment PB';
@@ -85,6 +85,23 @@ public with sharing class WH_PricebookManagerController {
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
+    }
+
+    @AuraEnabled(Cacheable=true)
+    public static PricebookEntry getBusinessProductPriceById(String productId){    
+        PriceBook2 activePB = [
+            SELECT Id 
+            FROM Pricebook2 
+            WHERE RecordType.Name =: BUSINESS_PRICEBOOK_TYPE 
+            AND IsActive = true
+            LIMIT 1
+        ];
+        return [
+            SELECT UnitPrice 
+            FROM PricebookEntry 
+            WHERE Product2Id =: productId
+            AND Pricebook2Id =: activePB.Id
+        ];
     }
 
 }

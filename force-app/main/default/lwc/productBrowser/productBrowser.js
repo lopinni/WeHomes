@@ -15,7 +15,7 @@ export default class ProductBrowser extends LightningElement {
     isCommunity = false;
 
     renderPagination = false;
-    pageSize = 6;
+    pageSize = 3;
     page;
     pages;
 
