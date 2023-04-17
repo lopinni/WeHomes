@@ -17,15 +17,11 @@ export default class BusinessPremiseDetail extends LightningElement {
         }).catch(error => {
             console.log(error);
         });
-    }
-
-    @wire(getBusinessProductPriceById, { productId: '$recordId' })
-    getProductInfo({ error, data }) {
-        if (error) {
+        getBusinessProductPriceById({ productId: this.recordId }).then(result => {
+            this.productPrice = result.UnitPrice;
+        }).catch(error => {
             console.log(error);
-        } else if (data) {
-            this.productPrice = data.UnitPrice;
-        }
+        });
     }
 
 }

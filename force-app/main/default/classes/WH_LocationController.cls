@@ -102,7 +102,7 @@ public without sharing class WH_LocationController {
                 Boolean housingSales,
                 Boolean businessSales
             ) {
-        String query = 'SELECT Id, Name, Total_surface_area__c, RecordType.Name FROM Product2 ';
+        String query = 'SELECT Id, Name, Total_surface_area__c, Furnished__c, Wheelchair_accessible__c, Elevator_access__c, Air_conditioning__c, RecordType.Name FROM Product2 ';
         if(housingSales) {
             query += 'WHERE RecordType.Name = \'Apartments\' ';
         } else if(businessSales) {

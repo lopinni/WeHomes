@@ -2,6 +2,7 @@ import { LightningElement, api, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
 import getURL from "@salesforce/apex/WH_LocationController.getURL";
+import getBusinessProductPriceById from "@salesforce/apex/WH_PricebookManagerController.getBusinessProductPriceById";
 
 export default class ProductCard extends NavigationMixin(LightningElement) {
 
@@ -9,6 +10,17 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
     @track URL;
 
     @api isCommunity;
+
+    productPrice;
+
+    connectedCallback() {
+        getBusinessProductPriceById({ productId: this.product.Id }).then(result => {
+            console.log(result);
+            this.productPrice = result.UnitPrice;
+        }).catch(error => {
+            console.log(error);
+        });
+    }
 
     @wire(getURL, { recordId: "$product.Id" })
     fileResponse(value) {
