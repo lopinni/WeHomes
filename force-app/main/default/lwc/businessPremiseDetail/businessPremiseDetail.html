@@ -1,8 +1,50 @@
 <template>
-    <div class="detail-box">
+    <div class="detail-box" if:true={basicInfo}>
         <div class="slds-align_absolute-center" style="padding: 1em;">
             <div class="slds-text-heading_medium"> {productName} </div>
         </div>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <div class="slds-text-align_left slds-text-heading_small">
+                    Total surface area
+                </div>
+                <div class="slds-text-align_left slds-text-heading_small">
+                    City
+                </div>
+                <div class="slds-text-align_left slds-text-heading_small">
+                    Street
+                </div>
+                <div class="slds-text-align_left slds-text-heading_small">
+                    Country
+                </div>
+                <div class="slds-text-align_left slds-text-heading_small">
+                    Furnished
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <div class="slds-text-align_right slds-text-heading_small">
+                    {productTotalSurfaceArea} m<sup>2</sup>
+                </div>
+                <div class="slds-text-align_right slds-text-heading_small">
+                    {productCity}
+                </div>
+                <div class="slds-text-align_right slds-text-heading_small">
+                    {productStreet}
+                </div>
+                <div class="slds-text-align_right slds-text-heading_small">
+                    {productCountry}
+                </div>
+                <div class="slds-text-align_right slds-text-heading_small">
+                    <template lwc:if={productFurnished}> <div class="slds-text-color_success"> Yes </div> </template>
+                    <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
+            Price: {productPrice} €
+        </div>
+    </div>
+    <div class="detail-box" if:false={basicInfo}>
         <p>
             Description: {productDescription}
         </p>
@@ -51,8 +93,5 @@
         <p>
             Air conditioning: {productAirConditioning}
         </p>
-        <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
-            Price: {productPrice} €
-        </div>
     </div>
 </template>

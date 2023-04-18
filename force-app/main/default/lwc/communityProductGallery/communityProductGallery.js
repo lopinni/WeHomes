@@ -8,15 +8,25 @@ export default class CommunityProductGallery extends LightningElement {
 
     images;
 
+    preview = false;
+    previewImage;
+
     connectedCallback(){
         getDistributionFiles({ productId: this.recordId })
         .then(result => {
             this.images = result;
-            console.log("IMAGES", this.images);
-            console.log("RESULT", result);
         }).catch(error => {
             console.log(error);
         });
+    }
+
+    showPreview(event) {
+        this.previewImage = event.target.dataset.url;
+        this.preview = true;
+    }
+
+    hidePreview() {
+        this.preview = false;
     }
 
 }

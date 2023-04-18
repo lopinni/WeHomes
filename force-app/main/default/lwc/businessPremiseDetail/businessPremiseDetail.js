@@ -6,6 +6,7 @@ import getBusinessProductPriceById from "@salesforce/apex/WH_PricebookManagerCon
 export default class BusinessPremiseDetail extends LightningElement {
 
     @api recordId;
+    @api basicInfo;
 
     productName;
     productDescription;
