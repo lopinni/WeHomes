@@ -46,47 +46,136 @@
                 </div>
             </lightning-layout-item>
         </lightning-layout>
-        <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
-            Price: {productPrice} €
+        <div class="slds-text-heading_medium slds-text-align_right">
+            <p style="padding: 1em;">
+                Price: {productPrice} €
+            </p>
         </div>
     </div>
     <div class="detail-box" if:false={basicInfo}>
-        <div class="slds-text-heading_medium" style="padding: 1em; "> Description </div>
-        <p>
-            Description: {productDescription}
-        </p>
+        <div class="slds-text-heading_medium" style="padding: 1em;"> Description </div>
+        <div class="slds-text-heading_small">
+            <p style="padding: 2em;">
+                {productDescription}
+            </p>
+        </div>
         <hr>
-        <div class="slds-text-heading_medium" style="padding: 1em; "> Floor information </div>
-        <p>
-            Floor: {productFloor}
-        </p>
-        <p>
-            Number of floors: {productNumberOfFloors}
-        </p>
+        <div class="slds-text-heading_medium" style="padding: 1em;"> Floor information </div>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <lightning-layout>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Floor
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            {productFloor}
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <lightning-layout>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Number of floors
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            {productNumberOfFloors}
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
         <hr>
-        <div class="slds-text-heading_medium" style="padding: 1em; "> Spacing information </div>
-        <p>
-            NUmber of meeting rooms: {productNumberOfMeetingRooms}
-        </p>
-        <p>
-            Number of kitchens: {productNumberOfKitchens}
-        </p>
-        <p>
-            Number of parking spaces: {productParkingSpaces}
-        </p>
+        <div class="slds-text-heading_medium" style="padding: 1em; "> Facilities </div>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <lightning-layout>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Number of meeting rooms
+                        </div>
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Number of kitchens
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            {productNumberOfMeetingRooms}
+                        </div>
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            {productNumberOfKitchens}
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <lightning-layout>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Number of parking spaces
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            {productParkingSpaces}
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
         <hr>
         <div class="slds-text-heading_medium" style="padding: 1em; "> Amenities </div>
-        <p>
-            Wheelchair accessible: {productWheelchairAccessible}
-        </p>
-        <p>
-            Open-Plan office: {productOpenPlanOffice}
-        </p>
-        <p>
-            Elevator access: {productElevatorAccess}
-        </p>
-        <p>
-            Air conditioning: {productAirConditioning}
-        </p>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <lightning-layout>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Wheelchair accessible
+                        </div>
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Open-Plan office
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            <template lwc:if={productWheelchairAccessible}> <div class="slds-text-color_success"> Yes </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                        </div>
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            <template lwc:if={productOpenPlanOffice}> <div class="slds-text-color_success"> Yes </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-medium">
+                <lightning-layout>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Elevator access
+                        </div>
+                        <div class="slds-text-align_left slds-text-heading_small">
+                            Air conditioning
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto" padding="around-medium">
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            <template lwc:if={productElevatorAccess}> <div class="slds-text-color_success"> Yes </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                        </div>
+                        <div class="slds-text-align_right slds-text-heading_small">
+                            <template lwc:if={productAirConditioning}> <div class="slds-text-color_success"> Yes </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
     </div>
 </template>
