@@ -1,0 +1,6 @@
+<template>
+    {recordId}
+    <template for:each={images} for:item="image">
+        <img src={image.ContentDownloadUrl} key={image.Id}>
+    </template>
+</template>

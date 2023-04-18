@@ -97,7 +97,7 @@ public without sharing class WH_PricebookManagerController {
             LIMIT 1
         ];
         return [
-            SELECT UnitPrice 
+            SELECT UnitPrice, CurrencyIsoCode
             FROM PricebookEntry 
             WHERE Product2Id =: productId
             AND Pricebook2Id =: activePB.Id

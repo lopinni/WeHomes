@@ -1,4 +1,4 @@
-import { LightningElement, api, wire, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 import getProductById from "@salesforce/apex/WH_LocationController.getProductById";
 import getBusinessProductPriceById from "@salesforce/apex/WH_PricebookManagerController.getBusinessProductPriceById";

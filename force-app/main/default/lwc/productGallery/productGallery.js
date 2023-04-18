@@ -23,29 +23,29 @@ export default class ProductGallery extends LightningElement {
         this.fileList = data;
         for (let i = 0; i < this.fileList.length; i++) {
             let file = {
-            Id: this.fileList[i].Id,
-            Title: this.fileList[i].Title,
-            Extension: this.fileList[i].FileExtension,
-            ContentDocumentId: this.fileList[i].ContentDocumentId,
-            ContentDocument: this.fileList[i].ContentDocument,
-            CreatedDate: this.fileList[i].CreatedDate,
-            thumbnailFileCard:
-                "/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=" +
-                this.fileList[i].Id +
-                "&operationContext=CHATTER&contentId=" +
-                this.fileList[i].ContentDocumentId
+                Id: this.fileList[i].Id,
+                Title: this.fileList[i].Title,
+                Extension: this.fileList[i].FileExtension,
+                ContentDocumentId: this.fileList[i].ContentDocumentId,
+                ContentDocument: this.fileList[i].ContentDocument,
+                CreatedDate: this.fileList[i].CreatedDate,
+                thumbnailFileCard:
+                    "/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=" +
+                    this.fileList[i].Id +
+                    "&operationContext=CHATTER&contentId=" +
+                    this.fileList[i].ContentDocumentId
             };
             this.files.push(file);
         }
         this.loaded = true;
         } else if (error) {
-        this.dispatchEvent(
-            new ShowToastEvent({
-            title: "Error loading Files",
-            message: error.body.message,
-            variant: "error"
-            })
-        );
+            this.dispatchEvent(
+                new ShowToastEvent({
+                title: "Error loading Files",
+                message: error.body.message,
+                variant: "error"
+                })
+            );
         }
     }
 
@@ -53,11 +53,11 @@ export default class ProductGallery extends LightningElement {
         const uploadedFiles = event.detail.files;
         refreshApex(this.wiredActivities);
         this.dispatchEvent(
-        new ShowToastEvent({
-            title: "Success!",
-            message: uploadedFiles.length + " Files Uploaded Successfully.",
-            variant: "success"
-        })
+            new ShowToastEvent({
+                title: "Success!",
+                message: uploadedFiles.length + " Files Uploaded Successfully.",
+                variant: "success"
+            })
         );
     }
     

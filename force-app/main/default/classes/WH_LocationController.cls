@@ -78,6 +78,13 @@ public without sharing class WH_LocationController {
                 WITH SECURITY_ENFORCED
             ];
             delete document;
+            List<ContentDistribution> distributions = [
+                SELECT Id
+                FROM ContentDistribution
+                WHERE ContentVersionId =:version.Id
+                WITH SECURITY_ENFORCED
+            ];
+            delete distributions;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
@@ -176,7 +183,8 @@ public without sharing class WH_LocationController {
 
     @AuraEnabled(cacheable=true)
     public static Product2 getProductById(String productId) {
-        return [
+        try {
+            return [
             SELECT 
                 Name, 
                 Description,
@@ -198,6 +206,20 @@ public without sharing class WH_LocationController {
             FROM Product2 
             WHERE Id =: productId
         ];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<ContentDistribution> getDistributionFiles(String productId) {
+        try {
+            return [
+                SELECT ContentVersionId, ContentDownloadUrl FROM ContentDistribution WHERE Name =:productId
+            ];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
 }
