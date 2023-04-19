@@ -13,10 +13,13 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
 
     productPrice;
 
+    loaded = false;
+
     connectedCallback() {
         getBusinessProductPriceById({ productId: this.product.Id }).then(result => {
             console.log(result);
             this.productPrice = result.UnitPrice;
+            this.loaded = true;
         }).catch(error => {
             console.log(error);
         });

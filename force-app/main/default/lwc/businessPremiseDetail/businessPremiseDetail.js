@@ -28,16 +28,17 @@ export default class BusinessPremiseDetail extends LightningElement {
 
     productPrice;
 
+    loaded = false;
+
     connectedCallback() {
-        getProductById({ productId: this.recordId })
-        .then(result => {
+        getProductById({ productId: this.recordId }).then(result => {
             this.populateFields(result);
-        }).catch(error => {
-            console.log(error);
-        });
-        getBusinessProductPriceById({ productId: this.recordId })
-        .then(result => {
-            this.productPrice = result.UnitPrice;
+            getBusinessProductPriceById({ productId: this.recordId }).then(result => {
+                this.productPrice = result.UnitPrice;
+                this.loaded = true;
+            }).catch(error => {
+                console.log(error);
+            });
         }).catch(error => {
             console.log(error);
         });

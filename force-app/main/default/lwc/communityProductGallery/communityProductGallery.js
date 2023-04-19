@@ -9,12 +9,15 @@ export default class CommunityProductGallery extends LightningElement {
     images;
 
     preview = false;
-    previewImage;
+    previewImage
+
+    loaded = false;
 
     connectedCallback(){
         getDistributionFiles({ productId: this.recordId })
         .then(result => {
             this.images = result;
+            this.loaded = true;
         }).catch(error => {
             console.log(error);
         });

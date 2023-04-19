@@ -1,41 +1,46 @@
 <template>
-    <div onclick={navigateToRecordPage} class="bordered">
-        <div class="slds-align_absolute-center">
-            <img src={URL} 
-                class="photo"
-                alt="Insert image here"
-            >
+    <template if:false={loaded}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+    <template if:true={loaded}>
+        <div onclick={navigateToRecordPage} class="bordered">
+            <div class="slds-align_absolute-center">
+                <img src={URL} 
+                    class="photo"
+                    alt="Insert image here"
+                >
+            </div>
+            <div class="slds-align_absolute-center" style="padding: 1em; background-color: #fff">
+                <div class="slds-text-heading_medium"> {product.Name} </div>
+            </div>
+            <div style="background-color: #ebf7e6">
+                <div class="slds-text-heading_small padded">
+                    Total surface area: <strong> {product.Total_surface_area__c}  </strong>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    Furnished: 
+                    <template lwc:if={product.Furnished__c}> <div class="slds-text-color_success"> Yes </div> </template>
+                    <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    Wheelchair accessibility: 
+                    <template lwc:if={product.Wheelchair_accessible__c}> <div class="slds-text-color_success"> Yes </div> </template>
+                    <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    Elevator access: 
+                    <template lwc:if={product.Elevator_access__c}> <div class="slds-text-color_success"> Yes </div> </template>
+                    <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    Air conditioning: 
+                    <template lwc:if={product.Air_conditioning__c}> <div class="slds-text-color_success"> Yes </div> </template>
+                    <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                </div>
+                <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
+                    Price: {productPrice} €
+                </div>
+            </div>
         </div>
-        <div class="slds-align_absolute-center" style="padding: 1em; background-color: #fff">
-            <div class="slds-text-heading_medium"> {product.Name} </div>
-        </div>
-        <div style="background-color: #ebf7e6">
-            <div class="slds-text-heading_small padded">
-                Total surface area: <strong> {product.Total_surface_area__c}  </strong>
-            </div>
-            <div class="slds-text-heading_small padded">
-                Furnished: 
-                <template lwc:if={product.Furnished__c}> <div class="slds-text-color_success"> Yes </div> </template>
-                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
-            </div>
-            <div class="slds-text-heading_small padded">
-                Wheelchair accessibility: 
-                <template lwc:if={product.Wheelchair_accessible__c}> <div class="slds-text-color_success"> Yes </div> </template>
-                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
-            </div>
-            <div class="slds-text-heading_small padded">
-                Elevator access: 
-                <template lwc:if={product.Elevator_access__c}> <div class="slds-text-color_success"> Yes </div> </template>
-                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
-            </div>
-            <div class="slds-text-heading_small padded">
-                Air conditioning: 
-                <template lwc:if={product.Air_conditioning__c}> <div class="slds-text-color_success"> Yes </div> </template>
-                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
-            </div>
-            <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
-                Price: {productPrice} €
-            </div>
-        </div>
-    </div>
+    </template>
 </template>
