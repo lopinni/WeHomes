@@ -9,176 +9,126 @@
             </div>
             <lightning-layout>
                 <lightning-layout-item flexibility="auto" padding="around-medium">
-                    <div class="slds-text-align_left slds-text-heading_small">
-                        {labels.TOTAL_SURFACE_AREA}
-                    </div>
-                    <div class="slds-text-align_left slds-text-heading_small">
-                        City
-                    </div>
-                    <div class="slds-text-align_left slds-text-heading_small">
-                        Street
-                    </div>
-                    <div class="slds-text-align_left slds-text-heading_small">
-                        Postal Code
-                    </div>
-                    <div class="slds-text-align_left slds-text-heading_small">
-                        Country
-                    </div>
-                    <div class="slds-text-align_left slds-text-heading_small">
-                        Furnished
-                    </div>
+                    <div class="slds-text-align_left slds-text-heading_small"> {labels.TOTAL_SURFACE_AREA} </div>
+                    <div class="slds-text-align_left slds-text-heading_small"> {labels.CITY} </div>
+                    <div class="slds-text-align_left slds-text-heading_small"> {labels.STREET} </div>
+                    <div class="slds-text-align_left slds-text-heading_small"> {labels.POSTAL_CODE} </div>
+                    <div class="slds-text-align_left slds-text-heading_small"> {labels.COUNTRY} </div>
+                    <div class="slds-text-align_left slds-text-heading_small"> {labels.FURNISHED} </div>
                 </lightning-layout-item>
                 <lightning-layout-item flexibility="auto" padding="around-medium">
                     <div class="slds-text-align_right slds-text-heading_small">
                         {productTotalSurfaceArea} m<sup>2</sup>
                     </div>
+                    <div class="slds-text-align_right slds-text-heading_small"> {productCity} </div>
+                    <div class="slds-text-align_right slds-text-heading_small"> {productStreet} </div>
+                    <div class="slds-text-align_right slds-text-heading_small"> {productPostalCode} </div>
+                    <div class="slds-text-align_right slds-text-heading_small"> {productCountry} </div>
                     <div class="slds-text-align_right slds-text-heading_small">
-                        {productCity}
-                    </div>
-                    <div class="slds-text-align_right slds-text-heading_small">
-                        {productStreet}
-                    </div>
-                    <div class="slds-text-align_right slds-text-heading_small">
-                        {productPostalCode}
-                    </div>
-                    <div class="slds-text-align_right slds-text-heading_small">
-                        {productCountry}
-                    </div>
-                    <div class="slds-text-align_right slds-text-heading_small">
-                        <template lwc:if={productFurnished}> <div class="slds-text-color_success"> Yes </div> </template>
-                        <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                        <template lwc:if={productFurnished}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                        <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
                     </div>
                 </lightning-layout-item>
             </lightning-layout>
             <div class="slds-text-heading_medium slds-text-align_right">
-                <p style="padding-right: 1em;">
-                    Price: {productPrice} €
-                </p>
+                <p style="padding-right: 1em;"> {labels.PRICE}: {productPrice} € </p>
             </div>
             <div class="slds-align_absolute-center slds-text-heading_small" style="padding: 1em;">
-                <lightning-button variant="brand-outline" label="Buy" class="slds-m-left_medium" style="float: right;"> </lightning-button>
+                <lightning-button variant="brand-outline" label={labels.BUY} class="slds-m-left_medium" style="float: right;"> </lightning-button>
             </div>
         </div>
         <div class="detail-box" if:false={basicInfo}>
-            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> Description </div>
+            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> 
+                <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account" style="margin-right: 0.5em;"> </lightning-icon> {labels.DESCRIPTION}
+            </div>
             <div class="slds-text-heading_small">
-                <p style="padding: 2em;">
-                    {productDescription}
-                </p>
+                <p style="padding: 2em;"> {productDescription} </p>
             </div>
             <hr>
-            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> Floor information </div>
+            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> {labels.FLOOR_INFORMATION} </div>
             <lightning-layout>
                 <lightning-layout-item flexibility="auto" size="6" padding="around-medium">
                     <lightning-layout>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Floor
-                            </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.FLOOR} </div>
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_right slds-text-heading_small">
-                                {productFloor}
-                            </div>
+                            <div class="slds-text-align_right slds-text-heading_small"> {productFloor} </div>
                         </lightning-layout-item>
                     </lightning-layout>
                 </lightning-layout-item>
                 <lightning-layout-item flexibility="auto" size="6" padding="around-medium">
                     <lightning-layout>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Number of floors
-                            </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.NUMBER_OF_FLOORS} </div>
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_right slds-text-heading_small">
-                                {productNumberOfFloors}
-                            </div>
+                            <div class="slds-text-align_right slds-text-heading_small"> {productNumberOfFloors} </div>
                         </lightning-layout-item>
                     </lightning-layout>
                 </lightning-layout-item>
             </lightning-layout>
             <hr>
-            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> Facilities </div>
+            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> {labels.FACILITIES} </div>
             <lightning-layout>
                 <lightning-layout-item flexibility="auto" size="6"  padding="around-medium">
                     <lightning-layout>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Number of meeting rooms
-                            </div>
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Number of kitchens
-                            </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.NUMBER_OF_MEETING_ROOMS} </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.NUMBER_OF_KITCHENS} </div>
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_right slds-text-heading_small">
-                                {productNumberOfMeetingRooms}
-                            </div>
-                            <div class="slds-text-align_right slds-text-heading_small">
-                                {productNumberOfKitchens}
-                            </div>
+                            <div class="slds-text-align_right slds-text-heading_small"> {productNumberOfMeetingRooms} </div>
+                            <div class="slds-text-align_right slds-text-heading_small"> {productNumberOfKitchens} </div>
                         </lightning-layout-item>
                     </lightning-layout>
                 </lightning-layout-item>
                 <lightning-layout-item flexibility="auto" size="6"  padding="around-medium">
                     <lightning-layout>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Number of parking spaces
-                            </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.NUMBER_OF_PARKING_SPACES} </div>
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_right slds-text-heading_small">
-                                {productParkingSpaces}
-                            </div>
+                            <div class="slds-text-align_right slds-text-heading_small"> {productParkingSpaces} </div>
                         </lightning-layout-item>
                     </lightning-layout>
                 </lightning-layout-item>
             </lightning-layout>
             <hr>
-            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> Amenities </div>
+            <div class="slds-text-heading_medium" style="padding: 1em; padding-bottom: 0;"> {labels.AMENITIES} </div>
             <lightning-layout>
                 <lightning-layout-item flexibility="auto" size="6"  padding="around-medium">
                     <lightning-layout>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Wheelchair accessible
-                            </div>
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Open-Plan office
-                            </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.WHEELCHAIR_ACCESSIBLE} </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.OPEN_PLAN_OFFICE} </div>
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
                             <div class="slds-text-align_right slds-text-heading_small">
-                                <template lwc:if={productWheelchairAccessible}> <div class="slds-text-color_success"> Yes </div> </template>
-                                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                                <template lwc:if={productWheelchairAccessible}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                                <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
                             </div>
                             <div class="slds-text-align_right slds-text-heading_small">
-                                <template lwc:if={productOpenPlanOffice}> <div class="slds-text-color_success"> Yes </div> </template>
-                                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                                <template lwc:if={productOpenPlanOffice}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                                <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
                             </div>
                         </lightning-layout-item>
                     </lightning-layout>
                 </lightning-layout-item>
-                <lightning-layout-item flexibility="auto" size="6"  padding="around-medium">
+                <lightning-layout-item flexibility="auto" size="6" padding="around-medium">
                     <lightning-layout>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Elevator access
-                            </div>
-                            <div class="slds-text-align_left slds-text-heading_small">
-                                Air conditioning
-                            </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.ELEVATOR_ACCESS} </div>
+                            <div class="slds-text-align_left slds-text-heading_small"> {labels.AIR_CONDITIONING} </div>
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto" padding="around-medium">
                             <div class="slds-text-align_right slds-text-heading_small">
-                                <template lwc:if={productElevatorAccess}> <div class="slds-text-color_success"> Yes </div> </template>
-                                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                                <template lwc:if={productElevatorAccess}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                                <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
                             </div>
                             <div class="slds-text-align_right slds-text-heading_small">
-                                <template lwc:if={productAirConditioning}> <div class="slds-text-color_success"> Yes </div> </template>
-                                <template lwc:else> <div class="slds-text-color_error"> No </div> </template>
+                                <template lwc:if={productAirConditioning}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                                <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
                             </div>
                         </lightning-layout-item>
                     </lightning-layout>

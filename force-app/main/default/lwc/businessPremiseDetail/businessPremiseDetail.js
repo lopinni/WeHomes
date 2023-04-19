@@ -5,12 +5,56 @@ import getBusinessProductPriceById from "@salesforce/apex/WH_PricebookManagerCon
 
 import LOADING from '@salesforce/label/c.Loading';
 import TOTAL_SURFACE_AREA from '@salesforce/label/c.Total_Surface_Area';
+import CITY from '@salesforce/label/c.City';
+import STREET from '@salesforce/label/c.Street';
+import POSTAL_CODE from '@salesforce/label/c.PostalCode';
+import COUNTRY from '@salesforce/label/c.Country';
+import FURNISHED from '@salesforce/label/c.Furnished';
+import PRICE from '@salesforce/label/c.Price';
+import BUY from '@salesforce/label/c.Buy';
+import DESCRIPTION from '@salesforce/label/c.Description';
+import FLOOR_INFORMATION from '@salesforce/label/c.Floor_Information';
+import FLOOR from '@salesforce/label/c.Floor';
+import NUMBER_OF_FLOORS from '@salesforce/label/c.Number_Of_Floors';
+import FACILITIES from '@salesforce/label/c.Facilities';
+import NUMBER_OF_MEETING_ROOMS from '@salesforce/label/c.Number_Of_Meeting_Rooms';
+import NUMBER_OF_KITCHENS from '@salesforce/label/c.Number_Of_Kitchens';
+import NUMBER_OF_PARKING_SPACES from '@salesforce/label/c.Number_Of_Parking_Spaces';
+import AMENITIES from '@salesforce/label/c.Amenities';
+import WHEELCHAIR_ACCESSIBLE from '@salesforce/label/c.Wheelchair_Accessible';
+import OPEN_PLAN_OFFICE from '@salesforce/label/c.Open_Plan_Office';
+import ELEVATOR_ACCESS from '@salesforce/label/c.Elevator_Access';
+import AIR_CONDITIONING from '@salesforce/label/c.Air_Conditioning';
+import YES from '@salesforce/label/c.Yes';
+import NO from '@salesforce/label/c.No';
 
 export default class BusinessPremiseDetail extends LightningElement {
 
     labels = {
         LOADING,
         TOTAL_SURFACE_AREA,
+        CITY,
+        STREET,
+        POSTAL_CODE,
+        COUNTRY,
+        FURNISHED,
+        PRICE,
+        BUY,
+        DESCRIPTION,
+        FLOOR_INFORMATION,
+        FLOOR,
+        NUMBER_OF_FLOORS,
+        FACILITIES,
+        NUMBER_OF_MEETING_ROOMS,
+        NUMBER_OF_KITCHENS,
+        NUMBER_OF_PARKING_SPACES,
+        AMENITIES,
+        WHEELCHAIR_ACCESSIBLE,
+        OPEN_PLAN_OFFICE,
+        ELEVATOR_ACCESS,
+        AIR_CONDITIONING,
+        YES,
+        NO
     };
 
     @api recordId;
