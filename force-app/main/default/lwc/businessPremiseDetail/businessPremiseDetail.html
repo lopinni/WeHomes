@@ -51,9 +51,12 @@
                 </lightning-layout-item>
             </lightning-layout>
             <div class="slds-text-heading_medium slds-text-align_right">
-                <p style="padding: 1em;">
+                <p style="padding-right: 1em;">
                     Price: {productPrice} €
                 </p>
+            </div>
+            <div class="slds-align_absolute-center slds-text-heading_small" style="padding: 1em;">
+                <lightning-button variant="brand-outline" label="Buy" class="slds-m-left_medium" style="float: right;"> </lightning-button>
             </div>
         </div>
         <div class="detail-box" if:false={basicInfo}>
