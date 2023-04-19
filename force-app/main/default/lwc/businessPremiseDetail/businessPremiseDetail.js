@@ -3,7 +3,15 @@ import { LightningElement, api } from 'lwc';
 import getProductById from "@salesforce/apex/WH_LocationController.getProductById";
 import getBusinessProductPriceById from "@salesforce/apex/WH_PricebookManagerController.getBusinessProductPriceById";
 
+import LOADING from '@salesforce/label/c.Loading';
+import TOTAL_SURFACE_AREA from '@salesforce/label/c.Total_Surface_Area';
+
 export default class BusinessPremiseDetail extends LightningElement {
+
+    labels = {
+        LOADING,
+        TOTAL_SURFACE_AREA,
+    };
 
     @api recordId;
     @api basicInfo;

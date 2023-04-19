@@ -1,6 +1,6 @@
 <template>
     <template if:false={loaded}>
-        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        <lightning-spinner alternative-text={labels.LOADING}></lightning-spinner>
     </template>
     <template if:true={loaded}>
         <div class="detail-box" if:true={basicInfo}>
@@ -10,7 +10,7 @@
             <lightning-layout>
                 <lightning-layout-item flexibility="auto" padding="around-medium">
                     <div class="slds-text-align_left slds-text-heading_small">
-                        Total surface area
+                        {labels.TOTAL_SURFACE_AREA}
                     </div>
                     <div class="slds-text-align_left slds-text-heading_small">
                         City
