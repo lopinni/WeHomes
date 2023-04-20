@@ -10,3 +10,9 @@
 hr {
   margin: 0;
 }
+
+.description {
+  padding: 2em;
+  text-align: justify;
+  text-justify: inter-word;
+}
