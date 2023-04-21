@@ -5,6 +5,8 @@ import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
 import getCurrentUserRole from "@salesforce/apex/WH_LocationController.getCurrentUserRole";
 import getProducts from "@salesforce/apex/WH_LocationController.getProducts";
 
+import ERROR from '@salesforce/label/c.Error';
+
 export default class ProductBrowser extends LightningElement {
 
     loaded = false;
@@ -108,7 +110,7 @@ export default class ProductBrowser extends LightningElement {
             this.loaded = true;
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
+                title: ERROR,
                 message: error,
                 variant: 'error'
             }));

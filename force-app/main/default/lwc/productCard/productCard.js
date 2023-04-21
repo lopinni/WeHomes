@@ -1,5 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import getURL from "@salesforce/apex/WH_LocationController.getURL";
 import getBusinessProductPriceById from "@salesforce/apex/WH_PricebookManagerController.getBusinessProductPriceById";
@@ -13,6 +14,7 @@ import ELEVATOR_ACCESS from '@salesforce/label/c.Elevator_Access';
 import AIR_CONDITIONING from '@salesforce/label/c.Air_Conditioning';
 import YES from '@salesforce/label/c.Yes';
 import NO from '@salesforce/label/c.No';
+import ERROR from '@salesforce/label/c.Error';
 
 export default class ProductCard extends NavigationMixin(LightningElement) {
 
@@ -42,7 +44,11 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
             this.productPrice = result.UnitPrice;
             this.loaded = true;
         }).catch(error => {
-            console.log(error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: ERROR,
+                message: error,
+                variant: 'error'
+            }));
         });
     }
 
@@ -53,7 +59,11 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
             this.URL = data[0].DisplayUrl;
             this.loaded = true;
         } else if (error) {
-            console.log(error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: ERROR,
+                message: error,
+                variant: 'error'
+            }));
         }
     }
 

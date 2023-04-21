@@ -1,6 +1,9 @@
 import { LightningElement, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import getDistributionFiles from "@salesforce/apex/WH_LocationController.getDistributionFiles";
+
+import ERROR from '@salesforce/label/c.Error';
 
 export default class CommunityProductGallery extends LightningElement {
 
@@ -19,7 +22,11 @@ export default class CommunityProductGallery extends LightningElement {
             this.images = result;
             this.loaded = true;
         }).catch(error => {
-            console.log(error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: ERROR,
+                message: error,
+                variant: 'error'
+            }));
         });
     }
 
