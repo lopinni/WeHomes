@@ -97,7 +97,6 @@ export default class BusinessPremiseDetail extends LightningElement {
     }
 
     populateFields(result) {
-        console.log(result);
         this.productName = result.Name;
         this.productDescription = result.Description;
         this.productTotalSurfaceArea = result.Total_surface_area__c;
