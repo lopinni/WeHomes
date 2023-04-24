@@ -14,28 +14,59 @@
                 <div class="slds-text-heading_medium"> {product.Name} </div>
             </div>
             <div style="background-color: #ebf7e6">
-                <div class="slds-text-heading_small padded">
-                    {labels.TOTAL_SURFACE_AREA}: <strong> {product.Total_surface_area__c} m<sup>2</sup> </strong>
+                <div class="slds-text-heading_small padded" style="padding-top: 0.5em;">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="8" padding="around-small">
+                            {labels.TOTAL_SURFACE_AREA}:
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="4" padding="around-small">
+                            <strong> {product.Total_surface_area__c} m<sup>2</sup> </strong>
+                        </lightning-layout-item>
+                    </lightning-layout>
                 </div>
                 <div class="slds-text-heading_small padded">
-                    {labels.FURNISHED}: 
-                    <template lwc:if={product.Furnished__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
-                    <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="8" padding="around-small">
+                            {labels.FURNISHED}: 
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="4" padding="around-small">
+                            <template lwc:if={product.Furnished__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
                 </div>
                 <div class="slds-text-heading_small padded">
-                    {labels.WHEELCHAIR_ACCESSIBLE}: 
-                    <template lwc:if={product.Wheelchair_accessible__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
-                    <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="8" padding="around-small">
+                            {labels.WHEELCHAIR_ACCESSIBLE}:
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="4" padding="around-small">
+                            <template lwc:if={product.Wheelchair_accessible__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
                 </div>
                 <div class="slds-text-heading_small padded">
-                    {labels.ELEVATOR_ACCESS}: 
-                    <template lwc:if={product.Elevator_access__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
-                    <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="8" padding="around-small">
+                            {labels.ELEVATOR_ACCESS}:
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="4" padding="around-small">
+                            <template lwc:if={product.Elevator_access__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
                 </div>
                 <div class="slds-text-heading_small padded">
-                    {labels.AIR_CONDITIONING}: 
-                    <template lwc:if={product.Air_conditioning__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
-                    <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="8" padding="around-small">
+                            {labels.AIR_CONDITIONING}: 
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="4" padding="around-small">
+                            <template lwc:if={product.Air_conditioning__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
                 </div>
                 <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
                     {labels.PRICE}: {productPrice} €
