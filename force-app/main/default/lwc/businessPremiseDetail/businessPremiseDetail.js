@@ -12,7 +12,6 @@ import POSTAL_CODE from '@salesforce/label/c.PostalCode';
 import COUNTRY from '@salesforce/label/c.Country';
 import FURNISHED from '@salesforce/label/c.Furnished';
 import PRICE from '@salesforce/label/c.Price';
-import BUY from '@salesforce/label/c.Buy';
 import DESCRIPTION from '@salesforce/label/c.Description';
 import FLOOR_INFORMATION from '@salesforce/label/c.Floor_Information';
 import FLOOR from '@salesforce/label/c.Floor';
@@ -41,7 +40,6 @@ export default class BusinessPremiseDetail extends LightningElement {
         COUNTRY,
         FURNISHED,
         PRICE,
-        BUY,
         DESCRIPTION,
         FLOOR_INFORMATION,
         FLOOR,
