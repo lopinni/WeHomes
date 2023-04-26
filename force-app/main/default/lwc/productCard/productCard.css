@@ -1,0 +1,22 @@
+.photo {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+}
+
+.padded {
+    padding-left: 1em;
+}
+
+.bordered {
+    box-shadow: 5px 5px 2px #ccc;
+      -moz-box-shadow: 5px 5px 2px #ccc;
+      -webkit-box-shadow: 5px 5px 2px #ccc;
+      -khtml-box-shadow: 5px 5px 2px #ccc;
+    transition: transform .2s;
+}
+
+.bordered:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+}

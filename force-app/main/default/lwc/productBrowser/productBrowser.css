@@ -4,3 +4,14 @@
     gap: 2em;
     padding-top: 1em;
 }
+
+.padded {
+    padding: 1em;
+}
+
+.shadow-box {
+    box-shadow: 5px 5px 2px #ccc;
+      -moz-box-shadow: 5px 5px 2px #ccc;
+      -webkit-box-shadow: 5px 5px 2px #ccc;
+      -khtml-box-shadow: 5px 5px 2px #ccc;
+}

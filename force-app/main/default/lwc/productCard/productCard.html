@@ -1,19 +1,77 @@
 <template>
-    <div style="background-color: #eee; border-radius: 5px;"
-        onclick={navigateToRecordPage}
-    >
-        <div class="slds-align_absolute-center" 
-            style="padding: 1em;"
-        >
-            <img src={URL} 
-                style="width: 15rem; height: 10rem; border-radius: 5px;"
-                alt="Insert image here"
-            >
+    <template if:false={loaded}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+    <template if:true={loaded}>
+        <div onclick={navigateToRecordPage} class="bordered">
+            <div class="slds-align_absolute-center">
+                <img src={URL} 
+                    class="photo"
+                    alt={labels.LOADING}
+                >
+            </div>
+            <div class="slds-align_absolute-center" style="padding: 1em; background-color: #fff">
+                <div class="slds-text-heading_medium"> {product.Name} </div>
+            </div>
+            <div style="background-color: #f3f3f3">
+                <div class="slds-text-heading_small padded" style="padding-top: 0.5em;">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="7" padding="around-small">
+                            {labels.TOTAL_SURFACE_AREA}:
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="5" padding="around-small">
+                            <strong> {product.Total_surface_area__c} m<sup>2</sup> </strong>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="7" padding="around-small">
+                            {labels.FURNISHED}: 
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="5" padding="around-small">
+                            <template lwc:if={product.Furnished__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="7" padding="around-small">
+                            {labels.WHEELCHAIR_ACCESSIBLE}:
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="5" padding="around-small">
+                            <template lwc:if={product.Wheelchair_accessible__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="7" padding="around-small">
+                            {labels.ELEVATOR_ACCESS}:
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="5" padding="around-small">
+                            <template lwc:if={product.Elevator_access__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-text-heading_small padded">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" size="7" padding="around-small">
+                            {labels.AIR_CONDITIONING}: 
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" size="5" padding="around-small">
+                            <template lwc:if={product.Air_conditioning__c}> <div class="slds-text-color_success"> {labels.YES} </div> </template>
+                            <template lwc:else> <div class="slds-text-color_error"> {labels.NO} </div> </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
+                    {labels.PRICE}: {productPrice} €
+                </div>
+            </div>
         </div>
-        <div class="slds-align_absolute-center" 
-            style="padding-bottom: 1em;"
-        >
-            {product.Name}
-        </div>
-    </div>
+    </template>
 </template>

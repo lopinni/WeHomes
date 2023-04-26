@@ -1,10 +1,18 @@
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.detail-box {
     border-radius: 5px;
+    background-color: #f3f3f3;
     box-shadow: 5px 5px 2px #ccc;
       -moz-box-shadow: 5px 5px 2px #ccc;
       -webkit-box-shadow: 5px 5px 2px #ccc;
       -khtml-box-shadow: 5px 5px 2px #ccc;
+}
+
+hr {
+  margin: 0;
+}
+
+.description {
+  padding: 2em;
+  text-align: justify;
+  text-justify: inter-word;
 }

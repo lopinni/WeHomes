@@ -1,0 +1,20 @@
+img {
+    border-radius: 5px;
+}
+
+.top {
+    color: white; 
+    padding-top: 0.5em;
+}
+
+.left {
+    color: white;
+    padding-top: 0.5em; 
+    padding-left: 1em;
+}
+
+.leftmost {
+    color: white;
+    padding-top: 0.5em; 
+    padding-left: 3em;
+}

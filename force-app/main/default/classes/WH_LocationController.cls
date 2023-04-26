@@ -1,4 +1,4 @@
-public with sharing class WH_LocationController {
+public without sharing class WH_LocationController {
     
     @AuraEnabled(cacheable=true)
     public static List<ContentVersion> getVersionFiles(String recordId) {
@@ -41,19 +41,24 @@ public with sharing class WH_LocationController {
     }
 
     @AuraEnabled
-    public static void updateMainImage(String recordId, String url) {
-        try {
-            Product2 product = [
-                SELECT
-                    DisplayUrl
-                FROM Product2
-                WHERE Id =:recordId
-                WITH SECURITY_ENFORCED
-            ];
-            product.DisplayUrl = url;
-            update product;
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
+    public static void updateMainImage(String recordId, String docVerId) {
+        Product2 prod = [SELECT Id, DisplayUrl FROM Product2 WHERE Id =:recordId][0];
+        ContentDistribution cd = new ContentDistribution();
+        cd.Name = recordId + ' profile photo';
+        cd.ContentVersionId = docVerId;
+        cd.PreferencesAllowViewInBrowser= true;
+        cd.PreferencesLinkLatestVersion=true;
+        cd.PreferencesNotifyOnVisit=false;
+        cd.PreferencesPasswordRequired=false;
+        cd.PreferencesAllowOriginalDownload= true;
+        insert cd;
+        cd = [SELECT ContentVersionId, ContentDownloadUrl FROM ContentDistribution WHERE ContentVersionId =: docVerId][0];
+        prod.DisplayUrl = cd.ContentDownloadUrl;
+        try{
+            update prod;
+        }
+        catch(Exception e){
+            System.debug('Error set profile');
         }
     }
 
@@ -73,6 +78,13 @@ public with sharing class WH_LocationController {
                 WITH SECURITY_ENFORCED
             ];
             delete document;
+            List<ContentDistribution> distributions = [
+                SELECT Id
+                FROM ContentDistribution
+                WHERE ContentVersionId =:version.Id
+                WITH SECURITY_ENFORCED
+            ];
+            delete distributions;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
@@ -97,13 +109,13 @@ public with sharing class WH_LocationController {
                 Boolean housingSales,
                 Boolean businessSales
             ) {
-        String query;
+        String query = 'SELECT Id, Name, Total_surface_area__c, Furnished__c, Wheelchair_accessible__c, Elevator_access__c, Air_conditioning__c, RecordType.Name FROM Product2 ';
         if(housingSales) {
-            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Apartments\' ';
+            query += 'WHERE RecordType.Name = \'Apartments\' ';
         } else if(businessSales) {
-            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE RecordType.Name = \'Business Premises\' ';
+            query += 'WHERE RecordType.Name = \'Business Premises\' ';
         } else {
-            query = 'SELECT Id, Name, RecordType.Name FROM Product2 WHERE Name != null ';
+            query += 'WHERE Name != null ';
         }
         if(name != '' && name != null) {
             query += 'AND Name LIKE \'%' + name + '%\' ';
@@ -156,6 +168,55 @@ public with sharing class WH_LocationController {
             } else {
                 return new List<Product2>();
             }
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static UserRole getCurrentUserRole() {
+        String uRoleId = UserInfo.getUserRoleId();
+        return [
+            SELECT Name FROM UserRole WHERE Id =: uRoleId WITH SECURITY_ENFORCED
+        ];
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static Product2 getProductById(String productId) {
+        try {
+            return [
+            SELECT 
+                Name, 
+                Description,
+                Total_surface_area__c,
+                Floor__c,
+                Number_of_floors__c,
+                City__c,
+                Street__c,
+                Postal_Code__c,
+                Country__c,
+                Number_of_meeting_rooms__c,
+                Number_of_kitchens__c,
+                Parking_spaces__c,
+                Furnished__c,
+                Wheelchair_accessible__c,
+                Open_plan_office__c,
+                Elevator_access__c,
+                Air_conditioning__c
+            FROM Product2 
+            WHERE Id =: productId
+        ];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<ContentDistribution> getDistributionFiles(String productId) {
+        try {
+            return [
+                SELECT ContentVersionId, ContentDownloadUrl FROM ContentDistribution WHERE Name =:productId
+            ];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

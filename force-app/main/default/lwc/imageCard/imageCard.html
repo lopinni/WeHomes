@@ -57,9 +57,9 @@
       </li>
     </template>
     <template if:true={preview}>
-      <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content" class="slds-modal slds-fade-in-open">
+      <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content" class="slds-modal slds-fade-in-open" onclick={hidePreview}>
         <div class="slds-modal__container">
-          <img src={thumbnail} alt={file.title} onclick={hidePreview}/>
+          <img src={thumbnail} alt={file.title}/>
         </div>
       </section>
       <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>

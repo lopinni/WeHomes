@@ -1,10 +1,11 @@
 import { LightningElement, wire, track } from 'lwc';
 import { loadStyle } from "lightning/platformResourceLoader";
-import { getRecord } from 'lightning/uiRecordApi';
-import Id from '@salesforce/user/Id';
-import RoleName from '@salesforce/schema/User.UserRole.Name';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import noHeader from '@salesforce/resourceUrl/NoHeaderStylesheet';
+import getCurrentUserRole from "@salesforce/apex/WH_LocationController.getCurrentUserRole";
 import getProducts from "@salesforce/apex/WH_LocationController.getProducts";
+
+import ERROR from '@salesforce/label/c.Error';
 
 export default class ProductBrowser extends LightningElement {
 
@@ -12,7 +13,8 @@ export default class ProductBrowser extends LightningElement {
     userRoleName;
 
     isHousingSales = false;
-    isBusinessSales = false;
+    isBusinessSales = true;
+    isCommunity = false;
 
     renderPagination = false;
     pageSize = 6;
@@ -40,26 +42,36 @@ export default class ProductBrowser extends LightningElement {
     @track productsTemp;
 
     showMessage = false;
-    messageContent = "Could not find actors with matching name.";
+    messageContent = "Could not find products with matching criteria.";
 
     constructor() {
         super();
         loadStyle(this, noHeader);
     }
 
-    @wire(getRecord, { recordId: Id, fields: [RoleName] })
+    @wire(getCurrentUserRole)
     userDetails({ error, data }) {
         if (error) {
             this.error = error;
         } else if (data) {
-            if (data.fields.UserRole.value != null) {
-                this.userRoleName = data.fields.UserRole.value.fields.Name.value;
+            if (data.Name != null) {
+                this.userRoleName = data.Name;
             }
             if(this.userRoleName == "Business Premises Sales") {
+                this.isCommunity = false;
+                this.isHousingSales = false;
                 this.isBusinessSales = true;
             } else if(this.userRoleName == "Housing Sales") {
+                this.isCommunity = false;
                 this.isHousingSales = true;
+                this.isBusinessSales = false;
+            } else if(this.userRoleName == "CEO") {
+                this.isCommunity = false;
+                this.isHousingSales = false;
+                this.isBusinessSales = false;
             }
+        } else {
+            this.isCommunity = true;
         }
         this.queryProducts();
         this.loaded = true;
@@ -98,7 +110,7 @@ export default class ProductBrowser extends LightningElement {
             this.loaded = true;
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
+                title: ERROR,
                 message: error,
                 variant: 'error'
             }));
@@ -196,7 +208,7 @@ export default class ProductBrowser extends LightningElement {
         this.productsTemp = [];
         this.clearfields();
         this.showMessage = false;
-        this.renderPagination = false;
+        this.queryProducts();
     }
 
     clearfields() {
