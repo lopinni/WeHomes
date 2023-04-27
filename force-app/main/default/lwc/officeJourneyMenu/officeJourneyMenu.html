@@ -7,7 +7,15 @@
             <lightning-layout>
                 <lightning-layout-item size="4" padding="around-large">
                     <div class="slds-float_right">
-                        <p>I'm floooaaaating</p>
+                        <template if:true={agent.FullPhotoUrl}>
+                            <img src={agent.FullPhotoUrl}>
+                        </template>
+                        <div class="slds-align_absolute-center slds-text-heading_small" style="padding-top: 1em;">
+                            Office Agent
+                        </div>
+                        <div class="slds-align_absolute-center slds-text-heading_medium">
+                            {agent.FirstName} {agent.LastName}
+                        </div>
                     </div>
                 </lightning-layout-item>
                 <lightning-layout-item size="8" padding="around-large">
