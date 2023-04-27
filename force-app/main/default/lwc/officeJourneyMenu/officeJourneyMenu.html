@@ -1,3 +1,19 @@
 <template>
-    BALLS.
+    <template if:true={isLoggedIn}>
+        <template if:false={loaded}>
+            <lightning-spinner alternative-text={labels.LOADING}></lightning-spinner>
+        </template>
+        <template if:true={loaded}>
+            <lightning-layout>
+                <lightning-layout-item size="4" padding="around-large">
+                    <div class="slds-float_right">
+                        <p>I'm floooaaaating</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="8" padding="around-large">
+                    {isLoggedIn}
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+    </template>
 </template>
