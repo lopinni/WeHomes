@@ -1,7 +1,7 @@
 <template>
     <template if:true={isLoggedIn}>
         <template if:false={loaded}>
-            <lightning-spinner alternative-text={labels.LOADING}></lightning-spinner>
+            <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
         </template>
         <template if:true={loaded}>
             <lightning-layout>
@@ -24,23 +24,23 @@
                     <div class="slds-text-heading_medium" style="padding-top: 0.5em;"> AM </div>
                     <div style="padding-top: 0.5em;">
                         <lightning-button-group>
-                            <lightning-button label="9:00" data-time="9:00" onclick={setJourneyTime} disabled={nine}> </lightning-button>
-                            <lightning-button label="9:30" data-time="9:30" onclick={setJourneyTime} disabled={nineHalf}> </lightning-button>
-                            <lightning-button label="10:00" data-time="10:00" onclick={setJourneyTime} disabled={ten}> </lightning-button>
-                            <lightning-button label="10:30" data-time="10:30" onclick={setJourneyTime} disabled={tenHalf}> </lightning-button>
-                            <lightning-button label="11:00" data-time="11:00" onclick={setJourneyTime} disabled={eleven}> </lightning-button>
-                            <lightning-button label="11:30" data-time="11:30" onclick={setJourneyTime} disabled={elevenHalf}> </lightning-button>
+                            <lightning-button label="09:00" data-time="09:00" onclick={setJourneyTime} disabled={disableNine}> </lightning-button>
+                            <lightning-button label="09:30" data-time="09:30" onclick={setJourneyTime} disabled={disableNineHalf}> </lightning-button>
+                            <lightning-button label="10:00" data-time="10:00" onclick={setJourneyTime} disabled={disableTen}> </lightning-button>
+                            <lightning-button label="10:30" data-time="10:30" onclick={setJourneyTime} disabled={disableTenHalf}> </lightning-button>
+                            <lightning-button label="11:00" data-time="11:00" onclick={setJourneyTime} disabled={disableEleven}> </lightning-button>
+                            <lightning-button label="11:30" data-time="11:30" onclick={setJourneyTime} disabled={disableElevenHalf}> </lightning-button>
                         </lightning-button-group>
                     </div>
                     <div class="slds-text-heading_medium" style="padding-top: 0.5em;"> PM </div>
                     <div style="padding-top: 0.5em;">
                         <lightning-button-group>
-                            <lightning-button label="12:00" data-time="12:00" onclick={setJourneyTime} disabled={twelve}> </lightning-button>
-                            <lightning-button label="12:30" data-time="12:30" onclick={setJourneyTime} disabled={twelveHalf}> </lightning-button>
-                            <lightning-button label="13:00" data-time="13:00" onclick={setJourneyTime} disabled={thirteen}> </lightning-button>
-                            <lightning-button label="13:30" data-time="13:30" onclick={setJourneyTime} disabled={thirteenHalf}> </lightning-button>
-                            <lightning-button label="14:00" data-time="14:00" onclick={setJourneyTime} disabled={fourteen}> </lightning-button>
-                            <lightning-button label="14:30" data-time="14:30" onclick={setJourneyTime} disabled={fourteenHalf}> </lightning-button>
+                            <lightning-button label="12:00" data-time="12:00" onclick={setJourneyTime} disabled={disableTwelve}> </lightning-button>
+                            <lightning-button label="12:30" data-time="12:30" onclick={setJourneyTime} disabled={disableTwelveHalf}> </lightning-button>
+                            <lightning-button label="13:00" data-time="13:00" onclick={setJourneyTime} disabled={disableThirteen}> </lightning-button>
+                            <lightning-button label="13:30" data-time="13:30" onclick={setJourneyTime} disabled={disableThirteenHalf}> </lightning-button>
+                            <lightning-button label="14:00" data-time="14:00" onclick={setJourneyTime} disabled={disableFourteen}> </lightning-button>
+                            <lightning-button label="14:30" data-time="14:30" onclick={setJourneyTime} disabled={disableFourteenHalf}> </lightning-button>
                         </lightning-button-group>
                     </div>
                     <div class="slds-text-heading_medium" style="padding-top: 1em;"> {journeyTimeMessage} </div>

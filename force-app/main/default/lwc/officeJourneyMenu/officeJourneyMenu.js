@@ -26,21 +26,20 @@ export default class OfficeJourneyMenu extends LightningElement {
     journeyTimeMessage;
     journeyDateMessage;
 
-    disabledButtons = true;
     disabledReservation = true;
 
-    nine = true;
-    nineHalf = true;
-    ten = true;
-    tenHalf = true;
-    eleven = true;
-    elevenHalf = true;
-    twelve = true;
-    twelveHalf = true;
-    thirteen = true;
-    thirteenHalf = true;
-    fourteen = true;
-    fourteenHalf = true;
+    disableNine = true;
+    disableNineHalf = true;
+    disableTen = true;
+    disableTenHalf = true;
+    disableEleven = true;
+    disableElevenHalf = true;
+    disableTwelve = true;
+    disableTwelveHalf = true;
+    disableThirteen = true;
+    disableThirteenHalf = true;
+    disableFourteen = true;
+    disableFourteenHalf = true;
 
     showError(error) {
         console.log(error);
@@ -72,6 +71,10 @@ export default class OfficeJourneyMenu extends LightningElement {
     setJourneyDate(event) {
         this.journeyDate = event.detail.value;
         this.journeyDateMessage = "Jourey set on: " + this.journeyDate;
+        this.setButtonsState();
+    }
+
+    setButtonsState() {
         getAgentAvailability({
             agentId: this.agent.Id,
             selectedDay: this.journeyDate
@@ -81,23 +84,22 @@ export default class OfficeJourneyMenu extends LightningElement {
         .catch(error => {
             this.showError(error);
         });
-        this.disabledButtons = false;
     }
 
     setAvailability(result) {
         const parsed = JSON.parse(result);
-        this.nine = parsed["9:00"];
-        this.nineHalf = parsed["9:30"];
-        this.ten = parsed["10:00"];
-        this.tenHalf = parsed["10:30"];
-        this.eleven = parsed["11:00"];
-        this.elevenHalf = parsed["11:30"];
-        this.twelve = parsed["12:00"];
-        this.twelveHalf = parsed["12:30"];
-        this.thirteen = parsed["13:00"];
-        this.thirteenHalf = parsed["13:30"];
-        this.fourteen = parsed["14:00"];
-        this.fourteenHalf = parsed["14:30"];
+        this.disableNine = parsed["09:00"];
+        this.disableNineHalf = parsed["09:30"];
+        this.disableTen = parsed["10:00"];
+        this.disableTenHalf = parsed["10:30"];
+        this.disableEleven = parsed["11:00"];
+        this.disableElevenHalf = parsed["11:30"];
+        this.disableTwelve = parsed["12:00"];
+        this.disableTwelveHalf = parsed["12:30"];
+        this.disableThirteen = parsed["13:00"];
+        this.disableThirteenHalf = parsed["13:30"];
+        this.disableFourteen = parsed["14:00"];
+        this.disableFourteenHalf = parsed["14:30"];
     }
 
     setJourneyTime(event) {
@@ -111,6 +113,14 @@ export default class OfficeJourneyMenu extends LightningElement {
             agentId: this.agent.Id,
             selectedDay: this.journeyDate,
             selectedTime: this.journeyTime
+        }).then(() => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: "Success",
+                message: "The Office Agent will contact You soon.",
+                variant: 'success'
+            }));
+        }).then(() => {
+            this.setButtonsState();
         })
         .catch(error => {
             this.showError(error);

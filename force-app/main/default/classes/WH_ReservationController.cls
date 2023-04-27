@@ -49,8 +49,8 @@ public without sharing class WH_ReservationController {
         Datetime dayStart = Datetime.newInstance(Date.valueOf(selectedDay), Time.newInstance(0, 0, 0, 0));
         Datetime dayEnd = Datetime.newInstance(Date.valueOf(selectedDay), Time.newInstance(23, 59, 59, 0));
         Map<String, Boolean> availability = new Map<String, Boolean>();
-        availability.put('9:00', false);
-        availability.put('9:30', false);
+        availability.put('09:00', false);
+        availability.put('09:30', false);
         availability.put('10:00', false);
         availability.put('10:30', false);
         availability.put('11:00', false);
