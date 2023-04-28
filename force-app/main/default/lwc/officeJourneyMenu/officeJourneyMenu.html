@@ -1,0 +1,55 @@
+<template>
+    <template if:true={isLoggedIn}>
+        <template if:false={loaded}>
+            <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
+        </template>
+        <template if:true={loaded}>
+            <lightning-layout>
+                <lightning-layout-item size="5" padding="around-large">
+                    <div class="slds-float_right">
+                        <template if:true={agent.FullPhotoUrl}> <img src={agent.FullPhotoUrl}> </template>
+                        <div class="slds-align_absolute-center slds-text-heading_small" style="padding-top: 1em;">
+                            {labels.OFFICE_AGENT}
+                        </div>
+                        <div class="slds-align_absolute-center slds-text-heading_medium" style="padding-top: 1em;">
+                            {agent.FirstName} {agent.LastName}
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="7" padding="around-large">
+                    <div class="slds-text-heading_medium" style="padding-bottom: 0.5em;"> 
+                        <lightning-icon icon-name="standard:event" style="margin-right: 0.5em;"> </lightning-icon>
+                        {labels.BOOK_AN_OFFICE_JOURNEY}
+                    </div>
+                    <lightning-input type="date" label="Enter a date" onchange={setJourneyDate} style="width: 50%"> </lightning-input>
+                    <div class="slds-text-heading_medium" style="padding-top: 0.5em;"> {labels.AM} </div>
+                    <div style="padding-top: 0.5em;">
+                        <lightning-button-group>
+                            <lightning-button variant="brand-outline" label="9:00" data-time="09:00" onclick={setJourneyTime} disabled={disableNine}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="9:30" data-time="09:30" onclick={setJourneyTime} disabled={disableNineHalf}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="10:00" data-time="10:00" onclick={setJourneyTime} disabled={disableTen}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="10:30" data-time="10:30" onclick={setJourneyTime} disabled={disableTenHalf}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="11:00" data-time="11:00" onclick={setJourneyTime} disabled={disableEleven}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="11:30" data-time="11:30" onclick={setJourneyTime} disabled={disableElevenHalf}> </lightning-button>
+                        </lightning-button-group>
+                    </div>
+                    <div class="slds-text-heading_medium" style="padding-top: 0.5em;"> {labels.PM} </div>
+                    <div style="padding-top: 0.5em;">
+                        <lightning-button-group>
+                            <lightning-button variant="brand-outline" label="12:00" data-time="12:00" onclick={setJourneyTime} disabled={disableTwelve}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="12:30" data-time="12:30" onclick={setJourneyTime} disabled={disableTwelveHalf}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="13:00" data-time="13:00" onclick={setJourneyTime} disabled={disableThirteen}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="13:30" data-time="13:30" onclick={setJourneyTime} disabled={disableThirteenHalf}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="14:00" data-time="14:00" onclick={setJourneyTime} disabled={disableFourteen}> </lightning-button>
+                            <lightning-button variant="brand-outline" label="14:30" data-time="14:30" onclick={setJourneyTime} disabled={disableFourteenHalf}> </lightning-button>
+                        </lightning-button-group>
+                    </div>
+                    <div class="slds-text-heading_medium" style="padding-top: 1em;"> {journeyDateTimeMessage} </div>
+                    <div style="padding-top: 1em;">
+                        <lightning-button variant="brand" label={labels.RESERVE_JOURNEY} class="slds-m-left_x-small" disabled={disabledReservation} onclick={bookEvent}> </lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+    </template>
+</template>

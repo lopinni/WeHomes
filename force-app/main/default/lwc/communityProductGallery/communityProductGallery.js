@@ -22,9 +22,10 @@ export default class CommunityProductGallery extends LightningElement {
             this.images = result;
             this.loaded = true;
         }).catch(error => {
+            console.log(error);
             this.dispatchEvent(new ShowToastEvent({
                 title: ERROR,
-                message: error,
+                message: error.statusText,
                 variant: 'error'
             }));
         });
