@@ -21,23 +21,33 @@ public without sharing class WH_ReservationController {
     @AuraEnabled
     public static void createJourneyEvent(String productId, String agentId, String selectedDay, String selectedTime) {
         DateTime startDateTime = getStartDateTime(selectedDay, selectedTime);
-        Event objEvent = new Event();
-        objEvent.OwnerId = agentId;
-        objEvent.WhatId = productId;
-        objEvent.Subject = EVENT_SUBJECT;
-        objEvent.Location = EVENT_LOCATION;
-        objEvent.StartDateTime = startDateTime;
-        objEvent.EndDateTime = startDateTime.addMinutes(30);
-        Id userAccount = [
-            SELECT AccountId FROM User WHERE Id =: UserInfo.getUserId()
-        ].AccountId;
-        objEvent.WhoId = [
-            SELECT PersonContactId FROM Account WHERE Id =: userAccount
-        ].PersonContactId;
-        try {
-            insert objEvent;
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
+        List<Event> bookedEvents = [
+            SELECT StartDateTime 
+            FROM Event 
+            WHERE OwnerId =: agentId 
+            AND StartDateTime =: startDateTime
+        ];
+        if(!bookedEvents.isEmpty()) {
+            throw new AuraHandledException('This slot has already been taken. Sorry!');
+        } else {
+            Event objEvent = new Event();
+            objEvent.OwnerId = agentId;
+            objEvent.WhatId = productId;
+            objEvent.Subject = EVENT_SUBJECT;
+            objEvent.Location = EVENT_LOCATION;
+            objEvent.StartDateTime = startDateTime;
+            objEvent.EndDateTime = startDateTime.addMinutes(30);
+            Id userAccount = [
+                SELECT AccountId FROM User WHERE Id =: UserInfo.getUserId()
+            ].AccountId;
+            objEvent.WhoId = [
+                SELECT PersonContactId FROM Account WHERE Id =: userAccount
+            ].PersonContactId;
+            try {
+                insert objEvent;
+            } catch (Exception e) {
+                throw new AuraHandledException(e.getMessage());
+            }
         }
     }
 

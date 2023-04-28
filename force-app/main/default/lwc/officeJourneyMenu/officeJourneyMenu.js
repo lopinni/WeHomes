@@ -8,11 +8,24 @@ import getAgentAvailability from "@salesforce/apex/WH_ReservationController.getA
 
 import ERROR from '@salesforce/label/c.Error';
 import LOADING from '@salesforce/label/c.Loading';
+import SUCCESS from '@salesforce/label/c.Success';
+import SELECTED_DATE_TIME from '@salesforce/label/c.Selected_Date_time';
+import RESERVATION_SUCCESS_MESSAGE from '@salesforce/label/c.Journey_reservation_success_message';
+import OFFICE_AGENT from '@salesforce/label/c.Office_Agent';
+import AM from '@salesforce/label/c.AM';
+import PM from '@salesforce/label/c.PM';
+import BOOK_AN_OFFICE_JOURNEY from '@salesforce/label/c.Book_An_Office_Journey';
+import RESERVE_JOURNEY from '@salesforce/label/c.Reserve_Journey';
 
 export default class OfficeJourneyMenu extends LightningElement {
 
     labels = {
-        LOADING
+        LOADING,
+        OFFICE_AGENT,
+        AM,
+        PM,
+        BOOK_AN_OFFICE_JOURNEY,
+        RESERVE_JOURNEY
     }
 
     @api recordId;
@@ -23,8 +36,7 @@ export default class OfficeJourneyMenu extends LightningElement {
     agent;
     journeyTime;
     journeyDate;
-    journeyTimeMessage;
-    journeyDateMessage;
+    journeyDateTimeMessage;
 
     disabledReservation = true;
 
@@ -45,7 +57,7 @@ export default class OfficeJourneyMenu extends LightningElement {
         console.log(error);
         this.dispatchEvent(new ShowToastEvent({
             title: ERROR,
-            message: error.statusText,
+            message: error.body.message,
             variant: 'error'
         }));
     }
@@ -74,7 +86,6 @@ export default class OfficeJourneyMenu extends LightningElement {
 
     setJourneyDate(event) {
         this.journeyDate = event.detail.value;
-        this.journeyDateMessage = "Jourey set on: " + this.journeyDate;
         this.setButtonsState();
     }
 
@@ -107,7 +118,8 @@ export default class OfficeJourneyMenu extends LightningElement {
 
     setJourneyTime(event) {
         this.journeyTime = event.target.dataset.time;
-        this.journeyTimeMessage = this.journeyDateMessage + " at: " + this.journeyTime;
+        this.journeyDateTimeMessage = SELECTED_DATE_TIME;
+        this.journeyDateTimeMessage += " " + this.journeyDate + "  " + this.journeyTime;
         this.disabledReservation = false;
     }
 
@@ -119,33 +131,32 @@ export default class OfficeJourneyMenu extends LightningElement {
             selectedTime: this.journeyTime
         }).then(() => {
             this.dispatchEvent(new ShowToastEvent({
-                title: "Success",
-                message: "The Office Agent will contact You soon.",
+                title: SUCCESS,
+                message: RESERVATION_SUCCESS_MESSAGE,
                 variant: 'success'
             }));
         }).then(() => {
-            this.updateButton();
+            this.updateButtons();
         })
         .catch(error => {
             this.showError(error);
         });
     }
 
-    updateButton() {
-        switch(this.journeyTime) {
-            case "09:00": this.disableNine = true; break;
-            case "09:30": this.disableNineHalf = true; break;
-            case "10:00": this.disableTen = true; break;
-            case "10:30": this.disableTenHalf = true; break;
-            case "11:00": this.disableEleven = true; break;
-            case "11:30": this.disableElevenHalf = true; break;
-            case "12:00": this.disableTwelve = true; break;
-            case "12:30": this.disableTwelveHalf = true; break;
-            case "13:00": this.disableThirteen = true; break;
-            case "13:30": this.disableThirteenHalf = true; break;
-            case "14:00": this.disableFourteen = true; break;
-            case "14:30": this.disableFourteenHalf = true; break;
-        }
+    updateButtons() {
+        this.disableNine = true; 
+        this.disableNineHalf = true; 
+        this.disableTen = true; 
+        this.disableTenHalf = true; 
+        this.disableEleven = true; 
+        this.disableElevenHalf = true; 
+        this.disableTwelve = true; 
+        this.disableTwelveHalf = true; 
+        this.disableThirteen = true; 
+        this.disableThirteenHalf = true; 
+        this.disableFourteen = true; 
+        this.disableFourteenHalf = true; 
+        this.disabledReservation = true;
     }
 
 }
