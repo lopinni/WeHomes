@@ -60,12 +60,14 @@ export default class OfficeJourneyMenu extends LightningElement {
     }
 
     connectedCallback() {
-        getOfficeAgentInfo({ productId: this.recordId }).then(result => {
-            this.agent = result;
-            this.loaded = true;
-        }).catch(error => {
-            this.showError(error);
-        });
+        if(this.isLoggedIn) {
+            getOfficeAgentInfo({ productId: this.recordId }).then(result => {
+                this.agent = result;
+                this.loaded = true;
+            }).catch(error => {
+                this.showError(error);
+            });
+        }
     }
 
     setJourneyDate(event) {
