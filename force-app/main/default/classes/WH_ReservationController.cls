@@ -9,31 +9,18 @@ public without sharing class WH_ReservationController {
     public static User getOfficeAgentInfo(String productId) {
         Product2 product = [SELECT Office_Agent__c FROM Product2 WHERE Id =: productId][0];
         return [
-            SELECT 
-                FirstName,
-                LastName,
-                FullPhotoUrl
+            SELECT FirstName, LastName, FullPhotoUrl
             FROM User
             WHERE Id =: product.Office_Agent__c
         ];
     }
 
-    private static DateTime getStartDateTime(String selectedDay, String startTime) {
-        String startTimeStringHour = startTime.substring(0, 2);
-        Integer startTimeHour = integer.valueOf(startTimeStringHour);
-        String startTimeStringMinute = startTime.substring(3, 5);
-        Integer startTimeMinute = integer.valueOf(startTimeStringMinute);
-        Time startTimeHoursAndMinutes = Time.newInstance(startTimeHour, startTimeMinute, 0, 0);
-        Date startDateDay = Date.valueOf(selectedDay);
-        Datetime startDateTime = Datetime.newInstance(startDateDay, startTimeHoursAndMinutes);
-        return startDateTime;
-    }
-
     @AuraEnabled
-    public static void createJourneyEvent(Id agentId, String selectedDay, String selectedTime) {
+    public static void createJourneyEvent(Id productId, Id agentId, String selectedDay, String selectedTime) {
         DateTime startDateTime = getStartDateTime(selectedDay, selectedTime);
         Event objEvent = new Event();
         objEvent.OwnerId = agentId;
+        objEvent.WhatId = productId;
         objEvent.Subject = 'Office Journey';
         objEvent.StartDateTime = startDateTime;
         objEvent.EndDateTime = startDateTime.addMinutes(30);
@@ -44,23 +31,20 @@ public without sharing class WH_ReservationController {
         }
     }
 
+    private static DateTime getStartDateTime(String selectedDay, String startTime) {
+        Integer startTimeHour = integer.valueOf(startTime.substring(0, 2));
+        Integer startTimeMinute = integer.valueOf(startTime.substring(3, 5));
+        Time startTimeHoursAndMinutes = Time.newInstance(startTimeHour, startTimeMinute, 0, 0);
+        Datetime startDateTime = Datetime.newInstance(Date.valueOf(selectedDay), startTimeHoursAndMinutes);
+        return startDateTime;
+    }
+
     @AuraEnabled(cacheable=true)
     public static String getAgentAvailability(Id agentId, String selectedDay) {
-        Datetime dayStart = Datetime.newInstance(Date.valueOf(selectedDay), Time.newInstance(0, 0, 0, 0));
-        Datetime dayEnd = Datetime.newInstance(Date.valueOf(selectedDay), Time.newInstance(23, 59, 59, 0));
-        Map<String, Boolean> availability = new Map<String, Boolean>();
-        availability.put('09:00', false);
-        availability.put('09:30', false);
-        availability.put('10:00', false);
-        availability.put('10:30', false);
-        availability.put('11:00', false);
-        availability.put('11:30', false);
-        availability.put('12:00', false);
-        availability.put('12:30', false);
-        availability.put('13:00', false);
-        availability.put('13:30', false);
-        availability.put('14:00', false);
-        availability.put('14:30', false);
+        Date day = Date.valueOf(selectedDay);
+        Datetime dayStart = Datetime.newInstance(day, Time.newInstance(0, 0, 0, 0));
+        Datetime dayEnd = Datetime.newInstance(day, Time.newInstance(23, 59, 59, 0));
+        Map<String, Boolean> availability = getAvailabilityMap(day);
         List<Event> bookedEvents = [
             SELECT StartDateTime 
             FROM Event 
@@ -73,6 +57,22 @@ public without sharing class WH_ReservationController {
             availability.put(eventTime, true);
         }
         return JSON.serialize(availability);
+    }
+
+    private static Map<String, Boolean> getAvailabilityMap(Date selectedDay) {
+        Map<String, Boolean> availability = new Map<String, Boolean>();
+        Datetime now = System.now();
+        availability.put('09:00', checkTime(now, selectedDay, 9, 0));
+        availability.put('09:30', checkTime(now, selectedDay, 9, 30));
+        for(Integer i = 10; i <= 14; i++) {
+            availability.put(i + ':00', checkTime(now, selectedDay, i, 0));
+            availability.put(i + ':30', checkTime(now, selectedDay, i, 30));
+        }
+        return availability;
+    }
+
+    private static Boolean checkTime(Datetime now, Date selectedDay, Integer hours, Integer minutes) {
+        return (Datetime.newInstance(selectedDay, Time.newInstance(hours - 1, minutes, 0, 0)) < now);
     }
 
 }

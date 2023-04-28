@@ -18,7 +18,7 @@ export default class OfficeJourneyMenu extends LightningElement {
     @api recordId;
 
     loaded = false;
-    isLoggedIn = false;
+    isLoggedIn = true;
 
     agent;
     journeyTime;
@@ -67,6 +67,8 @@ export default class OfficeJourneyMenu extends LightningElement {
             }).catch(error => {
                 this.showError(error);
             });
+        } else {
+            this.loaded = true;
         }
     }
 
@@ -81,15 +83,14 @@ export default class OfficeJourneyMenu extends LightningElement {
             agentId: this.agent.Id,
             selectedDay: this.journeyDate
         }).then(result => {
-            this.setAvailability(result);
+            this.setAvailability(JSON.parse(result));
         })
         .catch(error => {
             this.showError(error);
         });
     }
 
-    setAvailability(result) {
-        const parsed = JSON.parse(result);
+    setAvailability(parsed) {
         this.disableNine = parsed["09:00"];
         this.disableNineHalf = parsed["09:30"];
         this.disableTen = parsed["10:00"];
@@ -112,6 +113,7 @@ export default class OfficeJourneyMenu extends LightningElement {
 
     bookEvent() {
         createJourneyEvent({
+            productId: this.recordId,
             agentId: this.agent.Id,
             selectedDay: this.journeyDate,
             selectedTime: this.journeyTime
