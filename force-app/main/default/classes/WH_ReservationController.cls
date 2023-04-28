@@ -2,6 +2,7 @@ public without sharing class WH_ReservationController {
 
     private static final String EVENT_SUBJECT = 'Office Journey';
     private static final String EVENT_LOCATION = 'Business premise';
+    private static final String DUPLICATE_CLICK_ERROR = 'This slot has already been taken. Sorry!';
 
     @AuraEnabled(cacheable=true)
     public static AuthSession getLoggedInStatus() {
@@ -41,7 +42,7 @@ public without sharing class WH_ReservationController {
             AND StartDateTime =: startDateTime
         ];
         if(!bookedEvents.isEmpty()) {
-            throw new AuraHandledException('This slot has already been taken. Sorry!');
+            throw new AuraHandledException(DUPLICATE_CLICK_ERROR);
         } else {
             try {
                 insert objEvent;
