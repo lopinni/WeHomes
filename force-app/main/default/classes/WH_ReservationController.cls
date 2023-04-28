@@ -1,5 +1,8 @@
 public without sharing class WH_ReservationController {
 
+    private static final String EVENT_SUBJECT = 'Office Journey';
+    private static final String EVENT_LOCATION = 'Business premise';
+
     @AuraEnabled(cacheable=true)
     public static AuthSession getLoggedInStatus() {
         return [SELECT IsCurrent FROM AuthSession ORDER BY IsCurrent DESC LIMIT 1];
@@ -16,14 +19,21 @@ public without sharing class WH_ReservationController {
     }
 
     @AuraEnabled
-    public static void createJourneyEvent(Id productId, Id agentId, String selectedDay, String selectedTime) {
+    public static void createJourneyEvent(String productId, String agentId, String selectedDay, String selectedTime) {
         DateTime startDateTime = getStartDateTime(selectedDay, selectedTime);
         Event objEvent = new Event();
         objEvent.OwnerId = agentId;
         objEvent.WhatId = productId;
-        objEvent.Subject = 'Office Journey';
+        objEvent.Subject = EVENT_SUBJECT;
+        objEvent.Location = EVENT_LOCATION;
         objEvent.StartDateTime = startDateTime;
         objEvent.EndDateTime = startDateTime.addMinutes(30);
+        Id userAccount = [
+            SELECT AccountId FROM User WHERE Id =: UserInfo.getUserId()
+        ].AccountId;
+        objEvent.WhoId = [
+            SELECT PersonContactId FROM Account WHERE Id =: userAccount
+        ].PersonContactId;
         try {
             insert objEvent;
         } catch (Exception e) {

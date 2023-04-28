@@ -124,11 +124,28 @@ export default class OfficeJourneyMenu extends LightningElement {
                 variant: 'success'
             }));
         }).then(() => {
-            this.setButtonsState();
+            this.updateButton();
         })
         .catch(error => {
             this.showError(error);
         });
+    }
+
+    updateButton() {
+        switch(this.journeyTime) {
+            case "09:00": this.disableNine = true; break;
+            case "09:30": this.disableNineHalf = true; break;
+            case "10:00": this.disableTen = true; break;
+            case "10:30": this.disableTenHalf = true; break;
+            case "11:00": this.disableEleven = true; break;
+            case "11:30": this.disableElevenHalf = true; break;
+            case "12:00": this.disableTwelve = true; break;
+            case "12:30": this.disableTwelveHalf = true; break;
+            case "13:00": this.disableThirteen = true; break;
+            case "13:30": this.disableThirteenHalf = true; break;
+            case "14:00": this.disableFourteen = true; break;
+            case "14:30": this.disableFourteenHalf = true; break;
+        }
     }
 
 }
