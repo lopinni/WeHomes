@@ -92,6 +92,7 @@ export default class OfficeJourneyMenu extends LightningElement {
     setButtonsState() {
         getAgentAvailability({
             agentId: this.agent.Id,
+            productId: this.recordId,
             selectedDay: this.journeyDate
         }).then(result => {
             this.setAvailability(JSON.parse(result));

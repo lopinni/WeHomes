@@ -2,7 +2,6 @@ public without sharing class WH_ReservationController {
 
     private static final String EVENT_SUBJECT = 'Office Journey';
     private static final String EVENT_LOCATION = 'Business premise';
-    private static final String DUPLICATE_CLICK_ERROR = 'This slot has already been taken. Sorry!';
 
     @AuraEnabled(cacheable=true)
     public static AuthSession getLoggedInStatus() {
@@ -20,7 +19,12 @@ public without sharing class WH_ReservationController {
     }
 
     @AuraEnabled
-    public static void createJourneyEvent(String productId, String agentId, String selectedDay, String selectedTime) {
+    public static void createJourneyEvent(
+        String productId, 
+        String agentId, 
+        String selectedDay, 
+        String selectedTime
+    ) {
         DateTime startDateTime = getStartDateTime(selectedDay, selectedTime);
         Event objEvent = new Event();
         objEvent.OwnerId = agentId;
@@ -42,7 +46,7 @@ public without sharing class WH_ReservationController {
             AND StartDateTime =: startDateTime
         ];
         if(!bookedEvents.isEmpty()) {
-            throw new AuraHandledException(DUPLICATE_CLICK_ERROR);
+            throw new AuraHandledException(System.Label.Duplicate_Journey_Reservation_Error);
         } else {
             try {
                 insert objEvent;
@@ -61,11 +65,16 @@ public without sharing class WH_ReservationController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static String getAgentAvailability(Id agentId, String selectedDay) {
+    public static String getAgentAvailability(Id agentId, Id productId, String selectedDay) {
         Date day = Date.valueOf(selectedDay);
         Datetime dayStart = Datetime.newInstance(day, Time.newInstance(0, 0, 0, 0));
         Datetime dayEnd = Datetime.newInstance(day, Time.newInstance(23, 59, 59, 0));
-        Map<String, Boolean> availability = getAvailabilityMap(day);
+        Map<String, Boolean> availability = checkBookedUser(
+            getAvailabilityMap(day),
+            agentId,
+            productId,
+            day
+        );
         List<Event> bookedEvents = [
             SELECT StartDateTime 
             FROM Event 
@@ -92,8 +101,47 @@ public without sharing class WH_ReservationController {
         return availability;
     }
 
-    private static Boolean checkTime(Datetime now, Date selectedDay, Integer hours, Integer minutes) {
+    private static Boolean checkTime(
+        Datetime now, 
+        Date selectedDay, 
+        Integer hours, 
+        Integer minutes
+    ) {
         return (Datetime.newInstance(selectedDay, Time.newInstance(hours - 1, minutes, 0, 0)) < now);
+    }
+
+    private static Map<String, Boolean> checkBookedUser(
+        Map<String, Boolean> availability, 
+        Id agentId, 
+        Id productId,
+        Date day
+    ) {
+        Datetime dayStart = Datetime.newInstance(day, Time.newInstance(0, 0, 0, 0));
+        Datetime dayEnd = Datetime.newInstance(day, Time.newInstance(23, 59, 59, 0));
+        Id userAccount = [
+            SELECT AccountId FROM User WHERE Id =: UserInfo.getUserId()
+        ].AccountId;
+        Id userContact = [
+            SELECT PersonContactId FROM Account WHERE Id =: userAccount
+        ].PersonContactId;
+        List<Event> bookedEvents = [
+            SELECT StartDateTime 
+            FROM Event 
+            WHERE OwnerId =: agentId
+            AND WhoId =: userContact
+            AND WhatId =: productId
+            AND StartDateTime >: dayStart 
+            AND StartDateTime <: dayEnd
+        ];
+        if(!bookedEvents.isEmpty()) {
+            availability.put('09:00', true);
+            availability.put('09:30', true);
+            for(Integer i = 10; i <= 14; i++) {
+                availability.put(i + ':00', true);
+                availability.put(i + ':30', true);
+            }
+        }
+        return availability;
     }
 
 }
