@@ -1,4 +1,4 @@
-public with sharing class WH_CaseController {
+public without sharing class WH_CaseController {
 
     @AuraEnabled(cacheable=true)
     public static List<Case> getCases() {
