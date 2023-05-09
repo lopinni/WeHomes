@@ -32,9 +32,10 @@
         </div>
         <lightning-datatable
             key-field="caseNumber"
-            data={caseData}
+            data={caseDataTemp}
             columns={caseColumns}
             hide-checkbox-column="true"
         > </lightning-datatable>
+        <c-pagination-controls page={page} pages-number={pages} onmove={handleMove}> </c-pagination-controls>
     </template>
 </template>

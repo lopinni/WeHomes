@@ -31,15 +31,20 @@ export default class CommunityCaseManager extends LightningElement {
 
     caseData;
     refreshCaseData;
+    caseDataTemp;
 
     loaded = false;
+
+    pageSize = 20;
+    page;
+    pages;
 
     @wire(getCases)
     populateTable(value) {
         this.refreshCaseData = value;
         const { data, error } = value;
         if (data) {
-            this.caseData = data;
+            this.populateFields(data);
         } else if (error) {
             console.log("ERROR", error);
             this.dispatchEvent(new ShowToastEvent({
@@ -63,6 +68,29 @@ export default class CommunityCaseManager extends LightningElement {
                 variant: 'success'
             }));
         }
+    }
+
+    populateFields(data) {
+        this.caseData = data;
+        this.page = 1;
+        this.pages = Math.ceil(this.caseData.length / this.pageSize);
+        this.setPagination();
+    }
+
+    setPagination() {
+        const start = (this.page - 1) * this.pageSize;
+        let end;
+        if((start + this.pageSize) > this.caseData.length) {
+            end = this.caseData.length;
+        } else {
+            end = start + this.pageSize;
+        }
+        this.caseDataTemp = this.caseData.slice(start, end);
+    }
+
+    handleMove(event) {
+        this.page = event.detail;
+        this.setPagination();
     }
 
 }
