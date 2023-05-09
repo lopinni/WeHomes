@@ -1,5 +1,5 @@
 <template>
-    <lightning-modal-header label="Log a Case"></lightning-modal-header>
+    <lightning-modal-header label={labels.LOG_A_CASE}></lightning-modal-header>
     <lightning-modal-body> 
         <lightning-flow 
             flow-api-name='Community_Create_Case'
@@ -7,6 +7,6 @@
         > </lightning-flow> 
     </lightning-modal-body>
     <lightning-modal-footer>
-        <lightning-button label="Close" onclick={handleClose}></lightning-button>
+        <lightning-button label={labels.CLOSE} onclick={handleClose}></lightning-button>
     </lightning-modal-footer>
 </template>

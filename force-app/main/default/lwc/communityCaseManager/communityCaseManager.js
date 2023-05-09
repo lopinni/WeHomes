@@ -1,14 +1,26 @@
 import { LightningElement, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { refreshApex } from "@salesforce/apex";
+import { refreshApex } from '@salesforce/apex';
 import CreateCaseModal from 'c/createCaseModal';
 
 import getCases from "@salesforce/apex/WH_CaseController.getCases";
 
 import ERROR from '@salesforce/label/c.Error';
 import SUCCESS from '@salesforce/label/c.Success';
+import LOADING from '@salesforce/label/c.Loading';
+import LOG_A_CASE from '@salesforce/label/c.Log_a_Case';
+import CASES from '@salesforce/label/c.Cases';
+import ALL_CASES from '@salesforce/label/c.All_Cases';
+import SUCCESS_MESSAGE from '@salesforce/label/c.Case_created_successfully';
 
 export default class CommunityCaseManager extends LightningElement {
+
+    labels = {
+        LOADING,
+        LOG_A_CASE,
+        CASES,
+        ALL_CASES
+    }
 
     caseColumns = [
         { label: 'Status', fieldName: 'Status' },
@@ -19,6 +31,8 @@ export default class CommunityCaseManager extends LightningElement {
 
     caseData;
     refreshCaseData;
+
+    loaded = false;
 
     @wire(getCases)
     populateTable(value) {
@@ -34,6 +48,7 @@ export default class CommunityCaseManager extends LightningElement {
                 variant: 'error'
             }));
         }
+        this.loaded = true;
     }
 
     async openNewCase() {
@@ -44,7 +59,7 @@ export default class CommunityCaseManager extends LightningElement {
         if(result == 'success') {
             this.dispatchEvent(new ShowToastEvent({
                 title: SUCCESS,
-                message: result,
+                message: SUCCESS_MESSAGE,
                 variant: 'success'
             }));
         }

@@ -1,35 +1,41 @@
 <template>
-    <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
-        <div class="slds-page-header__col-title">
-            <div class="slds-media">
-                <div class="slds-media__body">
-                    <div class="slds-page-header__name">
-                        <div class="slds-page-header__name-title">
-                            <h1>
-                                <span> Cases </span>
-                                <span class="slds-page-header__title slds-truncate" 
-                                        title="Recently Viewed"
-                                >
-                                    All Cases
-                                </span>
-                            </h1>
+    <template if:false={loaded}>
+        <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
+    </template>
+    <template if:true={loaded}>
+        <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span> {labels.CASES} </span>
+                                    <span class="slds-page-header__title slds-truncate" 
+                                            title="Recently Viewed"
+                                    >
+                                        {labels.ALL_CASES}
+                                    </span>
+                                </h1>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="slds-page-header__col-actions">
-            <div class="slds-page-header__controls">
-                <div class="slds-page-header__control">
-                    <button class="slds-button slds-button_neutral" onclick={openNewCase}> Log a Case </button>
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                        <button class="slds-button slds-button_neutral" onclick={openNewCase}> {labels.LOG_A_CASE} </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <lightning-datatable
-        key-field="caseNumber"
-        data={caseData}
-        columns={caseColumns}
-        hide-checkbox-column="true"
-    > </lightning-datatable>
+        <lightning-datatable
+            key-field="caseNumber"
+            data={caseData}
+            columns={caseColumns}
+            hide-checkbox-column="true"
+        > </lightning-datatable>
+        <button class="slds-button slds-button_neutral" onclick={loadMore}> Load more </button>
+    </template>
 </template>
