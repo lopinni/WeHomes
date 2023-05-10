@@ -25,8 +25,8 @@ export default class CommunityCaseManager extends LightningElement {
     caseColumns = [
         { label: 'Status', fieldName: 'Status' },
         { label: 'Subject', fieldName: 'Show_Case__c', type: 'url', typeAttributes: { label: { fieldName: 'Subject'} } },
-        { label: 'Created Date', fieldName: 'CreatedDate' },
-        { label: 'Closed Date', fieldName: 'ClosedDate' },
+        { label: 'Created Date', type: 'date', fieldName: 'CreatedDate' },
+        { label: 'Closed Date', type: 'date', fieldName: 'ClosedDate' },
     ];
 
     caseData;
@@ -34,6 +34,7 @@ export default class CommunityCaseManager extends LightningElement {
     caseDataTemp;
 
     loaded = false;
+    showPaginationControls = true;
 
     pageSize = 20;
     page;
@@ -45,6 +46,9 @@ export default class CommunityCaseManager extends LightningElement {
         const { data, error } = value;
         if (data) {
             this.populateFields(data);
+            if(data.length <= this.pageSize) {
+                this.showPaginationControls = false;
+            }
         } else if (error) {
             console.log("ERROR", error);
             this.dispatchEvent(new ShowToastEvent({

@@ -36,6 +36,8 @@
             columns={caseColumns}
             hide-checkbox-column="true"
         > </lightning-datatable>
-        <c-pagination-controls page={page} pages-number={pages} onmove={handleMove}> </c-pagination-controls>
+        <template if:true={showPaginationControls}>
+            <c-pagination-controls page={page} pages-number={pages} onmove={handleMove}> </c-pagination-controls>
+        </template>
     </template>
 </template>
