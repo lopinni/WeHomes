@@ -9,8 +9,7 @@ import ERROR from '@salesforce/label/c.Error';
 import SUCCESS from '@salesforce/label/c.Success';
 import LOADING from '@salesforce/label/c.Loading';
 import LOG_A_CASE from '@salesforce/label/c.Log_a_Case';
-import CASES from '@salesforce/label/c.Cases';
-import ALL_CASES from '@salesforce/label/c.All_Cases';
+import MY_CASES from '@salesforce/label/c.My_Cases';
 import SUCCESS_MESSAGE from '@salesforce/label/c.Case_created_successfully';
 
 export default class CommunityCaseManager extends LightningElement {
@@ -18,8 +17,7 @@ export default class CommunityCaseManager extends LightningElement {
     labels = {
         LOADING,
         LOG_A_CASE,
-        CASES,
-        ALL_CASES
+        MY_CASES
     }
 
     caseColumns = [

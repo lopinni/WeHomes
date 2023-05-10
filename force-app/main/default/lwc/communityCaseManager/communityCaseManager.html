@@ -3,19 +3,15 @@
         <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
     </template>
     <template if:true={loaded}>
-        <div class="slds-page-header__row slds-border_bottom" style="padding-bottom: 5px;">
+        <div class="slds-page-header__row" style="padding-bottom: 5px;">
             <div class="slds-page-header__col-title">
                 <div class="slds-media">
                     <div class="slds-media__body">
                         <div class="slds-page-header__name">
-                            <div class="slds-page-header__name-title">
-                                <h1>
-                                    <span> {labels.CASES} </span>
-                                    <span class="slds-page-header__title slds-truncate" 
-                                            title="Recently Viewed"
-                                    >
-                                        {labels.ALL_CASES}
-                                    </span>
+                            <lightning-icon icon-name="standard:case"> </lightning-icon>
+                            <div class="slds-page-header__name-title slds-align_absolute-center">
+                                <h1 style="padding-left: 1em">
+                                    <span class="slds-page-header__title slds-truncate"> {labels.MY_CASES} </span>
                                 </h1>
                             </div>
                         </div>
@@ -25,7 +21,7 @@
             <div class="slds-page-header__col-actions">
                 <div class="slds-page-header__controls">
                     <div class="slds-page-header__control">
-                        <button class="slds-button slds-button_neutral" onclick={openNewCase}> {labels.LOG_A_CASE} </button>
+                        <button class="slds-button slds-button_brand" onclick={openNewCase}> {labels.LOG_A_CASE} </button>
                     </div>
                 </div>
             </div>
@@ -35,6 +31,7 @@
             data={caseDataTemp}
             columns={caseColumns}
             hide-checkbox-column="true"
+            style="padding: 0.5em;"
         > </lightning-datatable>
         <template if:true={showPaginationControls}>
             <c-pagination-controls page={page} pages-number={pages} onmove={handleMove}> </c-pagination-controls>
