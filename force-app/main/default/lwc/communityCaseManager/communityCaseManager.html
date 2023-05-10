@@ -3,7 +3,7 @@
         <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
     </template>
     <template if:true={loaded}>
-        <div class="slds-page-header__row" style="padding-bottom: 5px;">
+        <div class="slds-page-header__row" style="padding-bottom: 1em;">
             <div class="slds-page-header__col-title">
                 <div class="slds-media">
                     <div class="slds-media__body">
@@ -26,13 +26,14 @@
                 </div>
             </div>
         </div>
-        <lightning-datatable
-            key-field="caseNumber"
-            data={caseDataTemp}
-            columns={caseColumns}
-            hide-checkbox-column="true"
-            style="padding: 0.5em;"
-        > </lightning-datatable>
+        <div class="slds-border_top slds-border_right slds-border_left" style="padding: 1em;">
+            <lightning-datatable
+                key-field="caseNumber"
+                data={caseDataTemp}
+                columns={caseColumns}
+                hide-checkbox-column="true"
+            > </lightning-datatable>
+        </div>
         <template if:true={showPaginationControls}>
             <c-pagination-controls page={page} pages-number={pages} onmove={handleMove}> </c-pagination-controls>
         </template>
