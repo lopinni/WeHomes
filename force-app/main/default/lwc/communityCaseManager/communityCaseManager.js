@@ -1,7 +1,6 @@
 import { LightningElement, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
-import CreateCaseModal from 'c/createCaseModal';
 
 import getCases from "@salesforce/apex/WH_CaseController.getCases";
 
