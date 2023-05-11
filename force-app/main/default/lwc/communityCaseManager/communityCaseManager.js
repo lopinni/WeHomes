@@ -58,12 +58,11 @@ export default class CommunityCaseManager extends LightningElement {
         this.loaded = true;
     }
 
-    async openNewCase() {
-        const result = await CreateCaseModal.open();
-        setTimeout(() => {
-            refreshApex(this.refreshCaseData);
-        }, "500");
-        if(result == 'success') {
+    handleStatusChange(event) {
+        if (event.detail.status === 'FINISHED') {
+            setTimeout(() => {
+                refreshApex(this.refreshCaseData);
+            }, "500");
             this.dispatchEvent(new ShowToastEvent({
                 title: SUCCESS,
                 message: SUCCESS_MESSAGE,
