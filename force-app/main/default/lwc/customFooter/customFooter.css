@@ -18,3 +18,8 @@ img {
     padding-top: 0.5em; 
     padding-left: 3em;
 }
+
+.footer-content {
+    width: 60%; 
+    min-height: 25svh;
+}
