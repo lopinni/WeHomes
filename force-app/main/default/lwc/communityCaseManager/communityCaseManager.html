@@ -3,7 +3,7 @@
         <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
     </template>
     <template if:true={loaded}>
-        <div class="slds-page-header__row" style="padding-bottom: 1em;">
+        <div class="slds-page-header__row" style="padding-bottom: 1em; padding-top: 1em;">
             <div class="slds-page-header__col-title">
                 <div class="slds-media">
                     <div class="slds-media__body">
@@ -19,10 +19,7 @@
                 </div>
             </div>
         </div>
-        <lightning-flow 
-            flow-api-name='Community_Create_Case'
-            onstatuschange={handleStatusChange}
-        > </lightning-flow>
+        <lightning-flow flow-api-name='Community_Create_Case' onstatuschange={handleStatusChange}> </lightning-flow>
         <div class="slds-page-header__row" style="padding-bottom: 1em;">
             <div class="slds-page-header__col-title">
                 <div class="slds-media">

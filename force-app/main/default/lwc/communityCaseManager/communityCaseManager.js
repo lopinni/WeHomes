@@ -34,7 +34,7 @@ export default class CommunityCaseManager extends LightningElement {
     loaded = false;
     showPaginationControls = true;
 
-    pageSize = 20;
+    pageSize = 10;
     page;
     pages;
 
