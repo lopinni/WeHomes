@@ -19,8 +19,10 @@
                 </div>
             </div>
         </div>
-        <lightning-flow flow-api-name='Community_Create_Case' onstatuschange={handleStatusChange}> </lightning-flow>
-        <div class="slds-page-header__row" style="padding-bottom: 1em;">
+        <div class="shadow-box">
+            <lightning-flow flow-api-name='Community_Create_Case' onstatuschange={handleStatusChange}> </lightning-flow>
+        </div>
+        <div class="slds-page-header__row" style="padding-bottom: 1em; padding-top: 3em;">
             <div class="slds-page-header__col-title">
                 <div class="slds-media">
                     <div class="slds-media__body">
@@ -36,13 +38,15 @@
                 </div>
             </div>
         </div>
-        <div style="padding: 1em;">
-            <lightning-datatable
-                key-field="caseNumber"
-                data={caseDataTemp}
-                columns={caseColumns}
-                hide-checkbox-column="true"
-            > </lightning-datatable>
+        <div style="padding: 1em;" class="shadow-box">
+            <div class="slds-border_top">
+                <lightning-datatable
+                    key-field="caseNumber"
+                    data={caseDataTemp}
+                    columns={caseColumns}
+                    hide-checkbox-column="true"
+                > </lightning-datatable>
+            </div>
         </div>
         <template if:true={showPaginationControls}>
             <c-pagination-controls page={page} pages-number={pages} onmove={handleMove}> </c-pagination-controls>
