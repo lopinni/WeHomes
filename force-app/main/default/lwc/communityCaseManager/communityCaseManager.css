@@ -1,6 +1,6 @@
 .shadow-box {
-    box-shadow: 2px 2px 1px #ccc;
-      -moz-box-shadow: 2px 2px 1px #ccc;
-      -webkit-box-shadow: 2px 2px 1px #ccc;
-      -khtml-box-shadow: 2px 2px 1px #ccc;
+    box-shadow: 5px 5px 2px #ccc;
+      -moz-box-shadow: 5px 5px 2px #ccc;
+      -webkit-box-shadow: 5px 5px 2px #ccc;
+      -khtml-box-shadow: 5px 5px 2px #ccc;
 }
