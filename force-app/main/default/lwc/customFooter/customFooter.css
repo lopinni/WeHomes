@@ -10,16 +10,16 @@ img {
 .left {
     color: white;
     padding-top: 0.5em; 
-    padding-left: 1em;
+    padding-left: 2em;
 }
 
 .leftmost {
     color: white;
     padding-top: 0.5em; 
-    padding-left: 3em;
+    padding-left: 4em;
 }
 
 .footer-content {
-    width: 60%; 
+    width: 75%; 
     min-height: 25svh;
 }
