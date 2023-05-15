@@ -20,3 +20,7 @@
     cursor: pointer;
     transform: scale(1.02);
 }
+
+lightning-layout-item {
+    padding: 0.33em;
+}
