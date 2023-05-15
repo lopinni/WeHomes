@@ -1,21 +1,22 @@
 import { LightningElement, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { refreshApex } from '@salesforce/apex';
+
+import SUBJECT from '@salesforce/schema/Case.Subject';
+import TYPE from '@salesforce/schema/Case.Type';
+import DESCRIPTION from '@salesforce/schema/Case.Description';
 
 import getCases from "@salesforce/apex/WH_CaseController.getCases";
 
 import ERROR from '@salesforce/label/c.Error';
-import SUCCESS from '@salesforce/label/c.Success';
 import LOADING from '@salesforce/label/c.Loading';
-import LOG_A_CASE from '@salesforce/label/c.Log_a_Case';
 import MY_CASES from '@salesforce/label/c.My_Cases';
-import SUCCESS_MESSAGE from '@salesforce/label/c.Case_created_successfully';
 
 export default class CommunityCaseManager extends LightningElement {
 
+    fields = [SUBJECT, TYPE, DESCRIPTION];
+
     labels = {
         LOADING,
-        LOG_A_CASE,
         MY_CASES
     }
 
@@ -27,7 +28,6 @@ export default class CommunityCaseManager extends LightningElement {
     ];
 
     caseData;
-    refreshCaseData;
     caseDataTemp;
 
     loaded = false;
@@ -39,7 +39,6 @@ export default class CommunityCaseManager extends LightningElement {
 
     @wire(getCases)
     populateTable(value) {
-        this.refreshCaseData = value;
         const { data, error } = value;
         if (data) {
             this.populateFields(data);
@@ -55,19 +54,6 @@ export default class CommunityCaseManager extends LightningElement {
             }));
         }
         this.loaded = true;
-    }
-
-    handleStatusChange(event) {
-        if (event.detail.status === 'FINISHED') {
-            setTimeout(() => {
-                refreshApex(this.refreshCaseData);
-            }, "500");
-            this.dispatchEvent(new ShowToastEvent({
-                title: SUCCESS,
-                message: SUCCESS_MESSAGE,
-                variant: 'success'
-            }));
-        }
     }
 
     populateFields(data) {

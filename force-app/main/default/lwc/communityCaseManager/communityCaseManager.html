@@ -3,42 +3,15 @@
         <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
     </template>
     <template if:true={loaded}>
-        <div class="slds-page-header__row" style="padding-bottom: 1em; padding-top: 1em;">
-            <div class="slds-page-header__col-title">
-                <div class="slds-media">
-                    <div class="slds-media__body">
-                        <div class="slds-page-header__name">
-                            <lightning-icon icon-name="standard:case_change_status"> </lightning-icon>
-                            <div class="slds-page-header__name-title slds-align_absolute-center">
-                                <h1 style="padding-left: 1em">
-                                    <span class="slds-page-header__title slds-truncate"> {labels.LOG_A_CASE} </span>
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="shadow-box">
-            <lightning-flow flow-api-name='Community_Create_Case' onstatuschange={handleStatusChange}> </lightning-flow>
-        </div>
-        <div class="slds-page-header__row" style="padding-bottom: 1em; padding-top: 3em;">
-            <div class="slds-page-header__col-title">
-                <div class="slds-media">
-                    <div class="slds-media__body">
-                        <div class="slds-page-header__name">
-                            <lightning-icon icon-name="standard:case"> </lightning-icon>
-                            <div class="slds-page-header__name-title slds-align_absolute-center">
-                                <h1 style="padding-left: 1em">
-                                    <span class="slds-page-header__title slds-truncate"> {labels.MY_CASES} </span>
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div style="padding: 1em;" class="shadow-box">
+            <div class="slds-page-header__row" style="padding: 2em;">
+                <div class="slds-page-header__name-title slds-align_absolute-center">
+                    <lightning-icon icon-name="standard:case"> </lightning-icon>
+                    <h1 style="padding-left: 1em">
+                        <span class="slds-page-header__title slds-truncate"> {labels.MY_CASES} </span>
+                    </h1>
+                </div>
+            </div>
             <div class="slds-border_top">
                 <lightning-datatable
                     key-field="caseNumber"
