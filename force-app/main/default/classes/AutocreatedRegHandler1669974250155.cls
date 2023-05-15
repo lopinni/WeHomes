@@ -1,7 +1,7 @@
 global class AutocreatedRegHandler1669974250155 implements Auth.RegistrationHandler{
 
     private static final String ORG_SUFFIX = '.sso.weHomes.org';
-    private static final String EXTERNAL_USER_PROFILE = 'Customer Community Plus User';
+    private static final String EXTERNAL_USER_PROFILE = 'Partner User';
     private static final String INTERNAL_USER_PROFILE = 'System Administrator';
     private static final String TZSID = [
         SELECT TimeZoneSidKey FROM User WHERE Profile.Name = 'System Administrator' LIMIT 1
