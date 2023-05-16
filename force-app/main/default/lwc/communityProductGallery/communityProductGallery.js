@@ -12,9 +12,20 @@ export default class CommunityProductGallery extends LightningElement {
     images;
 
     preview = false;
-    previewImage
+    previewImage;
+    previewIndex;
 
     loaded = false;
+
+    @api
+    get showNavigation() {
+        if(this.images.length > 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    set showNavigation(value) { }
 
     connectedCallback(){
         getDistributionFiles({ productId: this.recordId })
@@ -32,12 +43,32 @@ export default class CommunityProductGallery extends LightningElement {
     }
 
     showPreview(event) {
+        this.previewIndex = event.target.dataset.index;
         this.previewImage = event.target.dataset.url;
         this.preview = true;
     }
 
     hidePreview() {
         this.preview = false;
+    }
+
+    showPrevious() {
+        this.previewIndex -= 1;
+        if(this.previewIndex < 0) {
+            this.previewIndex = this.images.length - 1;
+        }
+        this.previewImage = this.images[this.previewIndex].ContentDownloadUrl;
+    }
+
+    showNext() {
+        this.previewIndex += 1;
+        if(this.previewIndex == "01") {
+            this.previewIndex = 1;
+        }
+        if(this.previewIndex >= this.images.length) {
+            this.previewIndex = 0;
+        }
+        this.previewImage = this.images[this.previewIndex].ContentDownloadUrl;
     }
 
 }

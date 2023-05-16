@@ -4,17 +4,37 @@
     </template>
     <template if:true={loaded}>
         <div class="grid-container">
-            <template for:each={images} for:item="image">
-                <img src={image.ContentDownloadUrl} data-url={image.ContentDownloadUrl} key={image.Id} class="photo" onclick={showPreview}>
+            <template for:each={images} for:item="image" for:index="index">
+                <img src={image.ContentDownloadUrl} data-url={image.ContentDownloadUrl} data-index={index} key={image.Id} class="photo" onclick={showPreview}>
             </template>
         </div>
         <template if:true={preview}>
-            <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content" class="slds-modal slds-fade-in-open" onclick={hidePreview}>
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
                 <div class="slds-modal__container">
-                    <img src={previewImage}/>
+                    <lightning-layout>
+                        <lightning-layout-item size="1"> 
+                            <div class="slds-align_absolute-center" style="min-height: 25rem;">
+                                <template if:true={showNavigation}>
+                                    <button class="slds-button slds-button_brand" onclick={showPrevious}> &#10094;&#10094; </button>
+                                </template>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="10"> 
+                            <div class="slds-align_absolute-center" style="min-height: 25rem;">
+                                <img src={previewImage} class="display" onclick={hidePreview}/>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="1"> 
+                            <div class="slds-align_absolute-center" style="min-height: 25rem;"> 
+                                <template if:true={showNavigation}>
+                                    <button class="slds-button slds-button_brand" onclick={showNext}> &#10095;&#10095; </button> 
+                                </template>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
                 </div>
             </section>
-            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"> </div>
         </template>
     </template>
 </template>
