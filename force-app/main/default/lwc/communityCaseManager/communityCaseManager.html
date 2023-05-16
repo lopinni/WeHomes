@@ -3,8 +3,8 @@
         <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
     </template>
     <template if:true={loaded}>
-        <div style="padding: 1em;" class="shadow-box">
-            <div class="slds-page-header__row" style="padding: 2em; padding-bottom: 0;">
+        <div style="padding-bottom: 1em;" class="shadow-box">
+            <div class="slds-page-header__row" style="padding: 1em; padding-bottom: 0;">
                 <div class="slds-page-header__name-title slds-align_absolute-center">
                     <lightning-icon icon-name="standard:case"> </lightning-icon>
                     <h1 style="padding-left: 1em">
@@ -12,7 +12,7 @@
                     </h1>
                 </div>
             </div>
-            <div class="slds-border_top" style="margin: 2em;">
+            <div class="slds-border_top" style="margin: 1em;">
                 <lightning-datatable
                     key-field="caseNumber"
                     data={caseDataTemp}
