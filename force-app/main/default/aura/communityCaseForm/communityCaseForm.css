@@ -1,9 +1,9 @@
 .THIS {
-    margin-right: 1em;
-    border-radius: 5px;
-    background-color: #f3f3f3;
-    box-shadow: 5px 5px 2px #ccc;
-      -moz-box-shadow: 5px 5px 2px #ccc;
-      -webkit-box-shadow: 5px 5px 2px #ccc;
-      -khtml-box-shadow: 5px 5px 2px #ccc;
+  margin-right: 1em;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+  box-shadow: 5px 5px 2px #ccc;
+    -moz-box-shadow: 5px 5px 2px #ccc;
+    -webkit-box-shadow: 5px 5px 2px #ccc;
+    -khtml-box-shadow: 5px 5px 2px #ccc;
 }
