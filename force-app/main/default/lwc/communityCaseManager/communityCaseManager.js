@@ -1,5 +1,7 @@
 import { LightningElement, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { subscribe, MessageContext } from 'lightning/messageService';
+import { refreshApex } from '@salesforce/apex';
 
 import SUBJECT from '@salesforce/schema/Case.Subject';
 import TYPE from '@salesforce/schema/Case.Type';
@@ -10,6 +12,8 @@ import getCases from "@salesforce/apex/WH_CaseController.getCases";
 import ERROR from '@salesforce/label/c.Error';
 import LOADING from '@salesforce/label/c.Loading';
 import MY_CASES from '@salesforce/label/c.My_Cases';
+
+import UPDATE_CASE_LIST_CHANNEL from '@salesforce/messageChannel/Update_Case_List__c';
 
 export default class CommunityCaseManager extends LightningElement {
 
@@ -28,6 +32,7 @@ export default class CommunityCaseManager extends LightningElement {
     ];
 
     caseData;
+    caseDataRefresh;
     caseDataTemp;
 
     loaded = false;
@@ -37,8 +42,28 @@ export default class CommunityCaseManager extends LightningElement {
     page;
     pages;
 
+    @wire(MessageContext)
+    messageContext;
+
+    subscription = null;
+
+    connectedCallback() {
+        this.subscription = subscribe(
+            this.messageContext,
+            UPDATE_CASE_LIST_CHANNEL,
+            () => this.handleMessage()
+        );
+    }
+
+    handleMessage() {
+        setTimeout(() => {
+            refreshApex(this.caseDataRefresh);
+        }, "500");
+    }
+
     @wire(getCases)
     populateTable(value) {
+        this.caseDataRefresh = value;
         const { data, error } = value;
         if (data) {
             this.populateFields(data);

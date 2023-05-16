@@ -1,15 +1,42 @@
-<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
-    <aura:registerEvent name="appEvent" type="selfService:caseCreateFieldChange"/>
-    <lightning:recordEditForm aura:id="recordEditForm" objectApiName="Case" onsuccess="{!c.handleSuccess}">
-        <div class="slds-page-header__name-title slds-align_absolute-center">
-            <lightning:icon iconName="standard:case_change_status"> </lightning:icon>
-            <h1 style="padding-left: 1em">
-                <span class="slds-page-header__title slds-truncate"> Log a Case </span>
-            </h1>
-        </div>
-        <lightning:inputField fieldName="Subject" onchange="{!c.itemsChange}"/>
-        <lightning:inputField fieldName="Type" onchange="{!c.itemsChange}"/>
-        <lightning:inputField fieldName="Description" onchange="{!c.itemsChange}"/>
-        <lightning:button class="slds-m-top_small" type="submit" label="Create new"/>
-    </lightning:recordEditForm>
+<aura:component 
+    implements="forceCommunity:availableForAllPageTypes" 
+    access="global"
+>
+    <aura:registerEvent 
+        name="appEvent" 
+        type="selfService:caseCreateFieldChange"
+    />
+    <lightning:messageChannel 
+        type="Update_Case_List__c" 
+        aura:id="updateCaseChannel"
+    />
+    <div style="padding: 1em;">
+        <lightning:recordEditForm 
+            aura:id="recordEditForm" 
+            objectApiName="Case" 
+            onsuccess="{!c.handleSuccess}"
+        >
+            <div class="slds-page-header__name-title slds-align_absolute-center">
+                <lightning:icon iconName="standard:case_change_status"> </lightning:icon>
+                <h1 style="padding-left: 1em;">
+                    <span class="slds-page-header__title slds-truncate"> Log a Case </span>
+                </h1>
+            </div>
+            <lightning:inputField 
+                fieldName="Subject" 
+                onchange="{!c.itemsChange}"
+            />
+            <lightning:inputField 
+                fieldName="Type" 
+                onchange="{!c.itemsChange}"
+            />
+            <lightning:inputField 
+                fieldName="Description" 
+                onchange="{!c.itemsChange}"
+            />
+            <div class="slds-align_absolute-center">
+                <lightning:button variant="brand" type="submit" label="Submit"/>
+            </div>
+        </lightning:recordEditForm>
+    </div>
 </aura:component>
