@@ -28,9 +28,7 @@
                     <span class="slds-page-header__title slds-truncate"> {!$Label.c.Log_a_case} </span>
                 </h1>
             </div>
-            <lightning:inputField 
-                fieldName="Subject"
-            />
+            <lightning:inputField fieldName="Subject"/>
             <lightning:inputField 
                 fieldName="Type" 
                 onchange="{!c.itemsChange}"
