@@ -2,6 +2,16 @@
     implements="forceCommunity:availableForAllPageTypes" 
     access="global"
 >
+    <aura:handler 
+        name="init" 
+        value="{!this}" 
+        action="{!c.doInit}"
+    />
+    <aura:attribute 
+        name="loading" 
+        type="Boolean" 
+        default="true" 
+    />
     <aura:registerEvent 
         name="appEvent" 
         type="selfService:caseCreateFieldChange"
@@ -35,6 +45,9 @@
                 onchange="{!c.itemsChange}"
             />
             <div class="slds-align_absolute-center">
+                <aura:if isTrue="{!v.loading}">
+                    <lightning:spinner alternativeText="{!$Label.c.Loading}"/>
+                </aura:if>
                 <lightning:button variant="brand" type="submit" label="{!$Label.c.Submit}"/>
             </div>
         </lightning:recordEditForm>
