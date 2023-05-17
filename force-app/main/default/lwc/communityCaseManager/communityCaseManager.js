@@ -56,8 +56,10 @@ export default class CommunityCaseManager extends LightningElement {
     }
 
     handleMessage() {
+        this.loaded = false;
         setTimeout(() => {
             refreshApex(this.caseDataRefresh);
+            this.loaded = true;
         }, "500");
     }
 

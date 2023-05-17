@@ -48,7 +48,11 @@
                 <aura:if isTrue="{!v.loading}">
                     <lightning:spinner alternativeText="{!$Label.c.Loading}"/>
                 </aura:if>
-                <lightning:button variant="brand" type="submit" label="{!$Label.c.Submit}"/>
+                <lightning:button 
+                    variant="brand" 
+                    type="submit" 
+                    label="{!$Label.c.Submit}"
+                />
             </div>
         </lightning:recordEditForm>
     </div>
