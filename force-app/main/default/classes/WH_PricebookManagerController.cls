@@ -6,14 +6,14 @@ public without sharing class WH_PricebookManagerController {
     private static final String APARTMENT_PRODUCT_TYPE = 'Apartments';
 
     @AuraEnabled(Cacheable=true)
-    public static List<Pricebook2> getPricebooks(){     
+    public static List<Pricebook2> getPricebooks() {     
         return [
             SELECT Id, Name, Description, IsActive, IsStandard, StartDate__c, EndDate__c, TypeInfo__c FROM Pricebook2
         ];
     }
 
     @AuraEnabled
-    public static List<PricebookEntry> getStandardPBEs(){     
+    public static List<PricebookEntry> getStandardPBEs() {     
         return [
             SELECT Id, ProductName__c, ProductType__c, UnitPrice FROM PricebookEntry
             WHERE Pricebook2Id IN (
@@ -23,7 +23,7 @@ public without sharing class WH_PricebookManagerController {
     }
 
     @AuraEnabled
-    public static List<PricebookEntry> getPBEsById(String Id){     
+    public static List<PricebookEntry> getPBEsById(String Id) {     
         return [
             SELECT Id, ProductName__c, ProductType__c, UnitPrice FROM PricebookEntry
             WHERE Pricebook2Id =: Id
@@ -31,14 +31,19 @@ public without sharing class WH_PricebookManagerController {
     }
 
     @AuraEnabled
-    public static List<Product2> getProductsByType(String type, String pricebookId){
+    public static List<Product2> getProductsByType(String type, String pricebookId) {
         String typeToSearch;
         if(type == BUSINESS_PRICEBOOK_TYPE) {
             typeToSearch = BUSINESS_PRODUCT_TYPE;
         } else if(type == APARTMENT_PRICEBOOK_TYPE) {
             typeToSearch = APARTMENT_PRODUCT_TYPE;
         } else {
-            return [SELECT Id, Name FROM Product2];
+            return [
+                SELECT Id, Name FROM Product2
+                WHERE Id NOT IN (
+                    SELECT Product2Id FROM PricebookEntry WHERE Pricebook2Id =: pricebookId
+                ) 
+            ];
         }
         return [
             SELECT Id, Name
@@ -53,29 +58,41 @@ public without sharing class WH_PricebookManagerController {
     }
 
     @AuraEnabled(Cacheable=true)
-    public static RecordType getProductRecordTypeByName(String Name){     
+    public static RecordType getProductRecordTypeByName(String Name) {     
         return [
             SELECT Id FROM RecordType WHERE Name =: Name
         ];
     }
 
     @AuraEnabled
-    public static void insertProductsToPriceBook(String priceBookId, List<Product2> products){
-        List<PricebookEntry> priceBookEntries = new List<PricebookEntry>();
-        for(Product2 product : products) {
-            priceBookEntries.add(new PricebookEntry(
-                Product2Id = product.Id, Pricebook2Id = priceBookId, UnitPrice = 0
+    public static void insertProductsToPriceBook(String priceBookId, List<Product2> products) {
+        List<PricebookEntry> standardEntries = [
+            SELECT Id, Product2Id, UnitPrice FROM PricebookEntry
+            WHERE Pricebook2Id IN (
+                SELECT Id FROM Pricebook2 WHERE IsStandard = true
+            ) AND Product2Id IN :products
+        ];
+        List<PricebookEntry> newEntries = new List<PricebookEntry>();
+        Double setPrice;
+        for(PricebookEntry pbe : standardEntries) {
+            if(standardEntries.isEmpty()) {
+                setPrice = 0;
+            } else {
+                setPrice = pbe.UnitPrice;
+            }
+            newEntries.add(new PricebookEntry(
+                Product2Id = pbe.Product2Id, Pricebook2Id = priceBookId, UnitPrice = setPrice
             ));
         }
         try {
-            insert priceBookEntries;
+            insert newEntries;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }
 
     @AuraEnabled
-    public static void updatePriceBookEntries(Integer discount, List<PricebookEntry> entries){
+    public static void updatePriceBookEntries(Integer discount, List<PricebookEntry> entries) {
         Double percentage = discount * 0.01;
         for(PricebookEntry pbe : entries) {
             pbe.UnitPrice = (pbe.UnitPrice - (pbe.UnitPrice * percentage)).setScale(2);
@@ -88,7 +105,7 @@ public without sharing class WH_PricebookManagerController {
     }
 
     @AuraEnabled(Cacheable=true)
-    public static PricebookEntry getBusinessProductPriceById(String productId){    
+    public static PricebookEntry getBusinessProductPriceById(String productId) {    
         PriceBook2 activePB = [
             SELECT Id 
             FROM Pricebook2 
