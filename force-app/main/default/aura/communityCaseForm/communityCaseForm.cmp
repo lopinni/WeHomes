@@ -29,8 +29,7 @@
                 </h1>
             </div>
             <lightning:inputField 
-                fieldName="Subject" 
-                onchange="{!c.itemsChange}"
+                fieldName="Subject"
             />
             <lightning:inputField 
                 fieldName="Type" 
