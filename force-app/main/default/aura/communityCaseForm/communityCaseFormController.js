@@ -6,12 +6,7 @@
     },
 
     itemsChange : function(component, event, helper) {           
-        var appEvent = $A.get("e.selfService:caseCreateFieldChange");
-        appEvent.setParams({
-            "modifiedField": "Subject",
-            "modifiedFieldValue": event.getSource().get("v.value")
-        });
-        appEvent.fire();
+        helper.sendDataToDeflect(event);
     },
 
     handleSuccess : function(component, event, helper) {
