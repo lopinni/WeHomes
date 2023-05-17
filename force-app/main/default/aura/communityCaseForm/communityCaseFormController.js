@@ -1,8 +1,6 @@
 ({
     doInit : function(component, event, helper) {
-        setTimeout(() => {
-            component.set('v.loading', !component.get('v.loading'));
-        }, 100);
+        component.set('v.loading', !component.get('v.loading'));
     },
 
     itemsChange : function(component, event, helper) {           
