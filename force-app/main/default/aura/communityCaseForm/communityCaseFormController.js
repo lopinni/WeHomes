@@ -2,7 +2,7 @@
     doInit : function(component, event, helper) {
         setTimeout(() => {
             component.set('v.loading', !component.get('v.loading'));
-        }, 1000);
+        }, 100);
     },
 
     itemsChange : function(component, event, helper) {           
