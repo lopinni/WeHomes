@@ -46,13 +46,9 @@ public without sharing class WH_PricebookManagerController {
             ];
         }
         return [
-            SELECT Id, Name
-            FROM Product2
-            WHERE RecordType.Name =: typeToSearch
+            SELECT Id, Name FROM Product2 WHERE RecordType.Name =: typeToSearch
             AND Id NOT IN (
-                SELECT Product2Id 
-                FROM PricebookEntry 
-                WHERE Pricebook2Id =: pricebookId
+                SELECT Product2Id FROM PricebookEntry WHERE Pricebook2Id =: pricebookId
             ) 
         ];
     }
@@ -67,10 +63,10 @@ public without sharing class WH_PricebookManagerController {
     @AuraEnabled
     public static void insertProductsToPriceBook(String priceBookId, List<Product2> products) {
         List<PricebookEntry> standardEntries = [
-            SELECT Id, Product2Id, UnitPrice FROM PricebookEntry
-            WHERE Pricebook2Id IN (
+            SELECT Id, Product2Id, UnitPrice FROM PricebookEntry WHERE Product2Id IN :products
+            AND Pricebook2Id IN (
                 SELECT Id FROM Pricebook2 WHERE IsStandard = true
-            ) AND Product2Id IN :products
+            )
         ];
         List<PricebookEntry> newEntries = new List<PricebookEntry>();
         Double setPrice;
