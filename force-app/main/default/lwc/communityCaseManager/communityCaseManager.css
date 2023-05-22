@@ -1,8 +1,8 @@
 .shadow-box {
-    border-radius: 5px;
-    background-color: #f3f3f3;
-    box-shadow: 5px 5px 2px #ccc;
-      -moz-box-shadow: 5px 5px 2px #ccc;
-      -webkit-box-shadow: 5px 5px 2px #ccc;
-      -khtml-box-shadow: 5px 5px 2px #ccc;
+  background-color: #f3f3f3;
+  outline: 1px solid rgb(57, 101, 71);
+  box-shadow: 5px 5px 2px #eee;
+    -moz-box-shadow: 5px 5px 2px #eee;
+    -webkit-box-shadow: 5px 5px 2px #eee;
+    -khtml-box-shadow: 5px 5px 2px #eee;
 }

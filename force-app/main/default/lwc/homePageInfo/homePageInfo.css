@@ -1,8 +1,8 @@
 img {
-    border-radius: 5px;
-    background-color: #f3f3f3;
-    box-shadow: 5px 5px 2px #eee;
-      -moz-box-shadow: 5px 5px 2px #eee;
-      -webkit-box-shadow: 5px 5px 2px #eee;
-      -khtml-box-shadow: 5px 5px 2px #eee;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+  box-shadow: 5px 5px 2px #eee;
+    -moz-box-shadow: 5px 5px 2px #eee;
+    -webkit-box-shadow: 5px 5px 2px #eee;
+    -khtml-box-shadow: 5px 5px 2px #eee;
 }

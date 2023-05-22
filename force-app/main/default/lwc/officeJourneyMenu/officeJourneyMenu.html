@@ -4,7 +4,7 @@
             <lightning-spinner alternative-text={labels.LOADING}> </lightning-spinner>
         </template>
         <template if:true={loaded}>
-            <lightning-layout>
+            <lightning-layout class="detail-box">
                 <lightning-layout-item size="5" padding="around-large">
                     <div class="slds-float_right">
                         <template if:true={agent.FullPhotoUrl}> <img src={agent.FullPhotoUrl}> </template>
