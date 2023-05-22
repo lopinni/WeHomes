@@ -1,6 +1,6 @@
 import { LightningElement } from 'lwc';
 
-import WEHOMES_LOGO from '@salesforce/resourceUrl/WeHomesLogo';
+import WEHOMES_LOGO from '@salesforce/resourceUrl/WeHomesLogoDark';
 
 import CONTACT_INFORMATION from '@salesforce/label/c.Contact_Information';
 import EMAIL from '@salesforce/label/c.Email';

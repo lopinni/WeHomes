@@ -21,7 +21,7 @@
                         <lightning-icon icon-name="standard:event" style="margin-right: 0.5em;"> </lightning-icon>
                         {labels.BOOK_AN_OFFICE_JOURNEY}
                     </div>
-                    <lightning-input type="date" label="Enter a date" onchange={setJourneyDate} style="width: 50%"> </lightning-input>
+                    <lightning-input type="date" label="Enter a date" onchange={setJourneyDate} disabled={disabledInput} style="width: 50%"> </lightning-input>
                     <div class="slds-text-heading_medium" style="padding-top: 0.5em;"> {labels.AM} </div>
                     <div style="padding-top: 0.5em;">
                         <lightning-button-group>

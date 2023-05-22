@@ -39,6 +39,7 @@ export default class OfficeJourneyMenu extends LightningElement {
     journeyDateTimeMessage;
 
     disabledReservation = true;
+    disabledInput = false;
 
     disableNine = true;
     disableNineHalf = true;
@@ -138,6 +139,7 @@ export default class OfficeJourneyMenu extends LightningElement {
             }));
         }).then(() => {
             this.updateButtons();
+            this.disabledInput = true;
         })
         .catch(error => {
             this.showError(error);

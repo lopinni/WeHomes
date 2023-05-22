@@ -17,7 +17,6 @@ public without sharing class WH_LocationController {
                     FirstPublishLocationId
                 FROM ContentVersion
                 WHERE FirstPublishLocationId =:recordId
-                WITH SECURITY_ENFORCED
                 ORDER BY CreatedDate DESC
             ];
         } catch (Exception e) {
@@ -33,7 +32,6 @@ public without sharing class WH_LocationController {
                     DisplayUrl
                 FROM Product2
                 WHERE Id =:recordId
-                WITH SECURITY_ENFORCED
             ];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -69,20 +67,17 @@ public without sharing class WH_LocationController {
                 SELECT ContentDocumentId
                 FROM ContentVersion
                 WHERE Id =:id
-                WITH SECURITY_ENFORCED
             ];
             ContentDocument document = [
                 SELECT Id
                 FROM ContentDocument
                 WHERE Id =:version.ContentDocumentId
-                WITH SECURITY_ENFORCED
             ];
             delete document;
             List<ContentDistribution> distributions = [
                 SELECT Id
                 FROM ContentDistribution
                 WHERE ContentVersionId =:version.Id
-                WITH SECURITY_ENFORCED
             ];
             delete distributions;
         } catch (Exception e) {
@@ -177,7 +172,7 @@ public without sharing class WH_LocationController {
     public static UserRole getCurrentUserRole() {
         String uRoleId = UserInfo.getUserRoleId();
         return [
-            SELECT Name FROM UserRole WHERE Id =: uRoleId WITH SECURITY_ENFORCED
+            SELECT Name FROM UserRole WHERE Id =: uRoleId
         ];
     }
 

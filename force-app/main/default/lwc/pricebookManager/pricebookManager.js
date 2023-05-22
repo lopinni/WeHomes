@@ -275,16 +275,18 @@ export default class PricebookManager extends NavigationMixin(LightningElement) 
         this.loaded = false;
         let recordsToDiscount = this.refs.entries.getSelectedRows();
         let discountValue = this.template.querySelector('lightning-input').value;
-        updatePriceBookEntries({
-            discount: discountValue,
-            entries: recordsToDiscount
-        }).then(() => {
-            this.loadPBEsById(this.priceBookToAdd);
-            this.loaded = true;
-            this.showSuccess(PBE_UPDATE_SUCCESS);
-        }).catch(error => {
-            this.showError(error);
-        });
+        if(100 >= Number(discountValue) && Number(discountValue) >= -100) {
+            updatePriceBookEntries({
+                discount: discountValue,
+                entries: recordsToDiscount
+            }).then(() => {
+                this.loadPBEsById(this.priceBookToAdd);
+                this.showSuccess(PBE_UPDATE_SUCCESS);
+            }).catch(error => {
+                this.showError(error);
+            });
+        }
+        this.loaded = true;
     }
 
 }

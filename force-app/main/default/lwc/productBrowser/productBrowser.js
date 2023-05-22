@@ -52,7 +52,12 @@ export default class ProductBrowser extends LightningElement {
     @wire(getCurrentUserRole)
     userDetails({ error, data }) {
         if (error) {
-            this.error = error;
+            console.log(error);
+            this.dispatchEvent(new ShowToastEvent({
+                title: ERROR,
+                message: error.statusText,
+                variant: 'error'
+            }));
         } else if (data) {
             if (data.Name != null) {
                 this.userRoleName = data.Name;
@@ -109,9 +114,10 @@ export default class ProductBrowser extends LightningElement {
             }
             this.loaded = true;
         }).catch(error => {
+            console.log(error);
             this.dispatchEvent(new ShowToastEvent({
                 title: ERROR,
-                message: error,
+                message: error.statusText,
                 variant: 'error'
             }));
         });

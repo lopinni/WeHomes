@@ -1,0 +1,52 @@
+<aura:component 
+    implements="forceCommunity:availableForAllPageTypes" 
+    access="global"
+>
+    <aura:attribute 
+        name="loading" 
+        type="Boolean" 
+        default="true" 
+    />
+    <aura:registerEvent 
+        name="appEvent" 
+        type="selfService:caseCreateFieldChange"
+    />
+    <lightning:messageChannel 
+        type="Update_Case_List__c" 
+        aura:id="updateCaseChannel"
+    />
+    <div style="padding: 1em;">
+        <lightning:recordEditForm 
+            aura:id="recordEditForm" 
+            objectApiName="Case"
+            onload="{!c.doInit}"
+            onsuccess="{!c.handleSuccess}"
+        >
+            <div class="slds-page-header__name-title slds-align_absolute-center">
+                <lightning:icon iconName="standard:case_change_status"> </lightning:icon>
+                <h1 style="padding-left: 1em;">
+                    <span class="slds-page-header__title slds-truncate"> {!$Label.c.Log_a_case} </span>
+                </h1>
+            </div>
+            <lightning:inputField fieldName="Subject"/>
+            <lightning:inputField 
+                fieldName="Type" 
+                onchange="{!c.itemsChange}"
+            />
+            <lightning:inputField 
+                fieldName="Description" 
+                onchange="{!c.itemsChange}"
+            />
+            <div class="slds-align_absolute-center">
+                <aura:if isTrue="{!v.loading}">
+                    <lightning:spinner alternativeText="{!$Label.c.Loading}"/>
+                </aura:if>
+                <lightning:button 
+                    variant="brand" 
+                    type="submit" 
+                    label="{!$Label.c.Submit}"
+                />
+            </div>
+        </lightning:recordEditForm>
+    </div>
+</aura:component>
