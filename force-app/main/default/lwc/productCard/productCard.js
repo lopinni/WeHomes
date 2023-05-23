@@ -46,20 +46,10 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
                 this.productStandardPrice = result.UnitPrice;
                 this.loaded = true;
             }).catch(error => {
-                console.log(error);
-                this.dispatchEvent(new ShowToastEvent({
-                    title: ERROR,
-                    message: error.statusText,
-                    variant: 'error'
-                }));
+                this.showError(error);
             });
         }).catch(error => {
-            console.log(error);
-            this.dispatchEvent(new ShowToastEvent({
-                title: ERROR,
-                message: error.statusText,
-                variant: 'error'
-            }));
+            this.showError(error);
         });
     }
 
@@ -70,13 +60,17 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
             this.URL = data[0].DisplayUrl;
             this.loaded = true;
         } else if (error) {
-            console.log(error);
-            this.dispatchEvent(new ShowToastEvent({
-                title: ERROR,
-                message: error.statusText,
-                variant: 'error'
-            }));
+            this.showError(error);
         }
+    }
+
+    showError(error) {
+        console.log(error);
+        this.dispatchEvent(new ShowToastEvent({
+            title: ERROR,
+            message: error.statusText,
+            variant: 'error'
+        }));
     }
 
     navigateToRecordPage() {
