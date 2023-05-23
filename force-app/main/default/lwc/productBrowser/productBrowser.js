@@ -53,11 +53,6 @@ export default class ProductBrowser extends LightningElement {
     userDetails({ error, data }) {
         if (error) {
             console.log(error);
-            this.dispatchEvent(new ShowToastEvent({
-                title: ERROR,
-                message: error.statusText,
-                variant: 'error'
-            }));
         } else if (data) {
             if (data.Name != null) {
                 this.userRoleName = data.Name;

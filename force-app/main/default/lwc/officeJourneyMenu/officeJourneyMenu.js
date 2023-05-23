@@ -69,19 +69,16 @@ export default class OfficeJourneyMenu extends LightningElement {
             this.showError(error);
         } else if (data) {
             this.isLoggedIn = data.IsCurrent;
-        }
-    }
-
-    connectedCallback() {
-        if(this.isLoggedIn) {
-            getOfficeAgentInfo({ productId: this.recordId }).then(result => {
-                this.agent = result;
+            if(this.isLoggedIn) {
+                getOfficeAgentInfo({ productId: this.recordId }).then(result => {
+                    this.agent = result;
+                    this.loaded = true;
+                }).catch(error => {
+                    this.showError(error);
+                });
+            } else {
                 this.loaded = true;
-            }).catch(error => {
-                this.showError(error);
-            });
-        } else {
-            this.loaded = true;
+            }
         }
     }
 
