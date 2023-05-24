@@ -1,4 +1,4 @@
-trigger WH_CaseEntitlementTrigger on Case (before insert) {
+trigger WH_CaseEntitlementTrigger on Case (after insert) {
     WH_CaseEntitlementHelper helper = new WH_CaseEntitlementHelper();
-    helper.assignEntitlementProcess(Trigger.new);
+    helper.configureAssignmentAndEntitlement(Trigger.new);
 }
