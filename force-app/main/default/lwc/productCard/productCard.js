@@ -15,6 +15,7 @@ import AIR_CONDITIONING from '@salesforce/label/c.Air_Conditioning';
 import YES from '@salesforce/label/c.Yes';
 import NO from '@salesforce/label/c.No';
 import ERROR from '@salesforce/label/c.Error';
+import YEAR from '@salesforce/label/c.Year';
 
 export default class ProductCard extends NavigationMixin(LightningElement) {
 
@@ -26,7 +27,8 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
         ELEVATOR_ACCESS,
         AIR_CONDITIONING,
         YES,
-        NO
+        NO,
+        YEAR
     };
 
     @api product;
@@ -65,7 +67,6 @@ export default class ProductCard extends NavigationMixin(LightningElement) {
     }
 
     showError(error) {
-        console.log(error);
         this.dispatchEvent(new ShowToastEvent({
             title: ERROR,
             message: error.statusText,

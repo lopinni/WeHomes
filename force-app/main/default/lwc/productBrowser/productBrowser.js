@@ -6,8 +6,33 @@ import getCurrentUserRole from "@salesforce/apex/WH_LocationController.getCurren
 import getProducts from "@salesforce/apex/WH_LocationController.getProducts";
 
 import ERROR from '@salesforce/label/c.Error';
+import CLEAR from '@salesforce/label/c.Clear';
+import SEARCH from '@salesforce/label/c.Search_Business_Premises';
+import CITY from '@salesforce/label/c.City';
+import STREET from '@salesforce/label/c.Street';
+import COUNTRY from '@salesforce/label/c.Country';
+import NUMBER_OF_FLOORS from '@salesforce/label/c.Number_Of_Floors';
+import OPEN_PLAN_OFFICE from '@salesforce/label/c.Open_Plan_Office';
+import NAME from '@salesforce/label/c.Name';
+import NUMBER_OF_MEETING_ROOMS from '@salesforce/label/c.Number_Of_Meeting_Rooms';
+import NUMBER_OF_KITCHENS from '@salesforce/label/c.Number_Of_Kitchens';
+import NUMBER_OF_PARKING_SPACES from '@salesforce/label/c.Number_Of_Parking_Spaces';
 
 export default class ProductBrowser extends LightningElement {
+
+    labels = {
+        SEARCH,
+        CLEAR,
+        CITY,
+        STREET,
+        COUNTRY,
+        NUMBER_OF_FLOORS,
+        OPEN_PLAN_OFFICE,
+        NAME,
+        NUMBER_OF_MEETING_ROOMS,
+        NUMBER_OF_KITCHENS,
+        NUMBER_OF_PARKING_SPACES
+    }
 
     loaded = false;
     userRoleName;

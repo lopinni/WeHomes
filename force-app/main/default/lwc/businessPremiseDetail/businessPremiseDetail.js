@@ -28,6 +28,7 @@ import AIR_CONDITIONING from '@salesforce/label/c.Air_Conditioning';
 import YES from '@salesforce/label/c.Yes';
 import NO from '@salesforce/label/c.No';
 import ERROR from '@salesforce/label/c.Error';
+import YEAR from '@salesforce/label/c.Year';
 
 export default class BusinessPremiseDetail extends LightningElement {
 
@@ -54,7 +55,8 @@ export default class BusinessPremiseDetail extends LightningElement {
         ELEVATOR_ACCESS,
         AIR_CONDITIONING,
         YES,
-        NO
+        NO,
+        YEAR
     };
 
     @api recordId;
@@ -91,14 +93,14 @@ export default class BusinessPremiseDetail extends LightningElement {
             }).catch(error => {
                 this.dispatchEvent(new ShowToastEvent({
                     title: ERROR,
-                    message: error,
+                    message: error.body.message,
                     variant: 'error'
                 }));
             });
         }).catch(error => {
             this.dispatchEvent(new ShowToastEvent({
                 title: ERROR,
-                message: error,
+                message: error.body.message,
                 variant: 'error'
             }));
         });

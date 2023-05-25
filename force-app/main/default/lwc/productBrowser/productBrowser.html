@@ -6,34 +6,34 @@
                 <div class="slds-page-header__name-title slds-align_absolute-center">
                     <lightning-icon icon-name="standard:your_account"> </lightning-icon>
                     <h1 style="padding-left: 1em">
-                        <span class="slds-page-header__title slds-truncate"> Search for Business Premises </span>
+                        <span class="slds-page-header__title slds-truncate"> {labels.SEARCH} </span>
                     </h1>
                 </div>
             </div>
             <div class="slds-grid slds-gutters">
                 <template lwc:if={isCommunity}>
                     <div class="slds-col slds-size_1-of-4">
-                        <lightning-input type="text" label="City" onchange={setCity} class="padded"> </lightning-input>
+                        <lightning-input type="text" label={labels.CITY} onchange={setCity} class="padded"> </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-4">
-                        <lightning-input type="text" label="Street" onchange={setStreet} class="padded"> </lightning-input>
-                        <lightning-button variant="brand" label="Clear" onclick={clear} class="slds-var-m-left_x-small padded" style="float: right;"> </lightning-button>
+                        <lightning-input type="text" label={labels.STREET} onchange={setStreet} class="padded"> </lightning-input>
+                        <lightning-button variant="brand" label={labels.CLEAR} onclick={clear} class="slds-var-m-left_x-small padded" style="float: right;"> </lightning-button>
                     </div>
                     <div class="slds-col slds-size_1-of-4">
-                        <lightning-input type="text" label="Country" onchange={setCountry} class="padded"> </lightning-input>
-                        <lightning-input type="toggle" label="Open plan office" onchange={setOpenPlanOffice} class="padded"> </lightning-input>
+                        <lightning-input type="text" label={labels.COUNTRY} onchange={setCountry} class="padded"> </lightning-input>
+                        <lightning-input type="toggle" label={labels.OPEN_PLAN_OFFICE} onchange={setOpenPlanOffice} class="padded"> </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-4">
-                        <lightning-input type="number" label="Number of floors" onchange={setNumberOfFloors} class="padded"> </lightning-input>
+                        <lightning-input type="number" label={labels.NUMBER_OF_FLOORS} onchange={setNumberOfFloors} class="padded"> </lightning-input>
                     </div>
                 </template>
                 <template lwc:else>
                     <div class="slds-col slds-size_1-of-2">
-                        <lightning-input type="text" label="Name" onchange={setName} class="padded"> </lightning-input>
-                        <lightning-input type="text" label="City" onchange={setCity} class="padded"> </lightning-input>
-                        <lightning-input type="text" label="Street" onchange={setStreet} class="padded"> </lightning-input>
-                        <lightning-input type="text" label="Country" onchange={setCountry} class="padded"> </lightning-input>
-                        <lightning-button variant="brand" label="Clear" onclick={clear} class="slds-var-m-left_x-small padded" style="float: right;"> </lightning-button>
+                        <lightning-input type="text" label={labels.NAME} onchange={setName} class="padded"> </lightning-input>
+                        <lightning-input type="text" label={labels.CITY} onchange={setCity} class="padded"> </lightning-input>
+                        <lightning-input type="text" label={labels.STREET} onchange={setStreet} class="padded"> </lightning-input>
+                        <lightning-input type="text" label={labels.COUNTRY} onchange={setCountry} class="padded"> </lightning-input>
+                        <lightning-button variant="brand" label={labels.CLEAR} onclick={clear} class="slds-var-m-left_x-small padded" style="float: right;"> </lightning-button>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
                         <template lwc:if={isHousingSales}>
@@ -44,11 +44,11 @@
                             <lightning-input type="toggle" label="Garage" onchange={setGarage} class="padded"> </lightning-input>
                         </template>
                         <template lwc:elseif={isBusinessSales}>
-                            <lightning-input type="number" label="Number of floors" onchange={setNumberOfFloors} class="padded"> </lightning-input>
-                            <lightning-input type="number" label="Number of meeting rooms" onchange={setNumberOfMeetingRooms} class="padded"> </lightning-input>
-                            <lightning-input type="number" label="Number of kitchens" onchange={setNumberOfKitchens} class="padded"> </lightning-input>
-                            <lightning-input type="number" label="Number of parking spaces" onchange={setNumberOfParkingSpaces} class="padded"> </lightning-input>
-                            <lightning-input type="toggle" label="Open plan office" onchange={setOpenPlanOffice} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_FLOORS} onchange={setNumberOfFloors} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_MEETING_ROOMS} onchange={setNumberOfMeetingRooms} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_KITCHENS} onchange={setNumberOfKitchens} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_PARKING_SPACES} onchange={setNumberOfParkingSpaces} class="padded"> </lightning-input>
+                            <lightning-input type="toggle" label={labels.OPEN_PLAN_OFFICE} onchange={setOpenPlanOffice} class="padded"> </lightning-input>
                         </template>
                         <template lwc:else>
                             <lightning-input type="text" label="City center distance" onchange={setCityCenterDistance} class="padded"> </lightning-input>
@@ -56,11 +56,11 @@
                             <lightning-input type="number" label="Number of bathrooms" onchange={setNumberOfBathrooms} class="padded"> </lightning-input>
                             <lightning-input type="toggle" label="Balcony" onchange={setBalcony} class="padded"> </lightning-input>
                             <lightning-input type="toggle" label="Garage" onchange={setGarage} class="padded"> </lightning-input>
-                            <lightning-input type="number" label="Number of floors" onchange={setNumberOfFloors} class="padded"> </lightning-input>
-                            <lightning-input type="number" label="Number of meeting rooms" onchange={setNumberOfMeetingRooms} class="padded"> </lightning-input>
-                            <lightning-input type="number" label="Number of kitchens" onchange={setNumberOfKitchens} class="padded"> </lightning-input>
-                            <lightning-input type="number" label="Number of parking spaces" onchange={setNumberOfParkingSpaces} class="padded"> </lightning-input>
-                            <lightning-input type="toggle" label="Open plan office" onchange={setOpenPlanOffice} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_FLOORS} onchange={setNumberOfFloors} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_MEETING_ROOMS} onchange={setNumberOfMeetingRooms} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_KITCHENS} onchange={setNumberOfKitchens} class="padded"> </lightning-input>
+                            <lightning-input type="number" label={labels.NUMBER_OF_PARKING_SPACES} onchange={setNumberOfParkingSpaces} class="padded"> </lightning-input>
+                            <lightning-input type="toggle" label={labels.OPEN_PLAN_OFFICE} onchange={setOpenPlanOffice} class="padded"> </lightning-input>
                         </template>
                     </div>
                 </template>
