@@ -3,8 +3,8 @@ img {
     margin-left: auto;
     margin-right: auto;
     border-radius: 5px;
-    box-shadow: 5px 5px 2px #ccc;
-      -moz-box-shadow: 5px 5px 2px #ccc;
-      -webkit-box-shadow: 5px 5px 2px #ccc;
-      -khtml-box-shadow: 5px 5px 2px #ccc;
+    box-shadow: 5px 5px 2px #eee;
+      -moz-box-shadow: 5px 5px 2px #eee;
+      -webkit-box-shadow: 5px 5px 2px #eee;
+      -khtml-box-shadow: 5px 5px 2px #eee;
 }

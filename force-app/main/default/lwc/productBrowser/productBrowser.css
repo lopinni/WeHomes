@@ -2,16 +2,17 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2em;
-    padding-top: 1em;
-}
-
-.padded {
     padding: 1em;
 }
 
+.padded {
+    padding: 0.5em;
+}
+
 .shadow-box {
-    box-shadow: 5px 5px 2px #ccc;
-      -moz-box-shadow: 5px 5px 2px #ccc;
-      -webkit-box-shadow: 5px 5px 2px #ccc;
-      -khtml-box-shadow: 5px 5px 2px #ccc;
+    outline: 1px solid rgb(57, 101, 71);
+    box-shadow: 5px 5px 2px #eee;
+      -moz-box-shadow: 5px 5px 2px #eee;
+      -webkit-box-shadow: 5px 5px 2px #eee;
+      -khtml-box-shadow: 5px 5px 2px #eee;
 }

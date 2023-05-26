@@ -117,4 +117,20 @@ public without sharing class WH_PricebookManagerController {
         ];
     }
 
+    @AuraEnabled(Cacheable=true)
+    public static PricebookEntry getBusinessProductStandardPriceById(String productId) {    
+        PriceBook2 standardPB = [
+            SELECT Id 
+            FROM Pricebook2 
+            WHERE IsStandard = true
+            LIMIT 1
+        ];
+        return [
+            SELECT UnitPrice, CurrencyIsoCode
+            FROM PricebookEntry 
+            WHERE Product2Id =: productId
+            AND Pricebook2Id =: standardPB.Id
+        ];
+    }
+
 }

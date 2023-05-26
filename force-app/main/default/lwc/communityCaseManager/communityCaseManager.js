@@ -73,7 +73,6 @@ export default class CommunityCaseManager extends LightningElement {
                 this.showPaginationControls = false;
             }
         } else if (error) {
-            console.log("ERROR", error);
             this.dispatchEvent(new ShowToastEvent({
                 title: ERROR,
                 message: error.body.message,

@@ -10,7 +10,7 @@
                     alt={labels.LOADING}
                 >
             </div>
-            <div class="slds-align_absolute-center" style="padding: 1em; background-color: #fff">
+            <div class="slds-align_absolute-center" style="padding: 0.5em; background-color: #fff">
                 <div class="slds-text-heading_medium"> {product.Name} </div>
             </div>
             <div style="background-color: #f3f3f3">
@@ -68,8 +68,11 @@
                         </lightning-layout-item>
                     </lightning-layout>
                 </div>
-                <div class="slds-text-heading_medium slds-text-align_right" style="padding: 1em;">
-                    {labels.PRICE}: {productPrice} € / Year
+                <div class="slds-text-heading_small slds-text-align_right" style="padding: 0.5em; padding-bottom: 0;">
+                    <del> {productStandardPrice} € / {labels.YEAR} </del>
+                </div>
+                <div class="slds-text-heading_medium slds-text-align_right slds-text-color_error" style="padding: 0.5em; padding-top: 0;">
+                    {productPrice} € / {labels.YEAR}
                 </div>
             </div>
         </div>
