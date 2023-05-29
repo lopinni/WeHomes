@@ -1,5 +1,5 @@
-trigger WH_CaseEntitlementTrigger on Case (before insert, before update, before delete, after insert, after update, after delete, after undelete) {
-    WH_CaseTriggerHandler handler = new WH_CaseTriggerHandler();
+trigger WH_BotTranscriptionTrigger on LiveChatTranscript (after update) {
+    WH_TranscriptionHandler handler = new WH_TranscriptionHandler();
     switch on Trigger.operationType {
         when BEFORE_INSERT {
             handler.beforeInsert(Trigger.new);
