@@ -24,7 +24,7 @@ public class WH_ChatBotCreateCase {
     } 
  
     @InvocableMethod(label='Create Case') 
-    public static List<Output> fetchCaseStatus(List<Input> listCaseInputs) {
+    public static List<Output> createCase(List<Input> listCaseInputs) {
         Case newCase = new Case();
         newCase.Subject = listCaseInputs[0].subject;
         newCase.Type = listCaseInputs[0].type;
@@ -40,6 +40,6 @@ public class WH_ChatBotCreateCase {
         output.newCaseId = newCase.Id;
         outputs.add(output);
         return outputs;
-    } 
+    }
  
 }
