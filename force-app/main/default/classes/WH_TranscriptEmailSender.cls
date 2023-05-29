@@ -1,26 +1,32 @@
 public without sharing class WH_TranscriptEmailSender {
+
+    private static final String FROM_ADDRESS_NAME = 'Salesforce Bot';
+    private static final String EMAIL_TITLE = 'Conversation with WeHomes AutoAgent';
+    private static final String STATUS_COMPLETED = 'Completed';
+
+    private Id getOrgWideAddressId() {
+        OrgWideEmailAddress owea = [
+            SELECT Id FROM OrgWideEmailAddress WHERE DisplayName =: FROM_ADDRESS_NAME
+        ][0];
+        return owea.Id;
+    }
     
     public void send(List<LiveChatTranscript> scripts) {
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
-        Set<String> ids = new Set<String>();
-        for(LiveChatTranscript script : scripts){
-            ids.add(script.Id);
-        }
-        List<LiveChatTranscript> details = [
-            SELECT Id, Contact.Email, IsChatbotSession, Body, Status 
-            FROM LiveChatTranscript
-            WHERE Id IN: ids
-        ];
-        for(LiveChatTranscript script : details){
-            if(script.IsChatbotSession && script.Contact.Email != null){
+        Id orgAddressId = getOrgWideAddressId();
+        for(LiveChatTranscript script : scripts) {
+            if(script.IsChatbotSession && script.Status == STATUS_COMPLETED) {
                 Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-                mail.setSubject('Conversation with WeHomes AutoAgent');
-                mail.setHtmlBody(script.Body);
-                mail.setToAddresses(new List<String>{script.Contact.Email});
+                mail.setSubject(EMAIL_TITLE);
+                mail.setPlainTextBody(script.Body);
+                mail.setTargetObjectId(script.ContactId);
+                mail.setOrgWideEmailAddressId(orgAddressId);
                 mails.add(mail);
             }
         }
-        Messaging.sendEmail(mails);
+        if(!mails.isEmpty()) {
+            Messaging.sendEmail(mails);
+        }
     }
 
 }
