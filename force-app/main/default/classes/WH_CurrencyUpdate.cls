@@ -15,11 +15,10 @@ global class WH_CurrencyUpdate {
         httpResponse response = httpCls.send(request);
         Dom.Document document = response.getBodyDocument();
         Map<String, Decimal> currencyInfo = getRatesFromXML(document);
-        List<CurrencyType> currencyList = [
-            SELECT Id, IsoCode FROM CurrencyType WHERE IsoCode IN: currencyInfo.keySet()
-        ];
-        for(CurrencyType type : currencyList) {
-            updateRate(type.Id, currencyInfo.get(type.IsoCode));
+        for(String currencyName : currencyInfo.keySet()) {
+            if(currencyName.length() < 4) {
+                updateRate(currencyName, currencyInfo.get(currencyName));
+            }
         }
     }
 
@@ -42,12 +41,13 @@ global class WH_CurrencyUpdate {
         return rates;
     }
 
-    public static void updateRate(Id currencyId, Decimal rate) {
+    private static void updateRate(String code, Decimal rate) {
+        String today = System.now().format('yyyy-MM-dd');
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('callout:Currencies/' + currencyId);
-        request.setBody('{ "ConversionRate" : ' + rate + ' }');
+        request.setEndpoint('callout:Currencies/');
+        request.setBody('{ "IsoCode" : "' + code + '", "ConversionRate" : ' + rate + ', "StartDate" : "' + today + '" }');
         request.setHeader('Content-Type', 'application/json');
-        request.setMethod('PATCH');
+        request.setMethod('POST');
         request.setTimeout(120000);
         Http httpCls = new Http();
         HttpResponse response = httpCls.send(request);
